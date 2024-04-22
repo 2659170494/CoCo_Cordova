@@ -1,12 +1,17 @@
 您好，这是一个为高版本Android和一些安卓发烧友准备的CoCo转Cordova工程！
+
 这个工程已经帮你把CoCo_Runtime所依赖的插件和环境配置好了。
-您所需要做的就是将coco打包的apk解压出来，把assets/www文件夹覆盖到本项目www文件夹。
-删除cordova.js、cordova_plugins.js、plugins和cordova-js-src
-之后在根目录运行cordova build android即可。
+您所需要做的就是准备好cordova、AndroidSDK和JAVA，
+将coco打包的apk解压出来，把assets/www文件夹覆盖到本项目www文件夹。
+删除cordova.js、cordova_plugins.js、plugins和cordova-js-src.
+之后在根目录执行cordova platform add android，
+最后运行cordova build android编译apk即可。
+
 本项目为Android 13设计（主要是Cordova-Android指定错了，但是懒得改了），
 所以有些插件和API（如全屏启动图）可能无法适用。
 如需自定义请自行参考cordova教程本工程仅作为修改模板参考。
 如有需要或者遇到问题，请联系提交issue获得帮助！
+
 接下来就是一些笔记和注意事项了，如果您有编译上的问题，不妨看看下面有没有您想要的。
 
 应用图标位于res/icon.png

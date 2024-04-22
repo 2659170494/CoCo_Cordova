@@ -1,0 +1,36 @@
+{
+  "name": "cordova-plugin-viewport",
+  "version": "1.0.5",
+  "description": "Sets Cordova app's web view to use wide (zoomed out) and device width sized viewport.",
+  "scripts": {
+    "version": "sed -i '' -E \"/^<plugin/s/(version=\\\")[^\\\"]+\\\"/\\1${npm_package_version}\\\"/\" plugin.xml; git add plugin.xml",
+    "postversion": "git push && git push --tags"
+  },
+  "cordova": {
+    "id": "cordova-plugin-viewport",
+    "platforms": [
+      "android"
+    ]
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": {
+        "cordova-android": ">=5.0.0"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cakuki/cordova-plugin-viewport.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Can Kutlu Kinay <me@ckk.im>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cakuki/cordova-plugin-viewport/issues"
+  },
+  "homepage": "https://github.com/cakuki/cordova-plugin-viewport#readme"
+}

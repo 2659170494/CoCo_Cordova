@@ -1,0 +1,83 @@
+{
+  "name": "io.cordova.hellocordova",
+  "displayName": "HelloCordova",
+  "version": "1.0.0",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@felicienfrancois/cordova-plugin-stepper": "^1.3.2",
+    "cordova-android": "^12.0.1",
+    "cordova-plugin-advanced-http": "^3.3.1",
+    "cordova-plugin-advanced-websocket": "^1.1.6",
+    "cordova-plugin-android-permissions": "^1.1.5",
+    "cordova-plugin-battery-status": "^2.0.3",
+    "cordova-plugin-brightness": "^0.2.0",
+    "cordova-plugin-calltrap": "^0.0.4",
+    "cordova-plugin-camera": "^4.0.3",
+    "cordova-plugin-contacts": "^3.0.1",
+    "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-device-motion": "^2.0.1",
+    "cordova-plugin-file": "^8.0.1",
+    "cordova-plugin-geolocation": "^4.1.0",
+    "cordova-plugin-magnetometer": "^1.0.0",
+    "cordova-plugin-media": "^7.0.0",
+    "cordova-plugin-media-capture": "^5.0.0",
+    "cordova-plugin-phone-call": "^1.1.3",
+    "cordova-plugin-qrscanner": "^3.0.1",
+    "cordova-plugin-screen-orientation": "^3.0.2",
+    "cordova-plugin-shake": "^0.7.0",
+    "cordova-plugin-sms-receive": "^1.0.2",
+    "cordova-plugin-splashscreen": "^6.0.1",
+    "cordova-plugin-vibration": "^2.1.6",
+    "cordova-plugin-viewport": "^1.0.5",
+    "cordova-plugin-x-toast": "^2.7.2",
+    "cordova-sms-plugin": "^1.0.1",
+    "es6-promise-plugin": "^4.2.2"
+  },
+  "cordova": {
+    "plugins": {
+      "es6-promise-plugin": {},
+      "cordova-plugin-shake": {},
+      "cordova-plugin-phone-call": {},
+      "cordova-plugin-magnetometer": {},
+      "cordova-plugin-geolocation": {
+        "GPS_REQUIRED": "true"
+      },
+      "cordova-plugin-device-motion": {},
+      "cordova-plugin-contacts": {},
+      "cordova-plugin-calltrap": {},
+      "cordova-plugin-brightness": {},
+      "cordova-plugin-battery-status": {},
+      "cordova-plugin-advanced-http": {},
+      "cordova-plugin-qrscanner": {},
+      "cordova-plugin-camera": {},
+      "cordova-plugin-advanced-websocket": {},
+      "cordova-plugin-x-toast": {},
+      "cordova-plugin-sms-receive": {},
+      "cordova-sms-plugin": {},
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-viewport": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-screen-orientation": {},
+      "@felicienfrancois/cordova-plugin-stepper": {},
+      "cordova-plugin-file": {
+        "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+      },
+      "cordova-plugin-media-capture": {},
+      "cordova-plugin-media": {},
+      "cordova-plugin-android-permissions": {},
+      "cordova-plugin-splashscreen": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  }
+}

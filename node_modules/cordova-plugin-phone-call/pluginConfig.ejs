@@ -1,0 +1,42 @@
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-phone-call"
+    version="1.1.1">
+     <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    <name>PhoneCall</name>
+    <description>Cordova Phone Call Plugin</description>
+    <license>MIT</license>
+    <keywords>cordova, dialer, ios, android</keywords>
+    <repo>https://github.com/lakshmansha/cordova-plugin-phone-call.git</repo>    
+
+    <js-module src="www/dialer.js" name="phonedialer">
+        <merges target="cordova.plugins.phonedialer" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="PhoneDialer">
+                <param name="ios-package" value="PhoneDialer"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/PhoneDialer.h"/>
+        <source-file src="src/ios/PhoneDialer.m"/>
+    </platform>
+    <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.CALL_PHONE" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-feature android:name="android.hardware.telephony" android:required="false" />
+        </config-file>
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="PhoneDialer">
+                <param name="android-package" value="org.apache.cordova.phonedialer.PhoneDialer"/>
+            </feature>
+        </config-file>        
+        <source-file 
+            src="src/android/PhoneDialer.java" 
+            target-dir="src/com/cordova/phonedialer"/>
+    </platform>
+</plugin>

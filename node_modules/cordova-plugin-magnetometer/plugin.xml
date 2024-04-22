@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  id="cordova-plugin-magnetometer"
+  version="1.0.0">
+
+    <name>Cordova Magnetometer Plugin</name>
+    <author>Rameez Raja / Steven de Salas</author>
+    <description>
+This Cordova plugin gives access to X,Y,Z and total Magnitude readings from the device's internal magentometer. 
+It is ideal for science toolkit or metal detector apps. 
+    
+The API can be accessed via single call or by placing a listener that fires a callback function repeatedly. 
+    
+For more information see https://github.com/sdesalas/cordova-plugin-magnetometer.</description>
+    <license>MIT</license>
+    
+    <js-module src="www/magnetometer.js" name="main">
+        <clobbers target="cordova.plugins.magnetometer" />
+    </js-module>
+
+   <!-- ios -->
+    <platform name="ios">
+      <config-file target="config.xml" parent="/*">
+          <feature name="Magnetometer">
+              <param name="ios-package" value="Magnetometer"/>
+          </feature>
+      </config-file>
+
+      <header-file src="src/ios/Magnetometer.h" />
+      <source-file src="src/ios/Magnetometer.m" />
+
+      <framework src="CoreLocation.framework" />
+    </platform>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+          <feature name="Magnetometer">
+              <param name="android-package" value="org.apache.cordova.magnetometer.Magnetometer"/>
+          </feature>
+      </config-file>
+
+      <config-file target="AndroidManifest.xml" parent="/*">
+          <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        </config-file>
+
+      <source-file src="src/android/Magnetometer.java" target-dir="src/org/apache/cordova/magnetometer" />
+    </platform>
+
+</plugin>

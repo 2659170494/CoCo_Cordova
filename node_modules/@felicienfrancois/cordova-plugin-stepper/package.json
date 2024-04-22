@@ -1,0 +1,32 @@
+{
+  "name": "@felicienfrancois/cordova-plugin-stepper",
+  "version": "1.3.2",
+  "description": "Lightweight pedometer Cordova/Phonegap plugin for Android using the hardware step sensor, with notifications.",
+  "cordova": {
+    "id": "@felicienfrancois/cordova-plugin-stepper",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felicienfrancois/cordova-plugin-stepper.git"
+  },
+  "keywords": [
+    "cordova",
+    "phonegap",
+    "pedometer",
+    "steps",
+    "distance",
+    "fitness",
+    "cordova-android",
+    "distance"
+  ],
+  "author": "Felicien Francois",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/felicienfrancois/cordova-plugin-stepper/issues"
+  },
+  "homepage": "https://github.com/felicienfrancois/cordova-plugin-stepper#readme"
+}

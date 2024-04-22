@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="cordova-plugin-advanced-websocket"
+    version="1.1.6">
+    <name>Cordova advanced websocket plugin</name>
+    <description></description>
+    <license>MIT</license>
+    <keywords></keywords>
+    <repo>https://github.com/HomeControlAS/cordova-plugin-advanced-websocket.git</repo>
+    <issue>https://github.com/HomeControlAS/cordova-plugin-advanced-websocket/issues</issue>
+
+    <!-- android -->
+    <platform name="android">
+      <js-module src="www/plugin.js" name="plugin">
+        <runs/>
+        <clobbers target="CordovaWebsocketPlugin" />
+      </js-module>
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="CordovaWebsocketPlugin">
+          <param name="android-package" value="com.homecontrol.CordovaWebsocketPlugin" />
+          <param name="onload" value="true" />
+        </feature>
+      </config-file>
+       <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET"/>
+        </config-file>
+
+      <source-file src="src/android/com/homecontrol/CordovaWebsocketPlugin.java" target-dir="src/com/homecontrol/" />
+
+      <framework src="com.squareup.okhttp3:okhttp:3.10.0"/>
+      <framework src="com.squareup.okhttp3:okhttp-urlconnection:3.10.0"/>
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <js-module src="www/plugin.js" name="plugin">
+            <runs/>
+            <clobbers target="CordovaWebsocketPlugin" />
+        </js-module>
+        <config-file target="config.xml" parent="/*">
+            <feature name="CordovaWebsocketPlugin">
+                <param name="ios-package" value="CordovaWebsocketPlugin" onload="true" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/WebSocketAdvanced.h" />
+        <header-file src="src/ios/CordovaWebsocketPlugin.h" />
+        <source-file src="src/ios/WebSocketAdvanced.m" />
+        <source-file src="src/ios/CordovaWebsocketPlugin.m" />
+        
+        <framework src="SocketRocket" type="podspec" spec="0.5.1" />
+    </platform>
+
+    <!-- browser -->
+    <platform name="browser">
+        <config-file target="config.xml" parent="/*">
+            <feature name="CordovaWebsocketPlugin">
+                <param name="browser-package" value="CordovaWebsocketPlugin" />
+            </feature>
+        </config-file>  
+        <js-module src="src/browser/CordovaWebsocketPlugin.js" name="CordovaWebsocketPlugin">
+            <clobbers target="CordovaWebsocketPlugin" />
+        </js-module>
+    </platform>
+</plugin>

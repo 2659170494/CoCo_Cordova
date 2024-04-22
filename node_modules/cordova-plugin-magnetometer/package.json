@@ -1,0 +1,32 @@
+{
+  "name": "cordova-plugin-magnetometer",
+  "version": "1.0.0",
+  "description": "Cordova Magnetometer Plugin",
+  "cordova": {
+    "id": "cordova-plugin-magnetometer",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sdesalas/cordova-plugin-magnetometer"
+  },
+  "keywords": [
+    "cordova",
+    "magnetometer",
+    "ecosystem:cordova",
+    "compass",
+    "device-orientation",
+    "metal-detector",
+    "metal",
+    "detector",
+    "magneto",
+    "meter",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "Rameez Raja / Steven de Salas",
+  "license": "MIT"
+}

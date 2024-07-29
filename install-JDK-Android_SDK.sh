@@ -1,3 +1,10 @@
+has_root() {
+    if [[ $EUID -ne 0 ]]; then
+        echo "Permission needs to be elevated: This installation program must be executed by root or sudo,You can use this command:sudo bash install-JDK-Android_SDK.sh" 1>&2
+		exit 1
+    fi
+}
+has_root
 now_file_path=$(cd $(dirname $0);pwd) ;
 echo "Now path is:$now_file_path ";
 echo "This install script is only test in ubuntu"
@@ -63,7 +70,7 @@ export ANDROID_SDK_ROOT=$(cd $now_file_path;cd ./build-tools/android-sdk ;pwd) ;
 sudo echo "export ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT">>/etc/profile|source /etc/profile;
 echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT";
 cd $ANDROID_SDK_ROOT/cmdline-tools/tools/bin;
-sudo bash sdkmanager "platforms;android-28" "build-tools;30.0.3" "extras;google;m2repository" "extras;android;m2repository";
+sudo bash sdkmanager "platforms;android-28" "platforms;android-33" "build-tools;33.0.2" "build-tools;30.0.3" "extras;google;m2repository" "extras;android;m2repository";
 echo "cleaning temp file";
 cd $ANDROID_SDK_ROOT ;
 sudo rm -f commandlinetools-linux-11076708_latest.zip;

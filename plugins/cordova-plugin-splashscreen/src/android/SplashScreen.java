@@ -41,7 +41,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -83,14 +82,11 @@ public class SplashScreen extends CordovaPlugin {
     private int getSplashId() {
         int drawableId = 0;
         String splashResource = preferences.getString("SplashScreen", "screen");
-		Toast.makeText(cordova.getActivity(), splashResource, Toast.LENGTH_SHORT).show();
         if (splashResource != null) {
             drawableId = cordova.getActivity().getResources().getIdentifier(splashResource, "drawable", cordova.getActivity().getClass().getPackage().getName());
-			Toast.makeText(cordova.getActivity(), drawableId, Toast.LENGTH_SHORT).show();
             if (drawableId == 0) {
                 drawableId = cordova.getActivity().getResources().getIdentifier(splashResource, "drawable", cordova.getActivity().getPackageName());
-				Toast.makeText(cordova.getActivity(), drawableId, Toast.LENGTH_SHORT).show();
-			}
+            }
         }
         return drawableId;
     }
@@ -278,34 +274,28 @@ public class SplashScreen extends CordovaPlugin {
         final int effectiveSplashDuration = Math.max(0, splashscreenTime - fadeSplashScreenDuration);
 
         lastHideAfterDelay = hideAfterDelay;
-		Toast.makeText(cordova.getActivity(), "showSplashScreen", Toast.LENGTH_SHORT).show();
 
         // Prevent to show the splash dialog if the activity is in the process of finishing
         if (cordova.getActivity().isFinishing()) {
-			Toast.makeText(cordova.getActivity(), "cordova.getActivity().isFinishing", Toast.LENGTH_SHORT).show();
             return;
         }
         // If the splash dialog is showing don't try to show it again
         if (splashDialog != null && splashDialog.isShowing()) {
-			Toast.makeText(cordova.getActivity(), "splashDialog != null && splashDialog.isShowing()", Toast.LENGTH_SHORT).show();
             return;
         }
         if (drawableId == 0 || (splashscreenTime <= 0 && hideAfterDelay)) {
-			Toast.makeText(cordova.getActivity(), "drawableId == 0 || (splashscreenTime <= 0 && hideAfterDelay)", Toast.LENGTH_SHORT).show();
             return;
         }
 
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 // Get reference to display
-				Toast.makeText(cordova.getActivity(), "cordova.getActivity().runOnUiThread", Toast.LENGTH_SHORT).show();
                 Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
                 Context context = webView.getContext();
 
                 // Use an ImageView to render the image because of its flexible scaling options.
                 splashImageView = new ImageView(context);
                 splashImageView.setImageResource(drawableId);
-				Toast.makeText(cordova.getActivity(), "splashImageView", Toast.LENGTH_SHORT).show();
                 LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
                 splashImageView.setLayoutParams(layoutParams);
 
@@ -326,14 +316,13 @@ public class SplashScreen extends CordovaPlugin {
 
                 // Create and show the dialog
                 splashDialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
-				//Toast.makeText(cordova.getActivity(), splashDialog, Toast.LENGTH_SHORT).show();
 
                 // Check to see if the splash screen should be full screen.
                 // On first run, currently cordova hasn't set the window flags yet because it does it in
                 //  onWindowFocusChanged instead of onCreate. If that's the case, we'll fall back to the
                 //  Fullscreen preference. Hopefully it will get fixed so that cordova sets them in onCreate,
                 //  so that this fallback can be removed.
-                boolean isFullscreen = true;
+                boolean isFullscreen = false;
                 int mainWindowFlags = cordova.getActivity().getWindow().getAttributes().flags;
                 boolean flagFullscreen = (mainWindowFlags & WindowManager.LayoutParams.FLAG_FULLSCREEN)
                         == WindowManager.LayoutParams.FLAG_FULLSCREEN;
@@ -392,7 +381,6 @@ public class SplashScreen extends CordovaPlugin {
     private void spinnerStart() {
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
-				Toast.makeText(cordova.getActivity(), "spinnerStart()", Toast.LENGTH_SHORT).show();
                 spinnerStop();
 
                 spinnerDialog = new ProgressDialog(webView.getContext());

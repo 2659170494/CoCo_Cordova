@@ -1,9 +1,9 @@
 now_file_path=$(cd $(dirname $0);pwd) ;
 echo "Now path is:$now_file_path ";
 echo "This install script is only test in ubuntu"
-echo "Don't use this script in codespace!!!"
-echo "There are some Bug is doesn't fix"
-echo "If you still want to use,please change the Android SDK Path for yourself"
+echo "Not recommended use this script in codespace!!!"
+echo "There are some Bug from codespace is doesn't fix "
+echo "If you still want to use,please change the Android SDK Path for yourself Better!"
 echo "Or your codespace will be break and cannot be boot."
 echo "Sorry about that."
 echo "Now will delete build-tools from $now_file_path !!!";

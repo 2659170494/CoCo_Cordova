@@ -6,6 +6,7 @@
 如果你是Linux且是Ubuntu,
 只需要在本目录执行这条命令就可以开始安装啦：chmod 777 install-JDK-Android_SDK.sh && ./install-JDK-Android_SDK.sh
 但是！请不要将Android SDK安装在本项目的目录里！尤其是Codespace!!!
+如果您将它安装在本项目目录且更改了默认路径且并没有添加进.gitignore，
 这将导致您的Git卡死，Codespace奔溃无法启动且无法导出更改！！！
 安装完毕后，
 将coco打包的apk解压出来，把assets/www文件夹覆盖到本项目www文件夹。

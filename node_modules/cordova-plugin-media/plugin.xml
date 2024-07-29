@@ -21,7 +21,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-media"
-    version="7.0.0">
+    version="5.0.4">
 
     <name>Media</name>
     <description>Cordova Media Plugin</description>
@@ -31,10 +31,10 @@
     <issue>https://github.com/apache/cordova-plugin-media/issues</issue>
 
     <engines>
-        <engine name="cordova-android" version=">=12.0.0" />
+        <engine name="cordova-android" version=">=6.3.0" />
     </engines>
 
-    <dependency id="cordova-plugin-file" version="^8.0.0" />
+    <dependency id="cordova-plugin-file" version="^6.0.0" />
 
     <js-module src="www/MediaError.js" name="MediaError">
         <clobbers target="window.MediaError" />
@@ -55,6 +55,8 @@
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.RECORD_AUDIO" />
             <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
         </config-file>
 
         <source-file src="src/android/AudioHandler.java" target-dir="src/org/apache/cordova/media" />
@@ -75,6 +77,17 @@
         </config-file>
         <header-file src="src/ios/CDVSound.h" />
         <source-file src="src/ios/CDVSound.m" />
+    </platform>
+
+    <!-- windows -->
+    <platform name="windows">
+        <js-module src="src/windows/MediaProxy.js" name="MediaProxy">
+            <runs />
+        </js-module>
+
+        <config-file target="package.appxmanifest" parent="/Package/Capabilities">
+            <DeviceCapability Name="microphone" />
+        </config-file>
     </platform>
 
     <!-- browser -->

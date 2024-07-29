@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-media-capture",
-  "version": "5.0.0",
+  "version": "3.0.3",
   "description": "Cordova Media Capture Plugin",
   "types": "./types/index.d.ts",
   "cordova": {
@@ -12,8 +12,13 @@
       "browser"
     ]
   },
-  "repository": "github:apache/cordova-plugin-media-capture",
-  "bugs": "https://github.com/apache/cordova-plugin-media-capture/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apache/cordova-plugin-media-capture"
+  },
+  "bugs": {
+    "url": "https://github.com/apache/cordova-plugin-media-capture/issues"
+  },
   "keywords": [
     "cordova",
     "media",
@@ -24,31 +29,31 @@
     "cordova-windows"
   ],
   "scripts": {
-    "test": "npm run lint",
-    "lint": "eslint ."
+    "test": "npm run eslint",
+    "eslint": "eslint www && eslint src && eslint tests"
   },
   "author": "Apache Software Foundation",
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
-      "1.4.4": {
+      ">=1.4.4": {
         "cordova-ios": ">=4.0.0"
       },
       "2.0.0": {
         "cordova-android": ">=6.3.0"
       },
       "4.0.0": {
-        "cordova-android": ">=10.0.0"
-      },
-      "5.0.0": {
-        "cordova-android": ">=12.0.0"
-      },
-      "6.0.0": {
         "cordova": ">100"
       }
     }
   },
   "devDependencies": {
-    "@cordova/eslint-config": "^5.0.0"
+    "eslint": "^4.0.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

@@ -17,12 +17,12 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- */
+*/
 
-const utils = require('cordova/utils');
-const exec = require('cordova/exec');
-const File = require('cordova-plugin-file.File');
-const CaptureError = require('./CaptureError');
+var utils = require('cordova/utils');
+var exec = require('cordova/exec');
+var File = require('cordova-plugin-file.File');
+var CaptureError = require('./CaptureError');
 /**
  * Represents a single file.
  *
@@ -32,7 +32,7 @@ const CaptureError = require('./CaptureError');
  * lastModifiedDate {Date} last modified date
  * size {Number} size of the file in bytes
  */
-const MediaFile = function (name, localURL, type, lastModifiedDate, size) {
+var MediaFile = function (name, localURL, type, lastModifiedDate, size) {
     MediaFile.__super__.constructor.apply(this, arguments);
 };
 

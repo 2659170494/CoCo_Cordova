@@ -32,6 +32,35 @@ android:name="androidx.core.content.FileProvider"
 ————————————————
 原文链接：https://blog.csdn.net/qq_31877171/article/details/114266592
 
+cordova 9.0 构建时提示Requirements check failed for JDK 8 如何解决:https://blog.csdn.net/sunwe/article/details/106295073
+因为cordova基于的nodejs，突然想到，所有的提示都应该存在于明文代码。于是一狠心，全项目搜索关键字Requirements check failed for。
+还真就检索到了：
+位于platforms/android/cordova/lib/check_reqs.js （node_modules/cordova-android/bin/templates/cordova/lib/check_reqs.js） 文件里的module.exports.run方法里，相关的有且仅有一处！
+// Returns a promise.
+module.exports.run = function () {
+    return Q.all([this.check_java(), this.check_android()]).then(function (values) {
+        console.log('Checking Java JDK and Android SDK versions');
+        console.log('ANDROID_SDK_ROOT=' + process.env['ANDROID_SDK_ROOT'] + ' (recommended setting)');
+        console.log('ANDROID_HOME=' + process.env['ANDROID_HOME'] + ' (DEPRECATED)');
+ 
+        if (!String(values[0]).startsWith('1.8.')) {
+            throw new CordovaError(
+                'Requirements check failed for JDK 8 (\'1.8.*\')! Detected version: ' + values[0] + '\n' +
+                'Check your ANDROID_SDK_ROOT / JAVA_HOME / PATH environment variables.'
+            );
+        }
+ 
+        if (!values[1]) {
+            throw new CordovaError('Requirements check failed for Android SDK! Android SDK was not detected.');
+        }
+    });
+（实际上这个地方已经改了，修改成变量了，这个变量位置在开头且是：const EXPECTED_JAVA_VERSION = '1.8.x';）
+看到了这个1.8的判断条件，同时根据check_java方法也可以明确为判断java环境。于是把“1.8.”直接改成了“11.”,再次编译顺利通过。
+后记：
+首先我是不推荐任意更改依赖框架源码的，这样不但会影响框架后续更新，也会造成一些未知异常。但没办法，此处仅作为临时解决方案。
+我不清楚cordova9是否有只依赖jdk8的关键部分，我也不清楚jdk11会对cordova9造成什么影响，但是我想的很清楚，不管如何要让影响降低到最小，改一处代码，这个影响就真的很小。
+
+
 如果遇上class版本错误，看看这个↓
 Has been compiled by a more recent version of the Java Runtime (class file version 57.0):https://stackoverflow.com/questions/58125830/has-been-compiled-by-a-more-recent-version-of-the-java-runtime-class-file-versi
 

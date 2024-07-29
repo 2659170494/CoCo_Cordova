@@ -220,10 +220,9 @@
         options = [NSDictionary dictionary];
     }
 
-    // options could contain limit, duration, quality and mode
+    // options could contain limit, duration and mode
     // taking more than one video (limit) is only supported if provide own controls via cameraOverlayView property
     NSNumber* duration = [options objectForKey:@"duration"];
-    NSNumber* quality = [options objectForKey:@"quality"];
     NSString* mediaType = nil;
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -267,18 +266,7 @@
         // iOS 4.0
         if ([pickerController respondsToSelector:@selector(cameraCaptureMode)]) {
             pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-            switch ((int) (quality ? [quality doubleValue] * 10 : -1)) {
-                case 0:
-                    pickerController.videoQuality = UIImagePickerControllerQualityTypeLow;
-                    break;
-                case 5:
-                    pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
-                    break;
-                case 10:
-                default:
-                    pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
-                    break;
-            }
+            // pickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
             // pickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
             // pickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
         }
@@ -323,27 +311,23 @@
 
 - (void)showPermissionsAlert
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
-        message:NSLocalizedString(@"Access to the camera has been prohibited; please enable it in the Settings app to continue.", nil)
-        preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-    style:UIAlertActionStyleDefault
-    handler:^(UIAlertAction * action)
-    {
-        [self returnNoPermissionError];
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
-    style:UIAlertActionStyleDefault
-    handler:^(UIAlertAction * action)
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]options:@{} completionHandler:nil];
-        [self returnNoPermissionError];
-    }]];
-    [self.viewController presentViewController:alertController animated:YES completion:^{}];
+    __weak CDVCapture* weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[[UIAlertView alloc] initWithTitle:[[NSBundle mainBundle]
+                                             objectForInfoDictionaryKey:@"CFBundleDisplayName"]
+                                    message:NSLocalizedString(@"Access to the camera has been prohibited; please enable it in the Settings app to continue.", nil)
+                                   delegate:weakSelf
+                          cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                          otherButtonTitles:NSLocalizedString(@"Settings", nil), nil] show];
+    });
 }
 
-- (void)returnNoPermissionError
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if (buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageToErrorObject:CAPTURE_PERMISSION_DENIED];
 
     [[pickerController presentingViewController] dismissViewControllerAnimated:YES completion:nil];
@@ -502,7 +486,7 @@
 - (NSDictionary*)getMediaDictionaryFromPath:(NSString*)fullPath ofType:(NSString*)type
 {
     NSFileManager* fileMgr = [[NSFileManager alloc] init];
-    NSMutableDictionary* fileDict = [NSMutableDictionary dictionaryWithCapacity:6];
+    NSMutableDictionary* fileDict = [NSMutableDictionary dictionaryWithCapacity:5];
 
     CDVFile *fs = [self.commandDelegate getCommandInstance:@"File"];
 
@@ -519,15 +503,14 @@
         [fileDict setObject:[url absoluteURL] forKey:@"localURL"];
     }
     // determine type
-    NSString* mimeType = type;
-    if (!mimeType) {
+    if (!type) {
         id command = [self.commandDelegate getCommandInstance:@"File"];
         if ([command isKindOfClass:[CDVFile class]]) {
             CDVFile* cdvFile = (CDVFile*)command;
-            mimeType = [cdvFile getMimeTypeFromPath:fullPath];
+            NSString* mimeType = [cdvFile getMimeTypeFromPath:fullPath];
+            [fileDict setObject:(mimeType != nil ? (NSObject*)mimeType : [NSNull null]) forKey:@"type"];
         }
     }
-    [fileDict setObject:(mimeType != nil ? (NSObject*)mimeType : [NSNull null]) forKey:@"type"];
     NSDictionary* fileAttrs = [fileMgr attributesOfItemAtPath:fullPath error:nil];
     [fileDict setObject:[NSNumber numberWithUnsignedLongLong:[fileAttrs fileSize]] forKey:@"size"];
     NSDate* modDate = [fileAttrs fileModificationDate];
@@ -605,15 +588,23 @@
 
 @implementation CDVAudioNavigationController
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     // delegate to CVDAudioRecorderViewController
     return [self.topViewController supportedInterfaceOrientations];
 }
+#else
+- (NSUInteger)supportedInterfaceOrientations
+{
+    // delegate to CVDAudioRecorderViewController
+    return [self.topViewController supportedInterfaceOrientations];
+}
+#endif
 
 @end
 
-@interface CDVAudioRecorderViewController () <UIAdaptivePresentationControllerDelegate> {
+@interface CDVAudioRecorderViewController () {
     UIStatusBarStyle _previousStatusBarStyle;
 }
 @end
@@ -656,14 +647,91 @@
     return nil;
 }
 
+- (void)loadView
+{
+	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+
+    // create view and display
+    CGRect viewRect = [[UIScreen mainScreen] applicationFrame];
+    UIView* tmp = [[UIView alloc] initWithFrame:viewRect];
+
+    // make backgrounds
+    NSString* microphoneResource = @"CDVCapture.bundle/microphone";
+
+    BOOL isIphone5 = ([[UIScreen mainScreen] bounds].size.width == 568 && [[UIScreen mainScreen] bounds].size.height == 320) || ([[UIScreen mainScreen] bounds].size.height == 568 && [[UIScreen mainScreen] bounds].size.width == 320);
+    if (isIphone5) {
+        microphoneResource = @"CDVCapture.bundle/microphone-568h";
+    }
+
+    NSBundle* cdvBundle = [NSBundle bundleForClass:[CDVCapture class]];
+    UIImage* microphone = [UIImage imageNamed:[self resolveImageResource:microphoneResource] inBundle:cdvBundle compatibleWithTraitCollection:nil];
+    UIView* microphoneView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewRect.size.width, microphone.size.height)];
+    [microphoneView setBackgroundColor:[UIColor colorWithPatternImage:microphone]];
+    [microphoneView setUserInteractionEnabled:NO];
+    [microphoneView setIsAccessibilityElement:NO];
+    [tmp addSubview:microphoneView];
+
+    // add bottom bar view
+    UIImage* grayBkg = [UIImage imageNamed:[self resolveImageResource:@"CDVCapture.bundle/controls_bg"] inBundle:cdvBundle compatibleWithTraitCollection:nil];
+    UIView* controls = [[UIView alloc] initWithFrame:CGRectMake(0, microphone.size.height, viewRect.size.width, grayBkg.size.height)];
+    [controls setBackgroundColor:[UIColor colorWithPatternImage:grayBkg]];
+    [controls setUserInteractionEnabled:NO];
+    [controls setIsAccessibilityElement:NO];
+    [tmp addSubview:controls];
+
+    // make red recording background view
+    UIImage* recordingBkg = [UIImage imageNamed:[self resolveImageResource:@"CDVCapture.bundle/recording_bg"] inBundle:cdvBundle compatibleWithTraitCollection:nil];
+    UIColor* background = [UIColor colorWithPatternImage:recordingBkg];
+    self.recordingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewRect.size.width, recordingBkg.size.height)];
+    [self.recordingView setBackgroundColor:background];
+    [self.recordingView setHidden:YES];
+    [self.recordingView setUserInteractionEnabled:NO];
+    [self.recordingView setIsAccessibilityElement:NO];
+    [tmp addSubview:self.recordingView];
+
+    // add label
+    self.timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, viewRect.size.width, recordingBkg.size.height)];
+    // timerLabel.autoresizingMask = reSizeMask;
+    [self.timerLabel setBackgroundColor:[UIColor clearColor]];
+    [self.timerLabel setTextColor:[UIColor whiteColor]];
+#ifdef __IPHONE_6_0
+    [self.timerLabel setTextAlignment:NSTextAlignmentCenter];
+#else
+    // for iOS SDK < 6.0
+    [self.timerLabel setTextAlignment:UITextAlignmentCenter];
+#endif
+    [self.timerLabel setText:@"0:00"];
+    [self.timerLabel setAccessibilityHint:PluginLocalizedString(captureCommand, @"recorded time in minutes and seconds", nil)];
+    self.timerLabel.accessibilityTraits |= UIAccessibilityTraitUpdatesFrequently;
+    self.timerLabel.accessibilityTraits &= ~UIAccessibilityTraitStaticText;
+    [tmp addSubview:self.timerLabel];
+
+    // Add record button
+
+    self.recordImage = [UIImage imageNamed:[self resolveImageResource:@"CDVCapture.bundle/record_button"] inBundle:cdvBundle compatibleWithTraitCollection:nil];
+    self.stopRecordImage = [UIImage imageNamed:[self resolveImageResource:@"CDVCapture.bundle/stop_button"] inBundle:cdvBundle compatibleWithTraitCollection:nil];
+    self.recordButton.accessibilityTraits |= [self accessibilityTraits];
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake((viewRect.size.width - recordImage.size.width) / 2, (microphone.size.height + (grayBkg.size.height - recordImage.size.height) / 2), recordImage.size.width, recordImage.size.height)];
+    [self.recordButton setAccessibilityLabel:PluginLocalizedString(captureCommand, @"toggle audio recording", nil)];
+    [self.recordButton setImage:recordImage forState:UIControlStateNormal];
+    [self.recordButton addTarget:self action:@selector(processButton:) forControlEvents:UIControlEventTouchUpInside];
+    [tmp addSubview:recordButton];
+
+    // make and add done button to navigation bar
+    self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissAudioView:)];
+    [self.doneButton setStyle:UIBarButtonItemStyleDone];
+    self.navigationItem.rightBarButtonItem = self.doneButton;
+
+    [self setView:tmp];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
     NSError* error = nil;
-
-    // Add delegate to catch the dismiss event
-    self.navigationController.presentationController.delegate = self;
 
     if (self.avSession == nil) {
         // create audio session
@@ -676,8 +744,6 @@
         }
     }
 
-    [self.avSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-    
     // create file to record to in temporary dir
 
     NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];   // use file system temporary directory
@@ -710,78 +776,7 @@
     }
 }
 
--(void) setupUI {
-    CGRect viewRect = self.view.bounds;
-    CGFloat topInset = self.navigationController.navigationBar.frame.size.height;
-    CGFloat bottomInset = 10;
-
-    // make backgrounds
-    NSString* microphoneResource = @"CDVCapture.bundle/microphone";
-
-    BOOL isIphone5 = ([[UIScreen mainScreen] bounds].size.width == 568 && [[UIScreen mainScreen] bounds].size.height == 320) || ([[UIScreen mainScreen] bounds].size.height == 568 && [[UIScreen mainScreen] bounds].size.width == 320);
-    if (isIphone5) {
-        microphoneResource = @"CDVCapture.bundle/microphone-568h";
-    }
-
-    NSBundle* cdvBundle = [NSBundle bundleForClass:[CDVCapture class]];
-    UIImage* microphone = [UIImage imageNamed:[self resolveImageResource:microphoneResource] inBundle:cdvBundle compatibleWithTraitCollection:nil];
-    UIImageView* microphoneView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, viewRect.size.width, viewRect.size.height)];
-    [microphoneView setImage:microphone];
-    [microphoneView setContentMode:UIViewContentModeScaleAspectFill];
-    [microphoneView setUserInteractionEnabled:NO];
-    [microphoneView setIsAccessibilityElement:NO];
-    [self.view addSubview:microphoneView];
-
-    // add bottom bar view
-    UIImage* grayBkg = [UIImage imageNamed:[self resolveImageResource:@"CDVCapture.bundle/controls_bg"] inBundle:cdvBundle compatibleWithTraitCollection:nil];
-    UIImageView* controls = [[UIImageView alloc] initWithFrame:CGRectMake(0, viewRect.size.height - grayBkg.size.height - bottomInset,
-                                                                          viewRect.size.width, grayBkg.size.height + bottomInset)];
-    [controls setImage:grayBkg];
-    [controls setUserInteractionEnabled:NO];
-    [controls setIsAccessibilityElement:NO];
-    [self.view addSubview:controls];
-
-    // make red recording background view
-    UIImage* recordingBkg = [UIImage imageNamed:[self resolveImageResource:@"CDVCapture.bundle/recording_bg"] inBundle:cdvBundle compatibleWithTraitCollection:nil];
-    UIColor* background = [UIColor colorWithPatternImage:recordingBkg];
-    self.recordingView = [[UIView alloc] initWithFrame:CGRectMake(0, topInset, viewRect.size.width, recordingBkg.size.height)];
-    [self.recordingView setBackgroundColor:background];
-    [self.recordingView setHidden:YES];
-    [self.recordingView setUserInteractionEnabled:NO];
-    [self.recordingView setIsAccessibilityElement:NO];
-    [self.view addSubview:self.recordingView];
-
-    // add label
-    self.timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, topInset, viewRect.size.width, recordingBkg.size.height)];
-    [self.timerLabel setBackgroundColor:[UIColor clearColor]];
-    [self.timerLabel setTextColor:[UIColor whiteColor]];
-    [self.timerLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.timerLabel setText:@"0:00"];
-    [self.timerLabel setAccessibilityHint:PluginLocalizedString(captureCommand, @"recorded time in minutes and seconds", nil)];
-    self.timerLabel.accessibilityTraits |= UIAccessibilityTraitUpdatesFrequently;
-    self.timerLabel.accessibilityTraits &= ~UIAccessibilityTraitStaticText;
-    [self.view addSubview:self.timerLabel];
-
-    // Add record button
-
-    self.recordImage = [UIImage imageNamed:[self resolveImageResource:@"CDVCapture.bundle/record_button"] inBundle:cdvBundle compatibleWithTraitCollection:nil];
-    self.stopRecordImage = [UIImage imageNamed:[self resolveImageResource:@"CDVCapture.bundle/stop_button"] inBundle:cdvBundle compatibleWithTraitCollection:nil];
-    self.recordButton.accessibilityTraits |= [self accessibilityTraits];
-    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake((viewRect.size.width - self.recordImage.size.width) / 2,
-                                                                   microphoneView.frame.size.height - bottomInset - grayBkg.size.height +
-                                                                    ((grayBkg.size.height - self.recordImage.size.height) / 2),
-                                                                   self.recordImage.size.width, self.recordImage.size.height)];
-    [self.recordButton setAccessibilityLabel:PluginLocalizedString(captureCommand, @"toggle audio recording", nil)];
-    [self.recordButton setImage:recordImage forState:UIControlStateNormal];
-    [self.recordButton addTarget:self action:@selector(processButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:recordButton];
-
-    // make and add done button to navigation bar
-    self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissAudioView:)];
-    [self.doneButton setStyle:UIBarButtonItemStyleDone];
-    self.navigationItem.rightBarButtonItem = self.doneButton;
-}
-
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     UIInterfaceOrientationMask orientation = UIInterfaceOrientationMaskPortrait;
@@ -789,6 +784,22 @@
 
     orientation = orientation | (supported & UIInterfaceOrientationMaskPortraitUpsideDown);
     return orientation;
+}
+#else
+- (NSUInteger)supportedInterfaceOrientations
+{
+    NSUInteger orientation = UIInterfaceOrientationMaskPortrait; // must support portrait
+    NSUInteger supported = [captureCommand.viewController supportedInterfaceOrientations];
+
+    orientation = orientation | (supported & UIInterfaceOrientationMaskPortraitUpsideDown);
+    return orientation;
+}
+#endif
+
+- (void)viewDidUnload
+{
+    [self setView:nil];
+    [self.captureCommand setInUse:NO];
 }
 
 - (void)processButton:(id)sender
@@ -800,23 +811,24 @@
         // view cleanup will occur in audioRecordingDidFinishRecording
     } else {
         // begin recording
+        [self.recordButton setImage:stopRecordImage forState:UIControlStateNormal];
+        self.recordButton.accessibilityTraits &= ~[self accessibilityTraits];
+        [self.recordingView setHidden:NO];
         __block NSError* error = nil;
 
         __weak CDVAudioRecorderViewController* weakSelf = self;
 
         void (^startRecording)(void) = ^{
+            [weakSelf.avSession setCategory:AVAudioSessionCategoryRecord error:&error];
             [weakSelf.avSession setActive:YES error:&error];
             if (error) {
                 // can't continue without active audio session
                 weakSelf.errorCode = CAPTURE_INTERNAL_ERR;
                 [weakSelf dismissAudioView:nil];
             } else {
-                [weakSelf.recordButton setImage:weakSelf.stopRecordImage forState:UIControlStateNormal];
-                weakSelf.recordButton.accessibilityTraits &= ~[self accessibilityTraits];
-                [weakSelf.recordingView setHidden:NO];
                 if (weakSelf.duration) {
                     weakSelf.isTimed = true;
-                    [weakSelf.avRecorder recordForDuration:[weakSelf.duration doubleValue]];
+                    [weakSelf.avRecorder recordForDuration:[duration doubleValue]];
                 } else {
                     [weakSelf.avRecorder record];
                 }
@@ -833,15 +845,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self.avSession performSelector:rrpSel withObject:^(BOOL granted){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (granted) {
-                        startRecording();
-                    } else {
-                        NSLog(@"Error creating audio session, microphone permission denied.");
-                        weakSelf.errorCode = CAPTURE_INTERNAL_ERR;
-                        [weakSelf showMicrophonePermissionAlert];
-                    }
-                });
+                if (granted) {
+                    startRecording();
+                } else {
+                    NSLog(@"Error creating audio session, microphone permission denied.");
+                    weakSelf.errorCode = CAPTURE_INTERNAL_ERR;
+                    [weakSelf dismissAudioView:nil];
+                }
             }];
 #pragma clang diagnostic pop
         } else {
@@ -872,31 +882,13 @@
         //BOOL isUIAccessibilityAnnouncementNotification = (&UIAccessibilityAnnouncementNotification != NULL);
         if (UIAccessibilityAnnouncementNotification) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500ull * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, PluginLocalizedString(self->captureCommand, @"timed recording complete", nil));
+                    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, PluginLocalizedString(captureCommand, @"timed recording complete", nil));
                 });
         }
     } else {
         // issue a layout notification change so that VO will reannounce the button label when recording completes
         UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
     }
-}
-
-- (void) showMicrophonePermissionAlert {
-    UIAlertController* controller =
-        [UIAlertController alertControllerWithTitle:PluginLocalizedString(captureCommand, @"Access denied", nil)
-                                            message:PluginLocalizedString(captureCommand, @"Access to the microphone has been prohibited. Please enable it in the Settings app to continue.", nil)
-                                     preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction* actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-    [controller addAction:actionOk];
-
-    UIAlertAction* actionSettings = [UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:[NSDictionary dictionary] completionHandler:nil];
-    }];
-    [controller addAction:actionSettings];
-
-    __weak CDVAudioRecorderViewController* weakSelf = self;
-    [weakSelf presentViewController:controller animated:true completion:nil];
 }
 
 - (void)dismissAudioView:(id)sender
@@ -916,6 +908,10 @@
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
     // return result
     [self.captureCommand.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+
+    if (IsAtLeastiOSVersion(@"7.0")) {
+        [[UIApplication sharedApplication] setStatusBarStyle:_previousStatusBarStyle];
+    }
 }
 
 - (void)updateTime
@@ -947,7 +943,7 @@
     if (flag) {
         NSString* filePath = [avRecorder.url path];
         // NSLog(@"filePath: %@", filePath);
-        NSDictionary* fileDict = [captureCommand getMediaDictionaryFromPath:filePath ofType:nil];
+        NSDictionary* fileDict = [captureCommand getMediaDictionaryFromPath:filePath ofType:@"audio/wav"];
         NSArray* fileArray = [NSArray arrayWithObject:fileDict];
 
         self.pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:fileArray];
@@ -966,14 +962,18 @@
     [self dismissAudioView:nil];
 }
 
-- (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController {
-    [self dismissAudioView:nil];
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (IsAtLeastiOSVersion(@"7.0")) {
+        [[UIApplication sharedApplication] setStatusBarStyle:[self preferredStatusBarStyle]];
+    }
+
     [super viewWillAppear:animated];
-    [self setupUI];
 }
 
 @end

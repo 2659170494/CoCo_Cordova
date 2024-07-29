@@ -17,28 +17,28 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- */
+*/
 
-const MediaFile = require('./MediaFile');
+var MediaFile = require('./MediaFile');
 
 function wrapMediaFiles (pluginResult) {
-    const mediaFiles = [];
-    let i;
+    var mediaFiles = [];
+    var i;
     for (i = 0; i < pluginResult.length; i++) {
-        const mediaFile = new MediaFile(
-            pluginResult[i].name,
-            // Backwards compatibility
-            pluginResult[i].localURL || pluginResult[i].fullPath,
-            pluginResult[i].type,
-            pluginResult[i].lastModifiedDate,
-            pluginResult[i].size
-        );
+        var mediaFile = new MediaFile();
+        mediaFile.name = pluginResult[i].name;
+
+        // Backwards compatibility
+        mediaFile.localURL = pluginResult[i].localURL || pluginResult[i].fullPath;
         mediaFile.fullPath = pluginResult[i].fullPath;
+        mediaFile.type = pluginResult[i].type;
+        mediaFile.lastModifiedDate = pluginResult[i].lastModifiedDate;
+        mediaFile.size = pluginResult[i].size;
         mediaFiles.push(mediaFile);
     }
     return mediaFiles;
 }
 
 module.exports = {
-    wrapMediaFiles
+    wrapMediaFiles: wrapMediaFiles
 };

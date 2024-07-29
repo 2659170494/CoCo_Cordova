@@ -30,7 +30,7 @@
     // For chrome we don't need to implement proxy methods
     // All functionality can be accessed natively.
     if (require('./isChrome')()) {
-        const pathsPrefix = {
+        var pathsPrefix = {
             // Read-only directory where the application is installed.
             applicationDirectory: location.origin + '/', // eslint-disable-line no-undef
             // Where to put app-specific data files.
@@ -48,28 +48,28 @@
         return;
     }
 
-    const LocalFileSystem = require('./LocalFileSystem');
-    const FileSystem = require('./FileSystem');
-    const FileEntry = require('./FileEntry');
-    const FileError = require('./FileError');
-    const DirectoryEntry = require('./DirectoryEntry');
-    const File = require('./File');
+    var LocalFileSystem = require('./LocalFileSystem');
+    var FileSystem = require('./FileSystem');
+    var FileEntry = require('./FileEntry');
+    var FileError = require('./FileError');
+    var DirectoryEntry = require('./DirectoryEntry');
+    var File = require('./File');
 
     (function (exports, global) {
-        const indexedDB = global.indexedDB || global.mozIndexedDB;
+        var indexedDB = global.indexedDB || global.mozIndexedDB;
         if (!indexedDB) {
-            throw new Error('Firefox OS File plugin: indexedDB not supported');
+            throw 'Firefox OS File plugin: indexedDB not supported';
         }
 
-        let fs_ = null;
+        var fs_ = null;
 
-        const idb_ = {};
+        var idb_ = {};
         idb_.db = null;
-        const FILE_STORE_ = 'entries';
+        var FILE_STORE_ = 'entries';
 
-        const DIR_SEPARATOR = '/';
+        var DIR_SEPARATOR = '/';
 
-        const pathsPrefix = {
+        var pathsPrefix = {
             // Read-only directory where the application is installed.
             applicationDirectory: location.origin + '/', // eslint-disable-line no-undef
             // Where to put app-specific data files.
@@ -79,15 +79,15 @@
             cacheDirectory: 'file:///temporary/'
         };
 
-        const unicodeLastChar = 65535;
+        var unicodeLastChar = 65535;
 
-        /** * Exported functionality ***/
+    /** * Exported functionality ***/
 
         exports.requestFileSystem = function (successCallback, errorCallback, args) {
-            const type = args[0];
+            var type = args[0];
             // Size is ignored since IDB filesystem size depends
             // on browser implementation and can't be set up by user
-            const size = args[1]; // eslint-disable-line no-unused-vars
+            var size = args[1]; // eslint-disable-line no-unused-vars
 
             if (type !== LocalFileSystem.TEMPORARY && type !== LocalFileSystem.PERSISTENT) {
                 if (errorCallback) {
@@ -96,10 +96,10 @@
                 return;
             }
 
-            const name = type === LocalFileSystem.TEMPORARY ? 'temporary' : 'persistent';
-            const storageName = (location.protocol + location.host).replace(/:/g, '_'); // eslint-disable-line no-undef
+            var name = type === LocalFileSystem.TEMPORARY ? 'temporary' : 'persistent';
+            var storageName = (location.protocol + location.host).replace(/:/g, '_'); // eslint-disable-line no-undef
 
-            const root = new DirectoryEntry('', DIR_SEPARATOR);
+            var root = new DirectoryEntry('', DIR_SEPARATOR);
             fs_ = new FileSystem(name, root);
 
             idb_.open(storageName, function () {
@@ -114,13 +114,13 @@
 
         // list a directory's contents (files and folders).
         exports.readEntries = function (successCallback, errorCallback, args) {
-            const fullPath = args[0];
+            var fullPath = args[0];
 
             if (typeof successCallback !== 'function') {
                 throw Error('Expected successCallback argument.');
             }
 
-            const path = resolveToFullPath_(fullPath);
+            var path = resolveToFullPath_(fullPath);
 
             exports.getDirectory(function () {
                 idb_.getAllEntries(path.fullPath + DIR_SEPARATOR, path.storagePath, function (entries) {
@@ -130,13 +130,13 @@
                 if (errorCallback) {
                     errorCallback(FileError.NOT_FOUND_ERR);
                 }
-            }, [path.storagePath, path.fullPath, { create: false }]);
+            }, [path.storagePath, path.fullPath, {create: false}]);
         };
 
         exports.getFile = function (successCallback, errorCallback, args) {
-            const fullPath = args[0];
-            let path = args[1];
-            const options = args[2] || {};
+            var fullPath = args[0];
+            var path = args[1];
+            var options = args[2] || {};
 
             // Create an absolute path if we were handed a relative one.
             path = resolveToFullPath_(fullPath, path);
@@ -153,7 +153,7 @@
                     // If create is true, the path doesn't exist, and no other error occurs,
                     // getFile must create it as a zero-length file and return a corresponding
                     // FileEntry.
-                    const newFileEntry = new FileEntry(path.fileName, path.fullPath, new FileSystem(path.fsName, fs_.root));
+                    var newFileEntry = new FileEntry(path.fileName, path.fullPath, new FileSystem(path.fsName, fs_.root));
 
                     newFileEntry.file_ = new MyFile({
                         size: 0,
@@ -166,8 +166,8 @@
                 } else if (options.create === true && fileEntry) {
                     if (fileEntry.isFile) {
                         // Overwrite file, delete then create new.
-                        idb_.delete(path.storagePath, function () {
-                            const newFileEntry = new FileEntry(path.fileName, path.fullPath, new FileSystem(path.fsName, fs_.root));
+                        idb_['delete'](path.storagePath, function () {
+                            var newFileEntry = new FileEntry(path.fileName, path.fullPath, new FileSystem(path.fsName, fs_.root));
 
                             newFileEntry.file_ = new MyFile({
                                 size: 0,
@@ -205,7 +205,7 @@
         };
 
         exports.getFileMetadata = function (successCallback, errorCallback, args) {
-            const fullPath = args[0];
+            var fullPath = args[0];
 
             exports.getFile(function (fileEntry) {
                 successCallback(new File(fileEntry.file_.name, fileEntry.fullPath, '', fileEntry.file_.lastModifiedDate,
@@ -224,8 +224,8 @@
         };
 
         exports.setMetadata = function (successCallback, errorCallback, args) {
-            const fullPath = args[0];
-            const metadataObject = args[1];
+            var fullPath = args[0];
+            var metadataObject = args[1];
 
             exports.getFile(function (fileEntry) {
                 fileEntry.file_.lastModifiedDate = metadataObject.modificationTime;
@@ -234,10 +234,10 @@
         };
 
         exports.write = function (successCallback, errorCallback, args) {
-            const fileName = args[0];
-            let data = args[1];
-            const position = args[2];
-            const isBinary = args[3]; // eslint-disable-line no-unused-vars
+            var fileName = args[0];
+            var data = args[1];
+            var position = args[2];
+            var isBinary = args[3]; // eslint-disable-line no-unused-vars
 
             if (!data) {
                 if (errorCallback) {
@@ -247,29 +247,28 @@
             }
 
             if (typeof data === 'string' || data instanceof String) {
-                data = new Blob([data]);
+                data = new Blob([data]); // eslint-disable-line no-undef
             }
 
             exports.getFile(function (fileEntry) {
-                let blob_ = fileEntry.file_.blob_;
+                var blob_ = fileEntry.file_.blob_;
 
                 if (!blob_) {
-                    blob_ = new Blob([data], { type: data.type });
+                    blob_ = new Blob([data], {type: data.type}); // eslint-disable-line no-undef
                 } else {
                     // Calc the head and tail fragments
-                    const head = blob_.slice(0, position);
-                    const tail = blob_.slice(position + (data.size || data.byteLength));
+                    var head = blob_.slice(0, position);
+                    var tail = blob_.slice(position + (data.size || data.byteLength));
 
                     // Calc the padding
-                    let padding = position - head.size;
+                    var padding = position - head.size;
                     if (padding < 0) {
                         padding = 0;
                     }
 
                     // Do the "write". In fact, a full overwrite of the Blob.
-                    blob_ = new Blob([head, new Uint8Array(padding), data, tail],
-                        { type: data.type }
-                    );
+                    blob_ = new Blob([head, new Uint8Array(padding), data, tail], // eslint-disable-line no-undef
+                        {type: data.type});
                 }
 
                 // Set the blob we're writing on this file entry so we can recall it later.
@@ -286,34 +285,34 @@
         };
 
         exports.readAsText = function (successCallback, errorCallback, args) {
-            const fileName = args[0];
-            const enc = args[1];
-            const startPos = args[2];
-            const endPos = args[3];
+            var fileName = args[0];
+            var enc = args[1];
+            var startPos = args[2];
+            var endPos = args[3];
 
             readAs('text', fileName, enc, startPos, endPos, successCallback, errorCallback);
         };
 
         exports.readAsDataURL = function (successCallback, errorCallback, args) {
-            const fileName = args[0];
-            const startPos = args[1];
-            const endPos = args[2];
+            var fileName = args[0];
+            var startPos = args[1];
+            var endPos = args[2];
 
             readAs('dataURL', fileName, null, startPos, endPos, successCallback, errorCallback);
         };
 
         exports.readAsBinaryString = function (successCallback, errorCallback, args) {
-            const fileName = args[0];
-            const startPos = args[1];
-            const endPos = args[2];
+            var fileName = args[0];
+            var startPos = args[1];
+            var endPos = args[2];
 
             readAs('binaryString', fileName, null, startPos, endPos, successCallback, errorCallback);
         };
 
         exports.readAsArrayBuffer = function (successCallback, errorCallback, args) {
-            const fileName = args[0];
-            const startPos = args[1];
-            const endPos = args[2];
+            var fileName = args[0];
+            var startPos = args[1];
+            var endPos = args[2];
 
             readAs('arrayBuffer', fileName, null, startPos, endPos, successCallback, errorCallback);
         };
@@ -323,7 +322,7 @@
                 throw Error('Expected successCallback argument.');
             }
 
-            const fullPath = resolveToFullPath_(args[0]).storagePath;
+            var fullPath = resolveToFullPath_(args[0]).storagePath;
             if (fullPath === pathsPrefix.cacheDirectory || fullPath === pathsPrefix.dataDirectory) {
                 errorCallback(FileError.NO_MODIFICATION_ALLOWED_ERR);
                 return;
@@ -332,7 +331,7 @@
             function deleteEntry (isDirectory) {
                 // TODO: This doesn't protect against directories that have content in it.
                 // Should throw an error instead if the dirEntry is not empty.
-                idb_.delete(fullPath, function () {
+                idb_['delete'](fullPath, function () {
                     successCallback();
                 }, function () {
                     if (errorCallback) { errorCallback(); }
@@ -345,13 +344,13 @@
             }, function () {
                 // DirectoryEntry was already deleted or entry is FileEntry
                 deleteEntry(false);
-            }, [fullPath, null, { create: false }]);
+            }, [fullPath, null, {create: false}]);
         };
 
         exports.getDirectory = function (successCallback, errorCallback, args) {
-            const fullPath = args[0];
-            let path = args[1];
-            let options = args[2];
+            var fullPath = args[0];
+            var path = args[1];
+            var options = args[2];
 
             // Create an absolute path if we were handed a relative one.
             path = resolveToFullPath_(fullPath, path);
@@ -376,13 +375,14 @@
                     // If create is true, the path doesn't exist, and no other error occurs,
                     // getDirectory must create it as a zero-length file and return a corresponding
                     // MyDirectoryEntry.
-                    const dirEntry = new DirectoryEntry(path.fileName, path.fullPath, new FileSystem(path.fsName, fs_.root));
+                    var dirEntry = new DirectoryEntry(path.fileName, path.fullPath, new FileSystem(path.fsName, fs_.root));
 
                     idb_.put(dirEntry, path.storagePath, successCallback, errorCallback);
                     return;
                 }
 
                 if (options.create === true && folderEntry) {
+
                     if (folderEntry.isDirectory) {
                         // IDB won't save methods, so we need re-create the MyDirectoryEntry.
                         successCallback(new DirectoryEntry(folderEntry.name, folderEntry.fullPath, folderEntry.filesystem));
@@ -430,7 +430,7 @@
                 throw Error('Expected successCallback argument.');
             }
 
-            let fullPath = args[0];
+            var fullPath = args[0];
             // fullPath is like this:
             // file:///persistent/path/to/file or
             // file:///persistent/path/to/directory/
@@ -446,25 +446,25 @@
                 fullPath = fullPath.substr(0, fullPath.length - 1);
             }
 
-            const pathArr = fullPath.split(DIR_SEPARATOR);
+            var pathArr = fullPath.split(DIR_SEPARATOR);
             pathArr.pop();
-            const parentName = pathArr.pop();
-            const path = pathArr.join(DIR_SEPARATOR) + DIR_SEPARATOR;
+            var parentName = pathArr.pop();
+            var path = pathArr.join(DIR_SEPARATOR) + DIR_SEPARATOR;
 
             // To get parent of root files
-            const joined = path + parentName + DIR_SEPARATOR;// is like this: file:///persistent/
+            var joined = path + parentName + DIR_SEPARATOR;// is like this: file:///persistent/
             if (joined === pathsPrefix.cacheDirectory || joined === pathsPrefix.dataDirectory) {
-                exports.getDirectory(successCallback, errorCallback, [joined, DIR_SEPARATOR, { create: false }]);
+                exports.getDirectory(successCallback, errorCallback, [joined, DIR_SEPARATOR, {create: false}]);
                 return;
             }
 
-            exports.getDirectory(successCallback, errorCallback, [path, parentName, { create: false }]);
+            exports.getDirectory(successCallback, errorCallback, [path, parentName, {create: false}]);
         };
 
         exports.copyTo = function (successCallback, errorCallback, args) {
-            const srcPath = args[0];
-            const parentFullPath = args[1];
-            const name = args[2];
+            var srcPath = args[0];
+            var parentFullPath = args[1];
+            var name = args[2];
 
             if (name.indexOf('/') !== -1 || srcPath === parentFullPath + name) {
                 if (errorCallback) {
@@ -476,36 +476,44 @@
 
             // Read src file
             exports.getFile(function (srcFileEntry) {
-                const path = resolveToFullPath_(parentFullPath);
+
+                var path = resolveToFullPath_(parentFullPath);
                 // Check directory
                 exports.getDirectory(function () {
+
                     // Create dest file
                     exports.getFile(function (dstFileEntry) {
+
                         exports.write(function () {
                             successCallback(dstFileEntry);
                         }, errorCallback, [dstFileEntry.file_.storagePath, srcFileEntry.file_.blob_, 0]);
-                    }, errorCallback, [parentFullPath, name, { create: true }]);
+
+                    }, errorCallback, [parentFullPath, name, {create: true}]);
+
                 }, function () { if (errorCallback) { errorCallback(FileError.NOT_FOUND_ERR); } },
-                [path.storagePath, null, { create: false }]);
+                [path.storagePath, null, {create: false}]);
+
             }, errorCallback, [srcPath, null]);
         };
 
         exports.moveTo = function (successCallback, errorCallback, args) {
-            const srcPath = args[0];
+            var srcPath = args[0];
             // parentFullPath and name parameters is ignored because
             // args is being passed downstream to exports.copyTo method
             var parentFullPath = args[1]; // eslint-disable-line
             var name = args[2]; // eslint-disable-line
 
             exports.copyTo(function (fileEntry) {
+
                 exports.remove(function () {
                     successCallback(fileEntry);
                 }, errorCallback, [srcPath]);
+
             }, errorCallback, args);
         };
 
         exports.resolveLocalFileSystemURI = function (successCallback, errorCallback, args) {
-            let path = args[0];
+            var path = args[0];
 
             // Ignore parameters
             if (path.indexOf('?') !== -1) {
@@ -513,7 +521,7 @@
             }
 
             // support for encodeURI
-            if (/%5/g.test(path) || /%20/g.test(path)) {
+            if (/\%5/g.test(path) || /\%20/g.test(path)) {  // eslint-disable-line no-useless-escape
                 path = decodeURI(path);
             }
 
@@ -533,8 +541,8 @@
                     return;
                 }
 
-                const indexPersistent = path.indexOf('persistent');
-                const indexTemporary = path.indexOf('temporary');
+                var indexPersistent = path.indexOf('persistent');
+                var indexTemporary = path.indexOf('temporary');
 
                 // cdvfile://localhost/persistent/path/to/file
                 if (indexPersistent !== -1) {
@@ -551,8 +559,8 @@
 
             // to avoid path form of '///path/to/file'
             function handlePathSlashes (path) {
-                let cutIndex = 0;
-                for (let i = 0; i < path.length - 1; i++) {
+                var cutIndex = 0;
+                for (var i = 0; i < path.length - 1; i++) {
                     if (path[i] === DIR_SEPARATOR && path[i + 1] === DIR_SEPARATOR) {
                         cutIndex = i + 1;
                     } else break;
@@ -573,9 +581,8 @@
                 exports.requestFileSystem(function () {
                     exports.getFile(successCallback, function () {
                         exports.getDirectory(successCallback, errorCallback, [pathsPrefix.dataDirectory, path,
-                            { create: false }]
-                        );
-                    }, [pathsPrefix.dataDirectory, path, { create: false }]);
+                        {create: false}]);
+                    }, [pathsPrefix.dataDirectory, path, {create: false}]);
                 }, errorCallback, [LocalFileSystem.PERSISTENT]);
             } else if (path.indexOf(pathsPrefix.cacheDirectory) === 0) {
                 path = path.substring(pathsPrefix.cacheDirectory.length - 1);
@@ -584,15 +591,14 @@
                 exports.requestFileSystem(function () {
                     exports.getFile(successCallback, function () {
                         exports.getDirectory(successCallback, errorCallback, [pathsPrefix.cacheDirectory, path,
-                            { create: false }]
-                        );
-                    }, [pathsPrefix.cacheDirectory, path, { create: false }]);
+                        {create: false}]);
+                    }, [pathsPrefix.cacheDirectory, path, {create: false}]);
                 }, errorCallback, [LocalFileSystem.TEMPORARY]);
             } else if (path.indexOf(pathsPrefix.applicationDirectory) === 0) {
                 path = path.substring(pathsPrefix.applicationDirectory.length);
                 // TODO: need to cut out redundant slashes?
 
-                const xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+                var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
                 xhr.open('GET', path, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.status === 200 && xhr.readyState === 4) {
@@ -600,7 +606,7 @@
                             fs.name = location.hostname; // eslint-disable-line no-undef
 
                             // TODO: need to call exports.getFile(...) to handle errors correct
-                            fs.root.getFile(path, { create: true }, writeFile, errorCallback);
+                            fs.root.getFile(path, {create: true}, writeFile, errorCallback);
                         }, errorCallback, [LocalFileSystem.PERSISTENT]);
                     }
                 };
@@ -640,7 +646,7 @@
             successCallback(pathsPrefix);
         };
 
-        /** * Helpers ***/
+    /** * Helpers ***/
 
         /**
          * Interface to wrap the native File interface.
@@ -654,7 +660,7 @@
          * @constructor
          */
         function MyFile (opts) {
-            let blob_ = new Blob(); // eslint-disable-line no-undef
+            var blob_ = new Blob(); // eslint-disable-line no-undef
 
             this.size = opts.size || 0;
             this.name = opts.name || '';
@@ -681,15 +687,15 @@
 
         MyFile.prototype.constructor = MyFile;
 
-        const MyFileHelper = {
+        var MyFileHelper = {
             toJson: function (myFile, success) {
                 /*
                     Safari private browse mode cannot store Blob object to indexeddb.
                     Then use pure json object instead of Blob object.
                 */
-                const fr = new FileReader();
+                var fr = new FileReader();
                 fr.onload = function (ev) {
-                    const base64 = btoa(String.fromCharCode.apply(null, new Uint8Array(fr.result)));
+                    var base64 = btoa(String.fromCharCode.apply(null, new Uint8Array(fr.result)));
                     success({
                         opt: {
                             size: myFile.size,
@@ -698,14 +704,14 @@
                             lastModifiedDate: myFile.lastModifiedDate,
                             storagePath: myFile.storagePath
                         },
-                        base64
+                        base64: base64
                     });
                 };
                 fr.readAsArrayBuffer(myFile.blob_);
             },
             setBase64: function (myFile, base64) {
                 if (base64) {
-                    const arrayBuffer = (new Uint8Array(
+                    var arrayBuffer = (new Uint8Array(
                         [].map.call(atob(base64), function (c) { return c.charCodeAt(0); })
                     )).buffer;
 
@@ -721,8 +727,8 @@
         // one. This method ensures path is legit!
         function resolveToFullPath_ (cwdFullPath, path) {
             path = path || '';
-            let fullPath = path;
-            let prefix = '';
+            var fullPath = path;
+            var prefix = '';
 
             cwdFullPath = cwdFullPath || DIR_SEPARATOR;
             if (cwdFullPath.indexOf(FILESYSTEM_PREFIX) === 0) {
@@ -730,7 +736,7 @@
                 cwdFullPath = cwdFullPath.substring(cwdFullPath.indexOf(DIR_SEPARATOR, FILESYSTEM_PREFIX.length));
             }
 
-            const relativePath = path[0] !== DIR_SEPARATOR;
+            var relativePath = path[0] !== DIR_SEPARATOR;
             if (relativePath) {
                 fullPath = cwdFullPath;
                 if (cwdFullPath !== DIR_SEPARATOR) {
@@ -741,13 +747,13 @@
             }
 
             // Remove doubled separator substrings
-            const re = new RegExp(DIR_SEPARATOR + DIR_SEPARATOR, 'g');
+            var re = new RegExp(DIR_SEPARATOR + DIR_SEPARATOR, 'g');
             fullPath = fullPath.replace(re, DIR_SEPARATOR);
 
             // Adjust '..'s by removing parent directories when '..' flows in path.
-            const parts = fullPath.split(DIR_SEPARATOR);
-            for (let i = 0; i < parts.length; ++i) {
-                const part = parts[i];
+            var parts = fullPath.split(DIR_SEPARATOR);
+            for (var i = 0; i < parts.length; ++i) {
+                var part = parts[i];
                 if (part === '..') {
                     parts[i - 1] = '';
                     parts[i] = '';
@@ -777,13 +783,13 @@
                 fullPath = fullPath.substring(0, fullPath.length - 1);
             }
 
-            let storagePath = prefix + fullPath;
+            var storagePath = prefix + fullPath;
             storagePath = decodeURI(storagePath);
             fullPath = decodeURI(fullPath);
 
             return {
-                storagePath,
-                fullPath,
+                storagePath: storagePath,
+                fullPath: fullPath,
                 fileName: fullPath.split(DIR_SEPARATOR).pop(),
                 fsName: prefix.split(DIR_SEPARATOR).pop()
             };
@@ -791,7 +797,7 @@
 
         function fileEntryFromIdbEntry (fileEntry) {
             // IDB won't save methods, so we need re-create the FileEntry.
-            const clonedFileEntry = new FileEntry(fileEntry.name, fileEntry.fullPath, fileEntry.filesystem);
+            var clonedFileEntry = new FileEntry(fileEntry.name, fileEntry.fullPath, fileEntry.filesystem);
             clonedFileEntry.file_ = fileEntry.file_;
 
             return clonedFileEntry;
@@ -799,8 +805,8 @@
 
         function readAs (what, fullPath, encoding, startPos, endPos, successCallback, errorCallback) {
             exports.getFile(function (fileEntry) {
-                const fileReader = new FileReader(); // eslint-disable-line no-undef
-                const blob = fileEntry.file_.blob_.slice(startPos, endPos);
+                var fileReader = new FileReader(); // eslint-disable-line no-undef
+                var blob = fileEntry.file_.blob_.slice(startPos, endPos);
 
                 fileReader.onload = function (e) {
                     successCallback(e.target.result);
@@ -822,16 +828,17 @@
                     fileReader.readAsBinaryString(blob);
                     break;
                 }
+
             }, errorCallback, [fullPath, null]);
         }
 
-        /** * Core logic to handle IDB operations ***/
+    /** * Core logic to handle IDB operations ***/
 
         idb_.open = function (dbName, successCallback, errorCallback) {
-            const self = this;
+            var self = this;
 
             // TODO: FF 12.0a1 isn't liking a db name with : in it.
-            const request = indexedDB.open(dbName.replace(':', '_')/*, 1 /*version */);
+            var request = indexedDB.open(dbName.replace(':', '_')/*, 1 /*version */);
 
             request.onerror = errorCallback || onError;
 
@@ -871,13 +878,13 @@
                 return;
             }
 
-            const tx = this.db.transaction([FILE_STORE_], 'readonly');
+            var tx = this.db.transaction([FILE_STORE_], 'readonly');
 
-            const request = tx.objectStore(FILE_STORE_).get(fullPath);
+            var request = tx.objectStore(FILE_STORE_).get(fullPath);
 
             tx.onabort = errorCallback || onError;
             tx.oncomplete = function () {
-                const entry = request.result;
+                var entry = request.result;
                 if (entry && entry.file_json) {
                     /*
                         Safari private browse mode cannot store Blob object to indexeddb.
@@ -899,27 +906,27 @@
                 return;
             }
 
-            let results = [];
+            var results = [];
 
             if (storagePath[storagePath.length - 1] === DIR_SEPARATOR) {
                 storagePath = storagePath.substring(0, storagePath.length - 1);
             }
 
-            const range = IDBKeyRange.bound(storagePath + DIR_SEPARATOR + ' ',
+            var range = IDBKeyRange.bound(storagePath + DIR_SEPARATOR + ' ',
                 storagePath + DIR_SEPARATOR + String.fromCharCode(unicodeLastChar));
 
-            const tx = this.db.transaction([FILE_STORE_], 'readonly');
+            var tx = this.db.transaction([FILE_STORE_], 'readonly');
             tx.onabort = errorCallback || onError;
             tx.oncomplete = function () {
                 results = results.filter(function (val) {
-                    let pathWithoutSlash = val.fullPath;
+                    var pathWithoutSlash = val.fullPath;
 
                     if (val.fullPath[val.fullPath.length - 1] === DIR_SEPARATOR) {
                         pathWithoutSlash = pathWithoutSlash.substr(0, pathWithoutSlash.length - 1);
                     }
 
-                    const valPartsLen = pathWithoutSlash.split(DIR_SEPARATOR).length;
-                    let fullPathPartsLen = fullPath.split(DIR_SEPARATOR).length;
+                    var valPartsLen = pathWithoutSlash.split(DIR_SEPARATOR).length;
+                    var fullPathPartsLen = fullPath.split(DIR_SEPARATOR).length;
 
                     /* Input fullPath parameter  equals '//' for root folder */
                     /* Entries in root folder has valPartsLen equals 2 (see below) */
@@ -941,20 +948,20 @@
                 successCallback(results);
             };
 
-            const request = tx.objectStore(FILE_STORE_).openCursor(range);
+            var request = tx.objectStore(FILE_STORE_).openCursor(range);
 
             request.onsuccess = function (e) {
-                const cursor = e.target.result;
+                var cursor = e.target.result;
                 if (cursor) {
-                    const val = cursor.value;
+                    var val = cursor.value;
 
                     results.push(val.isFile ? fileEntryFromIdbEntry(val) : new DirectoryEntry(val.name, val.fullPath, val.filesystem));
-                    cursor.continue();
+                    cursor['continue']();
                 }
             };
         };
 
-        idb_.delete = function (fullPath, successCallback, errorCallback, isDirectory) {
+        idb_['delete'] = function (fullPath, successCallback, errorCallback, isDirectory) {
             if (!idb_.db) {
                 if (errorCallback) {
                     errorCallback(FileError.INVALID_MODIFICATION_ERR);
@@ -962,7 +969,7 @@
                 return;
             }
 
-            const tx = this.db.transaction([FILE_STORE_], 'readwrite');
+            var tx = this.db.transaction([FILE_STORE_], 'readwrite');
             tx.oncomplete = successCallback;
             tx.onabort = errorCallback || onError;
             tx.oncomplete = function () {
@@ -973,17 +980,17 @@
 
                     // Range contains all entries in the form fullPath<symbol> where
                     // symbol in the range from ' ' to symbol which has code `unicodeLastChar`
-                    const range = IDBKeyRange.bound(fullPath + ' ', fullPath + String.fromCharCode(unicodeLastChar));
+                    var range = IDBKeyRange.bound(fullPath + ' ', fullPath + String.fromCharCode(unicodeLastChar));
 
-                    const newTx = this.db.transaction([FILE_STORE_], 'readwrite');
+                    var newTx = this.db.transaction([FILE_STORE_], 'readwrite');
                     newTx.oncomplete = successCallback;
                     newTx.onabort = errorCallback || onError;
-                    newTx.objectStore(FILE_STORE_).delete(range);
+                    newTx.objectStore(FILE_STORE_)['delete'](range);
                 } else {
                     successCallback();
                 }
             };
-            tx.objectStore(FILE_STORE_).delete(fullPath);
+            tx.objectStore(FILE_STORE_)['delete'](fullPath);
         };
 
         idb_.put = function (entry, storagePath, successCallback, errorCallback, retry) {
@@ -994,7 +1001,7 @@
                 return;
             }
 
-            const tx = this.db.transaction([FILE_STORE_], 'readwrite');
+            var tx = this.db.transaction([FILE_STORE_], 'readwrite');
             tx.onabort = errorCallback || onError;
             tx.oncomplete = function () {
                 // TODO: Error is thrown if we pass the request event back instead.
@@ -1011,7 +1018,7 @@
                         Then use pure json object instead of Blob object.
                     */
 
-                    const successCallback2 = function (entry) {
+                    var successCallback2 = function (entry) {
                         entry.file_ = new MyFile(entry.file_json.opt);
                         delete entry.file_json;
                         successCallback(entry);
@@ -1045,6 +1052,7 @@
 
             console.log(e, e.code, e.message);
         }
+
     })(module.exports, window);
 
     require('cordova/exec/proxy').add('File', module.exports);

@@ -19,12 +19,12 @@
  *
 */
 
-const utils = require('cordova/utils');
-const exec = require('cordova/exec');
-const Entry = require('./Entry');
-const FileWriter = require('./FileWriter');
-const File = require('./File');
-const FileError = require('./FileError');
+var utils = require('cordova/utils');
+var exec = require('cordova/exec');
+var Entry = require('./Entry');
+var FileWriter = require('./FileWriter');
+var File = require('./File');
+var FileError = require('./FileError');
 
 /**
  * An interface representing a file on the file system.
@@ -35,7 +35,7 @@ const FileError = require('./FileError');
  * {DOMString} fullPath the absolute full path to the file (readonly)
  * {FileSystem} filesystem on which the file resides (readonly)
  */
-const FileEntry = function (name, fullPath, fileSystem, nativeURL) {
+var FileEntry = function (name, fullPath, fileSystem, nativeURL) {
     // remove trailing slash if it is present
     if (fullPath && /\/$/.test(fullPath)) {
         fullPath = fullPath.substring(0, fullPath.length - 1);
@@ -57,7 +57,7 @@ utils.extend(FileEntry, Entry);
  */
 FileEntry.prototype.createWriter = function (successCallback, errorCallback) {
     this.file(function (filePointer) {
-        const writer = new FileWriter(filePointer);
+        var writer = new FileWriter(filePointer);
 
         if (writer.localURL === null || writer.localURL === '') {
             if (errorCallback) {
@@ -78,12 +78,12 @@ FileEntry.prototype.createWriter = function (successCallback, errorCallback) {
  * @param {Function} errorCallback is called with a FileError
  */
 FileEntry.prototype.file = function (successCallback, errorCallback) {
-    const localURL = this.toInternalURL();
-    const win = successCallback && function (f) {
-        const file = new File(f.name, localURL, f.type, f.lastModifiedDate, f.size);
+    var localURL = this.toInternalURL();
+    var win = successCallback && function (f) {
+        var file = new File(f.name, localURL, f.type, f.lastModifiedDate, f.size);
         successCallback(file);
     };
-    const fail = errorCallback && function (code) {
+    var fail = errorCallback && function (code) {
         errorCallback(new FileError(code));
     };
     exec(win, fail, 'File', 'getFileMetadata', [localURL]);

@@ -17,12 +17,12 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- */
+*/
 
 /**
  * Encapsulates all video capture operation configuration options.
  */
-const CaptureVideoOptions = function () {
+var CaptureVideoOptions = function () {
     // Upper limit of videos user can record. Value must be equal or greater than 1.
     this.limit = 1;
     // Maximum duration of a single video clip in seconds.

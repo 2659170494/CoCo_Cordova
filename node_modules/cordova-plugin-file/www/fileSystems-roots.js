@@ -20,18 +20,18 @@
 */
 
 // Map of fsName -> FileSystem.
-let fsMap = null;
-const FileSystem = require('./FileSystem');
-const exec = require('cordova/exec');
+var fsMap = null;
+var FileSystem = require('./FileSystem');
+var exec = require('cordova/exec');
 
 // Overridden by Android, BlackBerry 10 and iOS to populate fsMap.
 require('./fileSystems').getFs = function (name, callback) {
     function success (response) {
         fsMap = {};
-        for (let i = 0; i < response.length; ++i) {
-            const fsRoot = response[i];
+        for (var i = 0; i < response.length; ++i) {
+            var fsRoot = response[i];
             if (fsRoot) {
-                const fs = new FileSystem(fsRoot.filesystemName, fsRoot);
+                var fs = new FileSystem(fsRoot.filesystemName, fsRoot);
                 fsMap[fs.name] = fs;
             }
         }

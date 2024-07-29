@@ -41,6 +41,7 @@
 			<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 			<uses-permission android:name="android.permission.INTERNET" />
 			<uses-permission android:name="android.permission.RECORD_AUDIO" />
+			<uses-permission android:name="android.permission.RECORD_VIDEO" />
 			<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 			<uses-permission android:name="android.permission.SEND_SMS" />
 			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -56,7 +57,7 @@
 			<application android:requestLegacyExternalStorage="true" android:usesCleartextTraffic="true" /><!-- android:networkSecurityConfig="@xml/network_security_config" -->
 		</edit-config>
 		<edit-config file="AndroidManifest.xml" target="/manifest/application/activity/" mode="merge" xmlns:android="http://schemas.android.com/apk/res/android">
-			<activity android:theme="@style/Theme.App.SplashScreen" /> <!-- <activity android:theme="@style/Theme.App.SplashScreen" /> -->
+			<activity android:theme="@style/Theme.App.SplashScreen" android:screenOrientation="portrait" /> <!-- <activity android:theme="@style/Theme.App.SplashScreen" /> --><!-- <activity android:theme="@android:style/Theme.App.SplashScreen" /> -->
 		</edit-config>
 		<config-file target="AndroidManifest.xml" parent="/manifest/application/" xmlns:android="http://schemas.android.com/apk/res/android">
 			<provider

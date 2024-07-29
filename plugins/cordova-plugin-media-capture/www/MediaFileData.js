@@ -17,7 +17,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- */
+*/
 
 /**
  * MediaFileData encapsulates format information of a media file.
@@ -28,7 +28,7 @@
  * @param {long} width
  * @param {float} duration
  */
-const MediaFileData = function (codecs, bitrate, height, width, duration) {
+var MediaFileData = function (codecs, bitrate, height, width, duration) {
     this.codecs = codecs || null;
     this.bitrate = bitrate || 0;
     this.height = height || 0;

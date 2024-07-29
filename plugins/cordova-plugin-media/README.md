@@ -54,6 +54,7 @@ cordova plugin add cordova-plugin-media
 
 - Android
 - iOS
+- Windows
 - Browser
 
 ## Media
@@ -71,8 +72,6 @@ var media = new Media(src, mediaSuccess, [mediaError], [mediaStatus]);
 - __mediaError__: (Optional) The callback that executes if an error occurs. It takes an integer error code. _(Function)_
 
 - __mediaStatus__: (Optional) The callback that executes to indicate status changes. It takes a integer status code. _(Function)_
-
-- __mediaDurationUpdate__: (Optional) the callback that executes when the file's duration updates and is available. _(Function)_
 
 __NOTE__: `cdvfile` path is supported as `src` parameter:
 ```javascript
@@ -235,10 +234,6 @@ var timerDur = setInterval(function() {
     }
 }, 100);
 ```
-
-#### Android Quirk
-
-Newer versions of Android have aggressive routines that limit background processing. If you are trying to get the duration while your app is in the background longer than roughly 5 minutes, you will get more consistent results by using the [`mediaDurationUpdate` callback of the constructor](#parameters). 
 
 ## media.pause
 
@@ -515,6 +510,7 @@ Starts recording an audio file.
 
 - Android
 - iOS
+- Windows
 
 ### Quick Example
 
@@ -568,6 +564,14 @@ To add this entry into the `info.plist`, you can use the `edit-config` tag in th
 </edit-config>
 ```
 
+### Windows Quirks
+
+- Windows devices can use MP3, M4A and WMA formats for recorded audio. However in most cases it is not possible to use MP3 for audio recording on _Windows Phone 8.1_ devices, because an MP3 encoder is [not shipped with Windows Phone](https://msdn.microsoft.com/en-us/library/windows/apps/windows.media.mediaproperties.mediaencodingprofile.createmp3.aspx).
+
+- If a full path is not provided, the recording is placed in the `AppData/temp` directory. This can be accessed via the `File` API using `LocalFileSystem.TEMPORARY` or `ms-appdata:///temp/<filename>` URI.
+
+- Any subdirectory specified at record time must already exist.
+
 ## media.stop
 
 Stops playing an audio file.
@@ -612,6 +616,7 @@ Stops recording an audio file.
 
 - Android
 - iOS
+- Windows
 
 ### Quick Example
 
@@ -651,7 +656,6 @@ Stops recording an audio file.
 ### Supported Platforms
 
 - iOS
-- Android (API 23+)
 
 ### Parameters
 

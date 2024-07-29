@@ -26,10 +26,15 @@ JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK�
 然后执行npm install cordova -g安装cordova到全局。
 不要用npm i cordova 等之类的将cordova安装至项目！
 那会破坏掉项目的node_modules和plugins!
-之后执行cordova platform add android，
+之后执行cordova platform add android@9，
 最后运行cordova build android编译apk即可。
+当然，如果您想要编译最新版的android版本，
+执行 cordova platform remove android
+以及 cordova platform add android
+最后 cordova platform update android
 
-如果编译成功的话，说明您的项目配置已经成功了
+如果编译成功的话，说明您的项目配置已经成功了。
+你可以i通过这个命令检查依赖配置： cordova requirements
 之后您就可以基于本项目开发额外的扩展了，不过在开发之前记得检查一下项目目录的.gitignore
 确认下里面没有你将要会使用的文件夹名字，因为如果它存在里面，那么文件夹和文件将不会被提交到git上。
 

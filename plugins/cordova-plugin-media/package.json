@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-media",
-  "version": "7.0.0",
+  "version": "5.0.4",
   "description": "Cordova Media Plugin",
   "types": "./types/index.d.ts",
   "cordova": {
@@ -8,7 +8,8 @@
     "platforms": [
       "android",
       "browser",
-      "ios"
+      "ios",
+      "windows"
     ]
   },
   "repository": "github:apache/cordova-plugin-media",
@@ -19,7 +20,8 @@
     "ecosystem:cordova",
     "cordova-android",
     "cordova-browser",
-    "cordova-ios"
+    "cordova-ios",
+    "cordova-windows"
   ],
   "scripts": {
     "test": "npm run lint",
@@ -36,17 +38,11 @@
         "cordova-android": ">=6.3.0"
       },
       "6.0.0": {
-        "cordova-android": ">=10.0.0"
-      },
-      "7.0.0": {
-        "cordova-android": ">=12.0.0"
-      },
-      "8.0.0": {
         "cordova": ">100"
       }
     }
   },
   "devDependencies": {
-    "@cordova/eslint-config": "^5.0.0"
+    "@cordova/eslint-config": "^4.0.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-file",
-  "version": "8.0.1",
+  "version": "6.0.2",
   "description": "Cordova File Plugin",
   "types": "./types/index.d.ts",
   "cordova": {
@@ -13,8 +13,13 @@
       "windows"
     ]
   },
-  "repository": "github:apache/cordova-plugin-file",
-  "bugs": "https://github.com/apache/cordova-plugin-file/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apache/cordova-plugin-file"
+  },
+  "bugs": {
+    "url": "https://github.com/apache/cordova-plugin-file/issues"
+  },
   "keywords": [
     "cordova",
     "file",
@@ -26,8 +31,8 @@
     "cordova-windows"
   ],
   "scripts": {
-    "test": "npm run lint",
-    "lint": "eslint ."
+    "test": "npm run eslint",
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
   },
   "author": "Apache Software Foundation",
   "license": "Apache-2.0",
@@ -37,17 +42,17 @@
         "cordova-android": ">=6.3.0"
       },
       "7.0.0": {
-        "cordova-android": ">=10.0.0"
-      },
-      "8.0.0": {
-        "cordova-android": ">=12.0.0"
-      },
-      "9.0.0": {
         "cordova": ">100"
       }
     }
   },
   "devDependencies": {
-    "@cordova/eslint-config": "^5.0.0"
+    "eslint": "^3.19.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

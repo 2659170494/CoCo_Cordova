@@ -19,10 +19,10 @@
  *
 */
 
-const argscheck = require('cordova/argscheck');
-const exec = require('cordova/exec');
-const FileError = require('./FileError');
-const Metadata = require('./Metadata');
+var argscheck = require('cordova/argscheck');
+var exec = require('cordova/exec');
+var FileError = require('./FileError');
+var Metadata = require('./Metadata');
 
 /**
  * Represents a file or directory on the local file system.
@@ -64,14 +64,14 @@ function Entry (isFile, isDirectory, name, fullPath, fileSystem, nativeURL) {
  */
 Entry.prototype.getMetadata = function (successCallback, errorCallback) {
     argscheck.checkArgs('FF', 'Entry.getMetadata', arguments);
-    const success = successCallback && function (entryMetadata) {
-        const metadata = new Metadata({
+    var success = successCallback && function (entryMetadata) {
+        var metadata = new Metadata({
             size: entryMetadata.size,
             modificationTime: entryMetadata.lastModifiedDate
         });
         successCallback(metadata);
     };
-    const fail = errorCallback && function (code) {
+    var fail = errorCallback && function (code) {
         errorCallback(new FileError(code));
     };
     exec(success, fail, 'File', 'getFileMetadata', [this.toInternalURL()]);
@@ -106,19 +106,19 @@ Entry.prototype.setMetadata = function (successCallback, errorCallback, metadata
  */
 Entry.prototype.moveTo = function (parent, newName, successCallback, errorCallback) {
     argscheck.checkArgs('oSFF', 'Entry.moveTo', arguments);
-    const fail = errorCallback && function (code) {
+    var fail = errorCallback && function (code) {
         errorCallback(new FileError(code));
     };
-    const srcURL = this.toInternalURL();
+    var srcURL = this.toInternalURL();
     // entry name
-    const name = newName || this.name;
-    const success = function (entry) {
+    var name = newName || this.name;
+    var success = function (entry) {
         if (entry) {
             if (successCallback) {
                 // create appropriate Entry object
-                const newFSName = entry.filesystemName || (entry.filesystem && entry.filesystem.name);
-                const fs = newFSName ? new FileSystem(newFSName, { name: '', fullPath: '/' }) : new FileSystem(parent.filesystem.name, { name: '', fullPath: '/' });
-                const result = (entry.isDirectory) ? new (require('./DirectoryEntry'))(entry.name, entry.fullPath, fs, entry.nativeURL) : new (require('cordova-plugin-file.FileEntry'))(entry.name, entry.fullPath, fs, entry.nativeURL);
+                var newFSName = entry.filesystemName || (entry.filesystem && entry.filesystem.name);
+                var fs = newFSName ? new FileSystem(newFSName, { name: '', fullPath: '/' }) : new FileSystem(parent.filesystem.name, { name: '', fullPath: '/' }); // eslint-disable-line no-undef
+                var result = (entry.isDirectory) ? new (require('./DirectoryEntry'))(entry.name, entry.fullPath, fs, entry.nativeURL) : new (require('cordova-plugin-file.FileEntry'))(entry.name, entry.fullPath, fs, entry.nativeURL);
                 successCallback(result);
             }
         } else {
@@ -147,20 +147,20 @@ Entry.prototype.moveTo = function (parent, newName, successCallback, errorCallba
  */
 Entry.prototype.copyTo = function (parent, newName, successCallback, errorCallback) {
     argscheck.checkArgs('oSFF', 'Entry.copyTo', arguments);
-    const fail = errorCallback && function (code) {
+    var fail = errorCallback && function (code) {
         errorCallback(new FileError(code));
     };
-    const srcURL = this.toInternalURL();
-    // entry name
-    const name = newName || this.name;
+    var srcURL = this.toInternalURL();
+        // entry name
+    var name = newName || this.name;
     // success callback
-    const success = function (entry) {
+    var success = function (entry) {
         if (entry) {
             if (successCallback) {
                 // create appropriate Entry object
-                const newFSName = entry.filesystemName || (entry.filesystem && entry.filesystem.name);
-                const fs = newFSName ? new FileSystem(newFSName, { name: '', fullPath: '/' }) : new FileSystem(parent.filesystem.name, { name: '', fullPath: '/' });
-                const result = (entry.isDirectory) ? new (require('./DirectoryEntry'))(entry.name, entry.fullPath, fs, entry.nativeURL) : new (require('cordova-plugin-file.FileEntry'))(entry.name, entry.fullPath, fs, entry.nativeURL);
+                var newFSName = entry.filesystemName || (entry.filesystem && entry.filesystem.name);
+                var fs = newFSName ? new FileSystem(newFSName, { name: '', fullPath: '/' }) : new FileSystem(parent.filesystem.name, { name: '', fullPath: '/' }); // eslint-disable-line no-undef
+                var result = (entry.isDirectory) ? new (require('./DirectoryEntry'))(entry.name, entry.fullPath, fs, entry.nativeURL) : new (require('cordova-plugin-file.FileEntry'))(entry.name, entry.fullPath, fs, entry.nativeURL);
                 successCallback(result);
             }
         } else {
@@ -231,7 +231,7 @@ Entry.prototype.toURI = function (mimeType) {
  */
 Entry.prototype.remove = function (successCallback, errorCallback) {
     argscheck.checkArgs('FF', 'Entry.remove', arguments);
-    const fail = errorCallback && function (code) {
+    var fail = errorCallback && function (code) {
         errorCallback(new FileError(code));
     };
     exec(successCallback, fail, 'File', 'remove', [this.toInternalURL()]);
@@ -245,13 +245,13 @@ Entry.prototype.remove = function (successCallback, errorCallback) {
  */
 Entry.prototype.getParent = function (successCallback, errorCallback) {
     argscheck.checkArgs('FF', 'Entry.getParent', arguments);
-    const fs = this.filesystem;
-    const win = successCallback && function (result) {
-        const DirectoryEntry = require('./DirectoryEntry');
-        const entry = new DirectoryEntry(result.name, result.fullPath, fs, result.nativeURL);
+    var fs = this.filesystem;
+    var win = successCallback && function (result) {
+        var DirectoryEntry = require('./DirectoryEntry');
+        var entry = new DirectoryEntry(result.name, result.fullPath, fs, result.nativeURL);
         successCallback(entry);
     };
-    const fail = errorCallback && function (code) {
+    var fail = errorCallback && function (code) {
         errorCallback(new FileError(code));
     };
     exec(win, fail, 'File', 'getParent', [this.toInternalURL()]);

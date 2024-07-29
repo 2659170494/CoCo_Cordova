@@ -3,6 +3,7 @@
 
 这个工程已经帮你把CoCo_Runtime所依赖的插件和环境配置好了。
 您所需要做的就是准备好cordova、AndroidSDK和JAVA，
+如果您已经安装好java,android sdk了，可以直接跳转到下一部分。
 如果你是Linux且是Ubuntu，并且没有安装Java和android sdk的话,
 可以在本目录执行这条命令进行安装啦：chmod 777 install-JDK-Android_SDK.sh && sudo bash install-JDK-Android_SDK.sh
 但是！请不要将Android SDK安装在本项目的目录里！尤其是Codespace!!!
@@ -11,6 +12,12 @@
 而且，这个脚本安装的SDK包会很大，所以个人比较推荐您参照notepad.txt给的教程进行手动安装。
 当然您不嫌弃的话也行。安装完毕后会输出android sdk和java的路径。
 并且在安装过程中脚本也会提示你一些事情，忘了或者没看到可以自己打开脚本文件查看。
+之后执行export ANDROID_SDK_ROOT=<您的android sdk> && export ANDROID_HOME=<您的android sdk>
+将<您的android sdk>替换成您本地安装的android sdk的路径。
+如果您执行过上面的安装脚本，在脚本结束后脚本会有给出它们的路径。
+JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK路径>。
+同样上面的安装脚本有给出.
+
 之后在上面java和android sdk的安装完毕后，
 将coco打包的apk解压出来，把assets/www文件夹覆盖到本项目www文件夹。
 并且删除www文件夹中的cordova.js、cordova_plugins.js、plugins和cordova-js-src.
@@ -19,13 +26,12 @@
 然后执行npm install cordova -g安装cordova到全局。
 不要用npm i cordova 等之类的将cordova安装至项目！
 那会破坏掉项目的node_modules和plugins!
-之后执行export ANDROID_SDK_ROOT=<您的android sdk> && export ANDROID_HOME=<您的android sdk>
-将<您的android sdk>替换成您本地安装的android sdk的路径。
-如果您执行过上面的安装脚本，在脚本结束后脚本会有给出它们的路径。
-JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK路径>。
-同样上面的安装脚本有给出.
 之后执行cordova platform add android，
 最后运行cordova build android编译apk即可。
+
+如果编译成功的话，说明您的项目配置已经成功了
+之后您就可以基于本项目开发额外的扩展了，不过在开发之前记得检查一下项目目录的.gitignore
+确认下里面没有你将要会使用的文件夹名字，因为如果它存在里面，那么文件夹和文件将不会被提交到git上。
 
 本项目暂时为Android 13设计（主要是Cordova-Android指定错了，但是懒得改了），
 主要目标是想向下兼容，如安卓8.0、6.0，

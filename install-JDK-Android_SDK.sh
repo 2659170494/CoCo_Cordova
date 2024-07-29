@@ -78,3 +78,4 @@ sudo rm -rf .temp;
 echo "Install End!";
 echo "You JAVA_HOME is :$JAVA_HOME";
 echo "You ANDROID_SDK_ROOT is :$ANDROID_SDK_ROOT";
+echo "You ANDROID_HOME is :$ANDROID_SDK_ROOT";

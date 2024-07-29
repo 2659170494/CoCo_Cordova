@@ -101,7 +101,8 @@ The aforementioned configurations should be replaced by implementation, runtimeO
 
 目前已知bug：4.e8bfe7ab.chunk.js:2  Uncaught TypeError: Cannot read property 'clientX' of undefined
 
-由于android 10起不再支持全局启动页面，且cordova android 12自带splash。因此cordova-plugin-splashscreen已被启用
+由于android 10起不再支持全局启动页面，且cordova android 12自带splash。
+因此cordova-plugin-splashscreen已被弃用，但仍然会被安装.
 如果您需要这类的启动图，请自行降低cordova-android并对相关插件和配置进行修改
 https://stackoverflow.com/questions/73720590/is-there-a-way-to-still-have-full-screen-splash-images-in-cordova-android-11
 

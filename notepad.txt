@@ -48,6 +48,11 @@ android-27=android-8.0
 android-28=android-9.0
 android-29=android-10.0
 android-30=android-11.0
+android-31=android-12.0
+android-32=android-12.0
+android-33=android-13.0
+android-34=android-14.0
+android-35=android-15.0
 
 Ubuntu 安装java jdk 16：https://blog.csdn.net/phker/article/details/121849172
 sudo add-apt-repository ppa:openjdk-r/ppa 

@@ -67,8 +67,8 @@ module.exports = function(ctx) {
         if (ctx_plugins.indexOf('cordova-plugin-camera') !== -1){
             if (module_version.split(".")[0] !== "9"){
                 needchange_path = "src/android/CordovaUri.java"
-                needchange_ori = "import android.support.v4.app.ActivityCompat;"
-                needchange_new = "import androidx.core.app.ActivityCompat;"
+                needchange_ori = "android.support.v4.content.FileProvider"
+                needchange_new = "androidx.core.content.FileProvider"
                 var platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-camera',needchange_path);
                 var apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-camera',needchange_path);
                 var module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
@@ -78,8 +78,8 @@ module.exports = function(ctx) {
                 fs.writeFileSync(platformRoot, module_java);
                 fs.writeFileSync(apkFileLocation, platform_java);
                 needchange_path = "src/android/CameraLauncher.java"
-                needchange_ori = "import android.support.v4.app.ActivityCompat;"
-                needchange_new = "import androidx.core.app.ActivityCompat;"
+                needchange_ori = "android.support.v4.content.FileProvider"
+                needchange_new = "androidx.core.content.FileProvider"
                 platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-camera',needchange_path);
                 apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-camera',needchange_path);
                 module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
@@ -89,8 +89,8 @@ module.exports = function(ctx) {
                 fs.writeFileSync(platformRoot, module_java);
                 fs.writeFileSync(apkFileLocation, platform_java);
                 needchange_path = "src/android/FileProvider.java"
-                needchange_ori = "import android.support.v4.app.ActivityCompat;"
-                needchange_new = "import androidx.core.app.ActivityCompat;"
+                needchange_ori = "android.support.v4.content.FileProvider"
+                needchange_new = "androidx.core.content.FileProvider"
                 platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-camera',needchange_path);
                 apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-camera',needchange_path);
                 module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});

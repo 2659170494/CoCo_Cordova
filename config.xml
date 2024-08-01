@@ -37,6 +37,7 @@
 		<hook type="after_prepare" src="hooks/stripExtraWriteExternalStoragePerm.js" />
 		<hook type="after_platform_add" src="hooks/install_android9.js" />
 		<hook type="before_build" src="hooks/before_build.js" />
+		<hook type="after_plugin_add" src="hooks/install_plugins.js" />
 		<config-file target="AndroidManifest.xml" parent="/*" xmlns:android="http://schemas.android.com/apk/res/android">
 			<!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" /> -->
 			<!--<uses-permission android:maxSdkVersion="32" android:name="android.permission.READ_EXTERNAL_STORAGE" />-->

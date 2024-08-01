@@ -16,6 +16,7 @@
     "@felicienfrancois/cordova-plugin-stepper": "^1.3.2",
     "cordova-android": "^9.1.0",
     "cordova-ios": "^5.0.0",
+    "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-advanced-http": "^3.3.1",
     "cordova-plugin-advanced-websocket": "^1.1.6",
     "cordova-plugin-android-permissions": "^1.1.5",
@@ -58,7 +59,6 @@
       "cordova-plugin-brightness": {},
       "cordova-plugin-battery-status": {},
       "cordova-plugin-advanced-http": {},
-      "cordova-plugin-qrscanner": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-advanced-websocket": {},
       "cordova-plugin-x-toast": {},
@@ -75,7 +75,8 @@
       "cordova-plugin-media": {
         "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
       },
-      "cordova-plugin-media-capture": {}
+      "cordova-plugin-media-capture": {},
+      "cordova-plugin-qrscanner": {}
     },
     "platforms": [
       "android"

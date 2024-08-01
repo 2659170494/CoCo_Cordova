@@ -4,9 +4,6 @@ const stat = util.promisify(fs.stat);
 const path = require('path');
 
 module.exports = function(ctx) {
-
-    // const platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android');
-    // const apkFileLocation = path.join(platformRoot, 'build/outputs/apk/android-debug.apk');
     try{
         // Make sure android platform is part of build
         if (!ctx.opts.platforms.includes('android')) return "No android";

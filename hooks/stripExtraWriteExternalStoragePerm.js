@@ -27,6 +27,11 @@ module.exports = function(ctx) {
       encoding: 'utf-8'
   });
 
+  const cordova_android_version_path = Path.join(ctx.opts.projectRoot,'node_modules/cordova-android/package.json');
+  let version_json = FS.readFileSync(cordova_android_version_path, {encoding: 'utf-8'});
+  var jsonParsed = JSON.parse(version_json);
+  var module_version = String(jsonParsed["version"].toString());
+  
   // Strips ALL occurrences of <uses-permission android:name="androoid.permission.WRITE_EXTERNAL_STORAGE" />
   // If you have several conflicts (of different maxSDKVersion, or in different formats) then the regex
   // may need to be adjusted, or repeated for each format.
@@ -38,8 +43,10 @@ module.exports = function(ctx) {
   manifest = manifest.replace(/^(\s)+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" \/>$/gm, '')
   manifest = manifest.replace(/^(\s)+<application android:usesCleartextTraffic="true"$/gm, '');
   manifest = manifest.replace(/^(\s)+<application android:hardwareAccelerated="true"$/gm, '<application android:usesCleartextTraffic="true" android:hardwareAccelerated="true"');
-  //manifest = manifest.replace(/^(\s)+android:theme="@style/Theme.App.SplashScreen"$/gm, '');
+  if (module_version.split(".")[0] == "9") manifest = manifest.replace(/^(\s)+android:theme="@style\/Theme.App.SplashScreen"$/gm, '');
+  if (module_version.split(".")[0] == "9") manifest = manifest.replace('android:theme="@style/Theme.App.SplashScreen"','');
   FS.writeFileSync(path, manifest);
+  return "Fix Android Manifest Hook Scucess";
 }catch(err){
   console.log(err);
   throw err;

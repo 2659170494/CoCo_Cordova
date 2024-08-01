@@ -19,7 +19,7 @@ module.exports = function(ctx) {
         //console.log(jsonParsed);
         var module_version = String(jsonParsed["version"].toString());
         //console.log(module_version);
-        if (module_version.split(".")[0] !== "9") return;
+        if (module_version.split(".")[0] !== "9") return "No Cordova_android@9";
         let module_js = fs.readFileSync(java_version_delection_modules, {encoding: 'utf-8'});
         let platform_js = fs.readFileSync(java_version_delection_platform, {encoding: 'utf-8'});
         
@@ -28,6 +28,8 @@ module.exports = function(ctx) {
         
         fs.writeFileSync(java_version_delection_modules, module_js);
         fs.writeFileSync(java_version_delection_platform, platform_js);
+
+        return "Change JAVA version Hook Scucess";
         
         
         // return stat(apkFileLocation).then(stats => {

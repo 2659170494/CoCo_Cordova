@@ -32,6 +32,12 @@ android:name="androidx.core.content.FileProvider"
 ————————————————
 原文链接：https://blog.csdn.net/qq_31877171/article/details/114266592
 
+ General error during semantic analysis: Unsupported class file major version 61:更改您的Java版本到8，怎么改install-JDK-Android_SDK.sh有说:
+ sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/bin/java 1511 ;
+ sudo update-alternatives --install /home/codespace/java/current/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/bin/java 1511 ;
+ sudo update-alternatives --config  java && sudo update-alternatives --config javac
+ 然后选择/usr/lib/jvm/java-8-openjdk-amd64/bin/java和/usr/lib/jvm/java-8-openjdk-amd64/bin/javac，不是/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java ！
+
 cordova 9.0 构建时提示Requirements check failed for JDK 8 如何解决:https://blog.csdn.net/sunwe/article/details/106295073
 因为cordova基于的nodejs，突然想到，所有的提示都应该存在于明文代码。于是一狠心，全项目搜索关键字Requirements check failed for。
 还真就检索到了：

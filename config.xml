@@ -35,6 +35,8 @@
 		<resource-file src="res/screen/android/splash.xml" target="app\src\main\res/screen/android/splash.xml" />
 		<resource-file src="res/xml/network_security_config.xml" target="app\src\main\res/xml/network_security_config.xml" />
 		<hook type="after_prepare" src="hooks/stripExtraWriteExternalStoragePerm.js" />
+		<hook type="after_platform_add" src="hooks/install_android9.js" />
+		<hook type="before_build" src="hooks/before_build.js" />
 		<config-file target="AndroidManifest.xml" parent="/*" xmlns:android="http://schemas.android.com/apk/res/android">
 			<!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" /> -->
 			<!--<uses-permission android:maxSdkVersion="32" android:name="android.permission.READ_EXTERNAL_STORAGE" />-->

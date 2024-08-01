@@ -72,7 +72,9 @@
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-media": {},
+      "cordova-plugin-media": {
+        "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
+      },
       "cordova-plugin-media-capture": {}
     },
     "platforms": [

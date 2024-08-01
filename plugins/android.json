@@ -38,11 +38,20 @@
     "cordova-plugin-device-motion": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
     "cordova-plugin-geolocation": {
       "GPS_REQUIRED": "true",
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-magnetometer": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-media": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-media-capture": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-phone-call": {
@@ -79,15 +88,6 @@
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "@felicienfrancois/cordova-plugin-stepper": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-file": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-media": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-media-capture": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },

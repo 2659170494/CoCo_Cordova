@@ -125,6 +125,46 @@ or config in gradle.properties:
 Note that the compile, runtime, testCompile, and testRuntime configurations introduced by the Java plugin have been deprecated since Gradle 4.10 (Aug 27, 2018), and were finally removed in Gradle 7.0 (Apr 9, 2021).
 The aforementioned configurations should be replaced by implementation, runtimeOnly, testImplementation, and testRuntimeOnly, respectively.
 
+ios-deploy请通过"npm install -g ios-deploy"安装
+
+如果你遇到了执行"pod setup"后cordova依旧无法使用的话
+可以先卸载掉cocoapods然后安装cocoapods@1.7.5
+之后再执行"pod setup",这将会让它从github下载依赖下载
+大约会占用2G左右,流量1G.安装前确保您有足够空间和流量(你知道我指的是哪个流量的(嗯)).
+安装完成后,就可以卸载掉cocoapods@1.7.5
+然后再安装最新版本,安装完成后再执行"pod setup"后一般就能用了.
+
+如果你遇上了"Command failed with exit code 1: pod --version"
+那么你可以试试:gem install ffi cocoapods && sudo gem install ffi cocoapods 
+如果你是arm电脑,试试:arch -x86_64 gem install ffi cocoapods && sudo arch -x86_64 gem install ffi cocoapods 
+
+关于"pod install --verbose"报错这件事[
+    '如果你遇上报错信息包含:(mach-o file, but is an incompatible architecture (have (arm64), need (x86_64h)))
+    那么你可以在项目根目录里试试:sudo gem uninstall ffi&& sudo gem install ffi 
+    如果你是arm电脑,试试:sudo gem uninstall ffi && sudo arch -x86_64 gem install ffi 
+    这两条指令可能会帮助到您,如果不能,试试提issue或者联系我试试能不能解决(本人mac设备是2015年的mac air)
+    ',
+
+    '如果遇到了报错信息包含:Could not find 'ffi' (>= 1.15.0) among 96 total gem(s) (Gem::MissingSpecError)
+    那么你可以试试:sudo gem install ffi 
+    如果你是arm电脑,试试:sudo arch -x86_64 gem install ffi 
+    ',
+
+    '如果你遇上了报错信息包含:REXML::ParseException - #<TypeError: wrong argument type String (expected Regexp)>
+    可以查看这些网址:
+    https://github.com/CocoaPods/CocoaPods/issues/12433
+    https://github.com/CocoaPods/CocoaPods/issues/12392#issuecomment-2178749668
+    https://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/
+    大概地情况就是,这个问题会发生在你用的是系统自带的ruby或你在用arm电脑上
+    你可以通过这些网址学会怎么正确安装ruby
+    简单来讲,命令就是这些.输入完成后如果安装成功了重启终端即可:
+    brew install chruby ruby-install
+    ruby-install ruby
+    echo "source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh" >> ~/.zshrc
+    echo "source $(brew --prefix)/opt/chruby/share/chruby/auto.sh" >> ~/.zshrc
+    echo "chruby ruby-3.3.4" >> ~/.zshrc
+    ']
+
 关于config.xml/plugin.xml修改AndroidManifest注意：
 如果你在plugin.xml或config.xml使用了 config-file或edit-config等类似参数
 若要删除它们的话，在config.xml/plugin.xml删除了的同时，

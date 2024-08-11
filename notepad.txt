@@ -165,6 +165,12 @@ ios-deploy请通过"npm install -g ios-deploy"安装
     echo "chruby ruby-3.3.4" >> ~/.zshrc
     ']
 
+如果你在xcode调试的时候遇到了:'SocketRocket/SocketRocket.h' file not found
+在项目根目录的platforms/ios中执行下"pod install"即可
+如果还是不行
+那么你一定打开的是.xcodeproj而不是.xcworkspace
+打开.xcworkspace文件才是
+
 关于config.xml/plugin.xml修改AndroidManifest注意：
 如果你在plugin.xml或config.xml使用了 config-file或edit-config等类似参数
 若要删除它们的话，在config.xml/plugin.xml删除了的同时，

@@ -24,6 +24,7 @@
     "cordova-plugin-brightness": "^0.2.0",
     "cordova-plugin-calltrap": "^0.0.4",
     "cordova-plugin-camera": "^4.1.0",
+    "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-contacts": "^3.0.1",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-device-motion": "^2.0.1",
@@ -78,7 +79,8 @@
       "cordova-plugin-qrscanner": {},
       "cordova-plugin-camera": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      },
+      "cordova-plugin-console": {}
     },
     "platforms": [
       "android",

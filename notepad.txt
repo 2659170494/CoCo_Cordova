@@ -125,8 +125,6 @@ or config in gradle.properties:
 Note that the compile, runtime, testCompile, and testRuntime configurations introduced by the Java plugin have been deprecated since Gradle 4.10 (Aug 27, 2018), and were finally removed in Gradle 7.0 (Apr 9, 2021).
 The aforementioned configurations should be replaced by implementation, runtimeOnly, testImplementation, and testRuntimeOnly, respectively.
 
-ios-deploy请通过"npm install -g ios-deploy"安装
-
 如果你遇到了执行"pod setup"后cordova依旧无法使用的话
 可以先卸载掉cocoapods然后安装cocoapods@1.7.5
 之后再执行"pod setup",这将会让它从github下载依赖下载
@@ -170,6 +168,11 @@ ios-deploy请通过"npm install -g ios-deploy"安装
 如果还是不行
 那么你一定打开的是.xcodeproj而不是.xcworkspace
 打开.xcworkspace文件才是
+
+ios项目还额外安装了ios-sim、ios-deploy和cordova-plugin-console
+ios-sim可以通过"sudo npm install -g ios-sim"安装
+cordova-plugin-console可以通过"cordova plugin add cordova-plugin-console"
+ios-deploy请通过"npm install -g ios-deploy"安装
 
 关于config.xml/plugin.xml修改AndroidManifest注意：
 如果你在plugin.xml或config.xml使用了 config-file或edit-config等类似参数

@@ -26,6 +26,10 @@
     "cordova-plugin-calltrap": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
     "cordova-plugin-contacts": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
@@ -86,11 +90,11 @@
     },
     "cordova-plugin-qrscanner": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-camera": {
-      "ANDROID_SUPPORT_V4_VERSION": "27.+",
-      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-add-swift-support": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    }
+  }
 }

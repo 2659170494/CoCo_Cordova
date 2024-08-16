@@ -39,10 +39,10 @@ module.exports = function(ctx) {
                 needchange_path = "src/android/QRScanner.java"
                 needchange_ori = "import android.support.v4.app.ActivityCompat;"
                 needchange_new = "import androidx.core.app.ActivityCompat;"
-                const platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-qrscanner',needchange_path);
-                const apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-qrscanner',needchange_path);
-                let module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
-                let platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-qrscanner',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-qrscanner',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
                 module_java = module_java.replace(needchange_ori,needchange_new)
                 platform_java = platform_java.replace(needchange_ori,needchange_new)
                 fs.writeFileSync(platformRoot, module_java);
@@ -50,6 +50,31 @@ module.exports = function(ctx) {
                 needchange_path = "src/android/qrscanner.gradle"
                 needchange_ori = "compile 'com.journeyapps:zxing-android-embedded:3.3.0'"
                 needchange_new = "implementation 'com.journeyapps:zxing-android-embedded:3.3.0'"
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-qrscanner',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-qrscanner',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                module_java = module_java.replace("compile 'com.android.support:appcompat-v7:23.1.0'","implementation 'com.android.support:appcompat-v7:23.1.0'")
+                platform_java = platform_java.replace("compile 'com.android.support:appcompat-v7:23.1.0'","implementation 'com.android.support:appcompat-v7:23.1.0'")
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+            }else{
+                needchange_path = "src/android/QRScanner.java"
+                needchange_new = "import android.support.v4.app.ActivityCompat;"
+                needchange_ori = "import androidx.core.app.ActivityCompat;"
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-qrscanner',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-qrscanner',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+                needchange_path = "src/android/qrscanner.gradle"
+                needchange_new = "compile 'com.journeyapps:zxing-android-embedded:3.3.0'"
+                needchange_ori = "implementation 'com.journeyapps:zxing-android-embedded:3.3.0'"
                 platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-qrscanner',needchange_path);
                 apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-qrscanner',needchange_path);
                 module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
@@ -91,6 +116,40 @@ module.exports = function(ctx) {
                 needchange_path = "src/android/FileProvider.java"
                 needchange_ori = "android.support.v4.content.FileProvider"
                 needchange_new = "androidx.core.content.FileProvider"
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-camera',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-camera',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+            }else{
+                needchange_path = "src/android/CordovaUri.java"
+                needchange_new = "android.support.v4.content.FileProvider"
+                needchange_ori = "androidx.core.content.FileProvider"
+                var platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-camera',needchange_path);
+                var apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-camera',needchange_path);
+                var module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                var platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+                needchange_path = "src/android/CameraLauncher.java"
+                needchange_new = "android.support.v4.content.FileProvider"
+                needchange_ori = "androidx.core.content.FileProvider"
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-camera',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-camera',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+                needchange_path = "src/android/FileProvider.java"
+                needchange_new = "android.support.v4.content.FileProvider"
+                needchange_ori = "androidx.core.content.FileProvider"
                 platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-camera',needchange_path);
                 apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-camera',needchange_path);
                 module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});

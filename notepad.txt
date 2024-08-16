@@ -196,7 +196,7 @@ ios-deploy请通过"npm install -g ios-deploy"安装
 关于修改插件的内容：
 不仅仅需要更改plugins里的插件，还需要更改node_modules和platforms文件夹里的插件
 
-目前已知bug：4.e8bfe7ab.chunk.js:2  Uncaught TypeError: Cannot read property 'clientX' of undefined
+目前已知bug：[‘4.e8bfe7ab.chunk.js:2  Uncaught TypeError: Cannot read property 'clientX' of undefined’,‘cannot find symbol import org.apache.cordova.BuildConfig;’]
 
 由于android 10起不再支持全局启动页面，且cordova android 12自带splash。
 因此cordova-plugin-splashscreen已被弃用，但仍然会被安装.

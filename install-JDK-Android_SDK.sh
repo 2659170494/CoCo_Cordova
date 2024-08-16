@@ -73,7 +73,8 @@ export ANDROID_SDK_ROOT=$(cd $now_file_path;cd ./build-tools/android-sdk ;pwd) ;
 sudo echo "export ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT">>/etc/profile|source /etc/profile;
 echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT";
 cd $ANDROID_SDK_ROOT/cmdline-tools/tools/bin;
-sudo bash sdkmanager "platforms;android-29" "platforms;android-33" "build-tools;34.0.0" "build-tools;33.0.2" "build-tools;29.0.2" "build-tools;30.0.3" "extras;google;m2repository" "extras;android;m2repository";
+sudo bash sdkmanager "platforms;android-29" "platforms;android-33" "build-tools;34.0.0" "extras;google;m2repository" "extras;android;m2repository";
+#↑also you can install "build-tools;33.0.2" "build-tools;29.0.2" "build-tools;30.0.3" 
 #↑install android sdk
 #↓install JDK 8 
 echo "install openjdk-8-jdk"

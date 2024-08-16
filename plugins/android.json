@@ -30,6 +30,9 @@
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
     "cordova-plugin-contacts": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
@@ -56,6 +59,9 @@
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-phone-call": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-qrscanner": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-screen-orientation": {
@@ -86,9 +92,6 @@
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "@felicienfrancois/cordova-plugin-stepper": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-qrscanner": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },

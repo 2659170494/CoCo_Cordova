@@ -18,6 +18,21 @@ import androidx.appcompat.app.AppCompatActivity;
 ————————————————
 原文链接：https://blog.csdn.net/hzhnzmyz/article/details/109570216
 
+如果您遇上了:Source directory does not exist: /workspaces/CoCo_Cordova/node_modules/cordova-android/bin/templates/platform_www
+那么您需要先cordova platform rm android
+然后再cordova platform add android(自行制定您想安装的版本).
+这么做是为了刷新项目
+
+如果您遇上了:Unable to make field private final java.lang.String java.io.File.path accessible: module java.base does not "opens java.io" to unnamed module @5646e38c
+请将您系统的java环境更改为1.8
+如果您使用了自动脚本,codespace下只要执行:sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/bin/java 1511 ;sudo update-alternatives --install /home/codespace/java/current/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/bin/java 1511 ;sudo update-alternatives --config  java && sudo update-alternatives --config javac
+然后选择/usr/lib/jvm/java-8-openjdk-amd64/bin/java和/usr/lib/jvm/java-8-openjdk-amd64/bin/javac，不是/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java ！
+
+如果您遇上了:No matching variant of com.android.tools.build:gradle:8.3.0 was found. The consumer was configured to find a library for use during runtime, compatible with Java 8, packaged as a jar, and its dependencies declared externally, as well as attribute 'org.gradle.plugin.api-version' with value '8.7'
+请将您系统的java环境更改为17(一般情况下java11都行,但是本人只有在17下进行过测试和开发)
+如果您使用了自动脚本,codespace下只要执行:sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 1511 && sudo update-alternatives --install /home/codespace/java/current/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 1511 ;sudo update-alternatives --config  java && sudo update-alternatives --config javac;
+然后选择'/usr/lib/jvm/java-17-openjdk-amd64/bin/java' 即可
+
 cordova-plugin-stepper插件必须是@felicienfrancois\cordova-plugin-stepper
 
 coco辨别web与android的方法是检测UserAgent字符串是否有Cordova
@@ -33,9 +48,7 @@ android:name="androidx.core.content.FileProvider"
 原文链接：https://blog.csdn.net/qq_31877171/article/details/114266592
 
  General error during semantic analysis: Unsupported class file major version 61:更改您的Java版本到8，怎么改install-JDK-Android_SDK.sh有说:
- sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/bin/java 1511 ;
- sudo update-alternatives --install /home/codespace/java/current/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/bin/java 1511 ;
- sudo update-alternatives --config  java && sudo update-alternatives --config javac
+ 如果您使用了自动脚本,codespace下只要执行:sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/bin/java 1511 ;sudo update-alternatives --install /home/codespace/java/current/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/bin/java 1511 ;sudo update-alternatives --config  java && sudo update-alternatives --config javac
  然后选择/usr/lib/jvm/java-8-openjdk-amd64/bin/java和/usr/lib/jvm/java-8-openjdk-amd64/bin/javac，不是/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java ！
 
 cordova 9.0 构建时提示Requirements check failed for JDK 8 如何解决:https://blog.csdn.net/sunwe/article/details/106295073

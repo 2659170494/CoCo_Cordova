@@ -29,9 +29,11 @@ JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK�
 不要用npm i cordova 等之类的将cordova安装至项目！
 那会破坏掉项目的node_modules和plugins!
 如果您破坏了,请重新"git reset --hard"或克隆本项目一遍.
-之后执行cordova platform add android@9，
+之后确认您的JDK版本为1.8之后,
+执行cordova platform add android@9，
 最后运行cordova build android编译apk即可。
 当然，如果您想要编译最新版的android版本，
+确认您的JDK版本为11以上(建议JDK17,本人仅在该版本下测试并开发)之后,
 执行 cordova platform remove android
 以及 cordova platform add android
 最后 cordova platform update android

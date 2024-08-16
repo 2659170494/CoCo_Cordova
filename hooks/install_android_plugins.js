@@ -156,6 +156,136 @@ function cordova_plugin_camera(module_version,ctx){
     }
 }
 
+function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
+    if (module_version.split(".")[0] !== "9"){
+        needchange_path = "src/android/AppUpdatedReceiver.java"
+        needchange_ori = "import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/BootReceiver.java"
+        needchange_ori = "import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/SensorListener.java"
+        needchange_ori = "import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+        
+        needchange_path = "src/android/SensorListener.java"
+        needchange_ori = `if (BuildConfig.DEBUG) {
+			if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1)
+				return; // emulator
+		}`
+        needchange_new = `/**if(BuildConfig.DEBUG){if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1){return; // emulator}}*/`
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/Database.java"
+        needchange_ori = "import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+    }else{
+        needchange_path = "src/android/AppUpdatedReceiver.java"
+        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/BootReceiver.java"
+        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/SensorListener.java"
+        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+        
+        needchange_path = "src/android/SensorListener.java"
+        needchange_ori = `/**if(BuildConfig.DEBUG){if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1){return; // emulator}}*/`
+        needchange_new = `if (BuildConfig.DEBUG) {
+			if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1)
+				return; // emulator
+		}`
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/Database.java"
+        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+    }
+}
+
 module.exports = function(ctx) {
     try{
         const ctx_plugins = ctx.opts.plugins
@@ -172,6 +302,9 @@ module.exports = function(ctx) {
         console.log(ctx_plugins)
         if (ctx_plugins.indexOf('cordova-plugin-camera') !== -1){
             cordova_plugin_camera(module_version,ctx)
+        }
+        if (ctx_plugins.indexOf('@felicienfrancois/cordova-plugin-stepper') !== -1){
+            felicienfrancois_cordova_plugin_stepper(module_version,ctx)
         }
     }catch(err){
         console.log(err);

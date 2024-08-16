@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 如果您遇上了:No matching variant of com.android.tools.build:gradle:8.3.0 was found. The consumer was configured to find a library for use during runtime, compatible with Java 8, packaged as a jar, and its dependencies declared externally, as well as attribute 'org.gradle.plugin.api-version' with value '8.7'
 请将您系统的java环境更改为17(一般情况下java11都行,但是本人只有在17下进行过测试和开发)
+造成这个原因主要是android sdk的build tools自从34.0.0就开始强制使用jdk11以上了
 如果您使用了自动脚本,codespace下只要执行:sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 1511 && sudo update-alternatives --install /home/codespace/java/current/bin/java java /usr/lib/jvm/java-17-openjdk-amd64/bin/java 1511 ;sudo update-alternatives --config  java && sudo update-alternatives --config javac;
 然后选择'/usr/lib/jvm/java-17-openjdk-amd64/bin/java' 即可
 
@@ -74,6 +75,7 @@ module.exports.run = function () {
         }
     });
 （实际上这个地方已经改了，修改成变量了，这个变量位置在开头且是：const EXPECTED_JAVA_VERSION = '1.8.x';）
+ (如果您遇到了这个问题,直接到项目根目录下的hooks目录的install_android9.js中将java版本变量设置成您自己的即可,在您编译的时候脚本会自己修改)
 看到了这个1.8的判断条件，同时根据check_java方法也可以明确为判断java环境。于是把“1.8.”直接改成了“11.”,再次编译顺利通过。
 后记：
 首先我是不推荐任意更改依赖框架源码的，这样不但会影响框架后续更新，也会造成一些未知异常。但没办法，此处仅作为临时解决方案。
@@ -196,7 +198,7 @@ ios-deploy请通过"npm install -g ios-deploy"安装
 关于修改插件的内容：
 不仅仅需要更改plugins里的插件，还需要更改node_modules和platforms文件夹里的插件
 
-目前已知bug：[‘4.e8bfe7ab.chunk.js:2  Uncaught TypeError: Cannot read property 'clientX' of undefined’,‘cannot find symbol import org.apache.cordova.BuildConfig;’]
+目前已知bug：[‘4.e8bfe7ab.chunk.js:2  Uncaught TypeError: Cannot read property 'clientX' of undefined’]
 
 由于android 10起不再支持全局启动页面，且cordova android 12自带splash。
 因此cordova-plugin-splashscreen已被弃用，但仍然会被安装.

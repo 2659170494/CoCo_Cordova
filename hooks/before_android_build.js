@@ -97,6 +97,96 @@ function camera(module_version,ctx){
     }
 }
 
+function step(module_version,ctx){
+    if (module_version.split(".")[0] !== "9"){
+        needchange_path = "src/main/java/org/apache/cordova/stepper/AppUpdatedReceiver.java"
+        needchange_ori = "import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        var platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        var module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+
+        needchange_path = "src/main/java/org/apache/cordova/stepper/BootReceiver.java"
+        needchange_ori = "import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+
+        needchange_path = "src/main/java/org/apache/cordova/stepper/SensorListener.java"
+        needchange_ori = "import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        
+        needchange_path = "src/main/java/org/apache/cordova/stepper/SensorListener.java"
+        needchange_ori = `if (BuildConfig.DEBUG) {
+			if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1)
+				return; // emulator
+		}`
+        needchange_new = `/**if(BuildConfig.DEBUG){if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1){return; // emulator}}*/`
+        platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+
+        needchange_path = "src/main/java/org/apache/cordova/stepper/Database.java"
+        needchange_ori = "import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+    }else{
+        needchange_path = "src/main/java/org/apache/cordova/stepper/AppUpdatedReceiver.java"
+        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "import org.apache.cordova.BuildConfig;"
+        var platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        var module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+
+        needchange_path = "src/main/java/org/apache/cordova/stepper/BootReceiver.java"
+        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+
+        needchange_path = "src/main/java/org/apache/cordova/stepper/SensorListener.java"
+        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        
+        needchange_path = "src/main/java/org/apache/cordova/stepper/SensorListener.java"
+        needchange_ori = `/**if(BuildConfig.DEBUG){if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1){return; // emulator}}*/`
+        needchange_new = `if (BuildConfig.DEBUG) {
+			if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1)
+				return; // emulator
+		}`
+        platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+
+        needchange_path = "src/main/java/org/apache/cordova/stepper/Database.java"
+        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "import org.apache.cordova.BuildConfig;"
+        platformRoot = path.join(ctx.opts.projectRoot, 'platforms/android/app/',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+    }
+}
+
 module.exports = function(ctx) {
     try{
         // Make sure android platform is part of build
@@ -127,6 +217,7 @@ module.exports = function(ctx) {
         fs.copyFile(path.join(android_sdk_buildtool_new_path,"lib/d8.jar"),path.join(android_sdk_buildtool_new_path,"lib/dx.jar"),(err)=>{if (err){console.log(err)}})
         qrscan(module_version,ctx)
         camera(module_version,ctx)
+        step(module_version,ctx)
         return "Fix Android Sdk Buildtools DX Scucess";
         // return stat(apkFileLocation).then(stats => {
         //   console.log(`Size of ${apkFileLocation} is ${stats.size} bytes`);

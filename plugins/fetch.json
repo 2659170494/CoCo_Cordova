@@ -207,6 +207,14 @@
     "is_top_level": false,
     "variables": {}
   },
+  "cordova-plugin-qrscanner": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-qrscanner"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
   "cordova-plugin-camera": {
     "source": {
       "type": "registry",
@@ -215,10 +223,10 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-qrscanner": {
+  "cordova-plugin-console": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-qrscanner"
+      "id": "cordova-plugin-console"
     },
     "is_top_level": true,
     "variables": {}

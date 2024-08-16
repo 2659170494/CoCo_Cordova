@@ -1,0 +1,1 @@
+export ANDROID_SDK_ROOT=/workspaces/CoCo_Cordova/build-tools/android-sdk && export ANDROID_HOME=/workspaces/CoCo_Cordova/build-tools/android-sdk

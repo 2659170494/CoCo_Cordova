@@ -21,6 +21,7 @@ module.exports = function(ctx) {
     FS.writeFileSync(path1, manifest1,(error)=>{if(error){console.log(error);};console.log("OK");});
   });
   **/
+  // console.log(ctx);
   let path = Path.resolve('platforms/android/app/src/main/AndroidManifest.xml');
 
   let manifest = FS.readFileSync(path, {

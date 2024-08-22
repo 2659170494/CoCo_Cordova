@@ -188,6 +188,7 @@ function step(module_version,ctx){
 }
 
 module.exports = function(ctx) {
+    // console.log(ctx);
     try{
         // Make sure android platform is part of build
         if (!ctx.opts.platforms.includes('android')) return "No android";

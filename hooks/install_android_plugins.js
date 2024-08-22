@@ -287,6 +287,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
 }
 
 module.exports = function(ctx) {
+    // console.log(ctx);
     try{
         const ctx_plugins = ctx.opts.plugins
         const cordova_android_version_path = path.join(ctx.opts.projectRoot,'node_modules/cordova-android/package.json');

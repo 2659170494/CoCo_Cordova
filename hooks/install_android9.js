@@ -5,7 +5,7 @@ const path = require('path');
 
 module.exports = function(ctx) {
     try{
-
+        // console.log(ctx);
         java_version = "11.x"
 
         // Make sure android platform is part of build

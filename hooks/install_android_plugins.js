@@ -23,6 +23,27 @@ const path = require('path');
   cmdLine: '/usr/local/share/nvm/versions/node/v20.15.1/bin/node /home/codespace/nvm/current/bin/cordova plugin add cordova-plugin-qrscanner',
   scriptLocation: '/workspaces/CoCo_Cordova/hooks/install_plugins.js'
 } */
+/**Context {
+  hook: 'after_platform_add',
+  opts: {
+    searchpath: undefined,
+    noregistry: undefined,
+    nohooks: undefined,
+    cli_variables: {},
+    link: false,
+    save: true,
+    save_exact: false,
+    shrinkwrap: false,
+    force: false,
+    production: true,
+    platforms: [ 'android@9' ],
+    projectRoot: '/workspaces/CoCo_Cordova',
+    cordova: { platforms: [Array], plugins: [Array], version: '12.0.1' }
+  },
+  cmdLine: '/usr/local/share/nvm/versions/node/v20.15.1/bin/node /home/codespace/nvm/current/bin/cordova platform add android@9',
+  scriptLocation: '/workspaces/CoCo_Cordova/hooks/install_android_plugins.js'
+}
+ */
 
 function cordova_plugin_qrscanner(module_version,ctx){
     if (module_version.split(".")[0] !== "9"){
@@ -287,9 +308,13 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
 }
 
 module.exports = function(ctx) {
-    // console.log(ctx);
+    console.log(ctx);
     try{
-        const ctx_plugins = ctx.opts.plugins
+        if(ctx.hook =="after_platform_add"){
+            var ctx_plugins = ['cordova-plugin-qrscanner','cordova-plugin-camera','@felicienfrancois/cordova-plugin-stepper'];
+        }else{
+            var ctx_plugins = ctx.opts.plugins;
+        }
         const cordova_android_version_path = path.join(ctx.opts.projectRoot,'node_modules/cordova-android/package.json');
         let version_json = fs.readFileSync(cordova_android_version_path, {encoding: 'utf-8'});
         var jsonParsed = JSON.parse(version_json);

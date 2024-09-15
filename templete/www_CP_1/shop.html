@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CP 控件商城</title>
+
+    <link rel="stylesheet" href="./shop_assets/style.css">
+    <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script>
+    <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script>
+    <script src="./shop_assets/pgdbsUser_493e5217e2fc89a3e7a136454277a57b0cd6dc470c6de04e8833b6c239be1efb.js"></script>
+    <script src="./shop_assets/jquery.min.js"></script>
+</head>
+<script src="./shop_assets/sober.min.js"></script>
+
+<body>
+<div class="container">
+    <img src="https://cp.cocotais.cn/assets/6630359a19.png" alt="LOGO" width="50px" style="margin-top: 24px;">
+    <h1 style="margin: 0px; margin-top: 12px; color: #225be0; font-size: 30px;">CP 控件商城</h1>
+    <p style="margin: 16px; margin-top: 8px; text-align: center;">欢迎来到 CP 控件商城<br>这里有许多（并不）优秀的第三方控件供您选择
+    </p>
+    <div style="gap: 8px; display: flex; margin-bottom: 8px;">
+        <input type="file" single id="uploadinput" style="display: none;" accept=".js,.jsx" onchange="getFileName()">
+        <s-dialog style="border-radius: 12px; background-color: white;">
+            <s-button slot="trigger" style="        
+            width: auto;
+            height: 32px;   
+            border: 1px solid #225be0;
+            color: #225be0;    
+            padding-left: 0px;
+            margin-right:0px;
+            border-radius: 10px;
+            padding: 6px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: white;"> 上传控件
+            </s-button>
+            <div slot="headline"> 上传控件</div>
+            <div slot="text"
+                 style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <s-text-field style="--border-radius: 12px;--padding: 16px; margin-bottom: 12px;" label="作者名称">
+                    <input type="text" style="min-height: 24px; min-width: 470px;" id="w-uesr">
+                </s-text-field>
+                <s-text-field style="--border-radius: 12px;--padding: 16px; margin-bottom: 12px;" label="控件名称">
+                    <input type="text" style="min-height: 32px; min-width: 470px;" id="w-name">
+                </s-text-field>
+                <s-text-field label="控件介绍" style="margin-top: 4px; --border-radius: 12px; margin-bottom: 16px;">
+                    <textarea style="min-height: 120px; min-width: 470px;" id="w-content"></textarea>
+                </s-text-field>
+                <input type="file" style="min-height: 32px; min-width: 460px; display: none;" id="imginput"
+                       accept="image/*" onchange="uploadimg()">
+                <label for="imginput">
+                    <s-button style="
+                width: 470px;
+                height: 32px;   
+                border: 1px solid #225be0;
+                color: #225be0;    
+                padding-left: 0px;
+                border-radius: 10px;
+                padding: 6px;
+                padding-left: 10px;
+                padding-right: 10px;
+                background-color: white;
+                font-size: 14px;
+                " id="imgfilename">点击选择封面
+                    </s-button>
+                </label>
+
+            </div>
+            <label for="uploadinput" slot="action"
+                   style="margin-top: 4px; margin-right: 200px;  margin-bottom: 24px; display: flex; flex-direction: column;">
+                <p style="text-align: start;margin-top: 0px; margin-bottom: 4px; width: auto; font-size: 14px;"
+                   id="fileName"></p>
+                <s-button style="
+                width: auto;
+                height: 32px;   
+                border: 1px solid #225be0;
+                color: #225be0;    
+                padding-left: 0px;
+                margin-right: 8px;
+                border-radius: 10px;
+                padding: 6px;
+                padding-left: 10px;
+                padding-right: 10px;
+                background-color: white;
+                " onclick="event.stopPropagation()">选择控件文件
+                </s-button>
+
+            </label>
+
+            <s-button slot="action" type="text" style="color: black;">取消</s-button>
+            <s-button slot="action" type="text"
+                      style="background-color: #225be0; color: white; margin-left: 8px; margin-right: 8px;"
+                      onclick="upload()">上传
+            </s-button>
+        </s-dialog>
+
+        <button style="
+        width: auto;
+        display: none;
+        height: 32px;   
+        border: 1px solid #e07e22;
+        color: #e07e22;    
+        padding-left: 0px;
+        margin-right:5px;
+        border-radius: 10px;
+        padding: 6px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: white;
+        ">我的控件
+        </button>
+        <s-dialog style="
+        background-color: white;
+        ">
+            <s-button slot="trigger" style="
+            width: auto;
+            height: 32px;   
+            border: 1px solid #e0225b;
+            color: #e0225b;    
+            padding-left: 0px;
+            margin-right:0px;
+            border-radius: 10px;
+            padding: 6px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: white;
+          "> 导入方法
+            </s-button>
+            <div slot="headline"> 如何导入控件到编辑器中</div>
+            <div slot="text">
+                1.选择你想要的控件，点击“复制链接”按钮，自动复制控件链接。<br>
+                2.到CP编辑器中，左上角点击“导入自定义控件”按钮，在下方“文件名(N):”后面的输入框，直接粘贴控件链接，确定导入。<br>
+                3.导入完毕，CP编辑器上方会弹出成功提示框，如未成功，可能是控件bug或文件链接失效，可在CP官方群反馈。<br>
+            </div>
+            <s-button slot="action" type="text" style="background-color: #225be0; color: white;">确定</s-button>
+        </s-dialog>
+    </div>
+    <div>
+        <span style="font-size: 15px; margin-right: 6px;">最近更新：<span style="color: #225be0; font-weight: 900;">2024-8-23</span>  总数：<span
+                id="count" style="color: #225be0; font-weight: 900;">0</span> 个</span>
+    </div>
+
+</div>
+<div class="card">
+    <div class="content" id="content">
+
+    </div>
+</div>
+<script>
+    // //这里是复制链接的逻辑（）
+    // function copyBtn() {
+    //     const btn = document.querySelector('#copyBtn');
+    //     const input = document.createElement('input');
+    //     document.body.appendChild(input);
+    //     input.setAttribute('value', 'https://static.codemao.cn/pickduck/rJyQDgUjA.js?hash=FoC-TbrOzfHsuyJRRbuk0Vr2NyjH');
+    //     input.select();
+    //     if (document.execCommand('copy')) {
+    //         document.execCommand('copy');
+    //         console.log('复制成功');
+    //     }
+    //     document.body.removeChild(input);
+    //     btn.innerText = '复制成功';
+    //     setTimeout(() => btn.innerText = '复制链接', 1000);
+    // }
+</script>
+<script>
+    let url;
+    let imgurl;
+
+    function getFileName() {
+        var div = document.getElementById("fileName");
+        var file = document.getElementById("uploadinput").files[0];
+        var fileName1 = file.name;
+        div.innerText = fileName1;
+    }
+
+    function uploadimg() {
+        var div = document.getElementById("imgfilename");
+        var file = document.getElementById("imginput").files[0];
+        var fileName1 = file.name;
+        div.innerText = fileName1;
+
+        var fileInput = document.getElementById('imginput');
+        var myHeaders = new Headers();
+
+        var formdata = new FormData();
+        formdata.append("file", imginput.files[0]);
+        formdata.append("path", "bcx");
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+// 修改 fetch 请求中的 then 方法的括号
+        fetch("https://api.pgaot.com/user/up_cat_file", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                const data = JSON.parse(result);
+
+                // 提取 url 的值
+                imgurl = data.url;
+
+            })
+            .catch(error => console.log('error', error));
+    }
+
+    function upload() {
+        var fileInput = document.getElementById('uploadinput');
+        var myHeaders = new Headers();
+
+        var formdata = new FormData();
+        formdata.append("file", uploadinput.files[0]);
+        formdata.append("path", "bcx");
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+// 修改 fetch 请求中的 then 方法的括号
+        fetch("https://api.pgaot.com/user/up_cat_file", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                const data = JSON.parse(result);
+
+                // 提取 url 的值
+                url = data.url;
+
+                // 打印 url
+                console.log(url);
+                var name = document.getElementById("w-name").value;
+                var img = imgurl;
+                var content = document.getElementById("w-content").value;
+                var uesr = document.getElementById("w-uesr").value;
+                var result = url;
+
+                var table1 = new pgdbs(dbs_493e5217e2fc89a3e7a136454277a57b0cd6dc470c6de04e8833b6c239be1efb);
+
+                // 修改字符串构建
+                // 构建 SQL 值字符串
+                let a = `("${img}","${name}","${content}","${result}","${uesr}")`
+                // 构建 setTableData 对象
+                table1.setTableData({
+                    type: 'INSERT',
+                    fields: `${a}`, // 列名
+                    filter: 'WIMG,WNAME,WCONTENT,WLINK,WUESR', // 值
+                    id: "setTableData",
+                });
+            })
+            .catch(error => console.log('error', error));
+
+
+        table1.onGetData((json, id, url) => {
+            alert(JSON.stringify(json));
+        });
+
+    }
+
+
+</script>
+
+<script>
+    //channel 通信
+    const cp_channel = new BroadcastChannel("CP_CHANNEL");
+
+
+    //实例化
+    function addWidget(widget_link, widget_name) {
+        console.log(widget_link);
+        fetch(widget_link).then(async (response) => {
+            const text = await response.text()
+            cp_channel.postMessage({funcName: 'shopAddWidget', data: {widgetBody: text, widgetName: widget_name}});
+        })
+    }
+
+    var table1 = new pgdbs(dbs_493e5217e2fc89a3e7a136454277a57b0cd6dc470c6de04e8833b6c239be1efb);
+
+    //设置数据成功回调函数
+    table1.onGetData((json, id, url) => {
+        var A = JSON.stringify(json)
+        var obj = JSON.parse(A);
+        console.log(obj['fields']);
+        var arr = obj['fields'];
+        var len = arr.length;
+        var jsonData = JSON.parse(A); // 这里假设json确实需要被转换处理
+        var fieldsArray = jsonData.fields; // 假设json数据中的'fields'键对应的是一个对象数组
+
+        function generateCardHTML(fields) {
+            return `
+        <div class="c">
+            <div class="cardbk">
+                <img src="${fields.WIMG}" alt="" style="-webkit-user-drag: none; object-fit: contain;border-radius: 9px 0px 0px 8px; width: 110px; height: 168px;">
+                <div style="width: 100%; height: 100%;">
+                    <h3 style="margin: 0px; margin-left: 16px; margin-top: 16px;">${fields.WNAME}</h3>
+                    <span style="margin: 0px; margin-left: 16px; margin-top: 0px; color: #808080; font-size: 14px;">${fields.WUESR}</span> <!-- 修正了字段名WUESR为WUSER -->
+                    <p style="margin: 0px; margin-left: 16px; margin-right: 9px; margin-top: 0px; margin-bottom: 4px; font-size: 14px; height:56px; overflow: auto;">${fields.WCONTENT}</p>
+                    <div style="width: 100%; height: 1px; background-color: #e0e0e0;"></div>
+                    <div style="width: 97%; height: 45px; display: flex; align-items: center; justify-content: end; margin-right: 16px; flex-direction: row;">
+                        <button
+                            style="width: 72px; height: 28px; border-radius: 8px; background-color:  #225be0; border: none; color: white;"
+                            id="copyBtn"
+                            onclick="addWidget('${fields.WLINK}','${fields.WNAME}')"
+                        >添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        }
+
+        function renderCards(fieldsArray) {
+            const content = document.getElementById('content');
+            content.innerHTML = ''; // 清空原有内容
+
+            fieldsArray.forEach(fields => {
+                var div = document.getElementById('count');
+                content.insertAdjacentHTML('beforeend', generateCardHTML(fields));
+                div.innerText = document.querySelector('.content').childElementCount
+                console.log("Card rendered"); // 更改日志信息以避免误解
+            });
+        }
+
+        renderCards(fieldsArray); // 确保传入正确的数据
+    });
+
+    table1.getTableData({page: 1, limit: 30, id: 'getTableData'});
+
+</script>
+</body>
+</html>

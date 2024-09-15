@@ -82,8 +82,8 @@
       "cordova-plugin-console": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

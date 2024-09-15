@@ -121,6 +121,7 @@ Replace Whitelist class with AllowList in cordova-plugin-file-transfer > src > a
 import org.apache.cordova.Whitelist;  => import org.apache.cordova.AllowList;
 https://github.com/apache/cordova-plugin-file-transfer/issues/306
 #已弃用，已将cordova-plugin-whitelist卸载。如果需要请自己重装修复
+#20240916，由于CP需要，已重新安装该插件。
 
 https://github.com/apache/cordova-android/issues/1604
 ./gradlew --stacktrace cdvBuildDebug -b build.gradle
@@ -188,6 +189,9 @@ ios项目还额外安装了ios-sim、ios-deploy和cordova-plugin-console
 ios-sim可以通过"sudo npm install -g ios-sim"安装
 cordova-plugin-console可以通过"cordova plugin add cordova-plugin-console"
 ios-deploy请通过"npm install -g ios-deploy"安装
+而针对CreationProject项目，
+我们还额外安装了cordova-plugin-whitelist、cordova-plugin-badge、cordova-plugin-local-notification和cordova-plugin-x-socialsharing
+如果您用不到这些插件，在cordova删除它们的同时。还请您检查下hook文件夹的脚本是否有用到它们并注释它们。以防出现无法意料的情况。
 
 关于config.xml/plugin.xml修改AndroidManifest注意：
 如果你在plugin.xml或config.xml使用了 config-file或edit-config等类似参数

@@ -308,7 +308,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
 }
 
 module.exports = function(ctx) {
-    console.log(ctx);
+    // console.log(ctx);
     try{
         if(ctx.hook =="after_platform_add"){
             var ctx_plugins = ['cordova-plugin-qrscanner','cordova-plugin-camera','@felicienfrancois/cordova-plugin-stepper'];
@@ -325,7 +325,7 @@ module.exports = function(ctx) {
             cordova_plugin_qrscanner(module_version,ctx)
         }
         if (ctx_plugins.indexOf('cordova-plugin-qrscanner') !== -1) ctx_plugins.push('cordova-plugin-camera');
-        console.log(ctx_plugins)
+        // console.log(ctx_plugins)
         if (ctx_plugins.indexOf('cordova-plugin-camera') !== -1){
             cordova_plugin_camera(module_version,ctx)
         }

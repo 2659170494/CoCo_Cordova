@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Pair;
 import android.util.Log;
 
-//import org.apache.cordova.BuildConfig;
+////////////import org.apache.cordova.BuildConfig;
 import org.apache.cordova.stepper.util.Util;
 import org.apache.cordova.stepper.util.Entry;
 

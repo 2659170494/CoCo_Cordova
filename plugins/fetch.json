@@ -247,18 +247,18 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-local-notification": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-local-notification@0.9.0-beta.2"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-x-socialsharing": {
     "source": {
       "type": "registry",
       "id": "cordova-plugin-x-socialsharing"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-local-notification": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-local-notification@0.9.0-beta.2"
     },
     "is_top_level": true,
     "variables": {}

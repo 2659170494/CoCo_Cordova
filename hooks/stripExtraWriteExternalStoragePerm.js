@@ -33,6 +33,16 @@ module.exports = function(ctx) {
   var jsonParsed = JSON.parse(version_json);
   var module_version = String(jsonParsed["version"].toString());
   
+  // If you really need androidx in cordova9,please install 
+  // let gradle_path = Path.resolve('platforms/android/gradle.properties');
+
+  // let gradle = FS.readFileSync(gradle_path, {
+  //     encoding: 'utf-8'
+  // });
+
+  // if (module_version.split(".")[0] == "9") gradle = gradle.replace('android.useAndroidX=false','android.useAndroidX=true');
+  // if (module_version.split(".")[0] == "9") gradle = gradle.replace('android.enableJetifier=false','android.enableJetifier=true');
+
   // Strips ALL occurrences of <uses-permission android:name="androoid.permission.WRITE_EXTERNAL_STORAGE" />
   // If you have several conflicts (of different maxSDKVersion, or in different formats) then the regex
   // may need to be adjusted, or repeated for each format.

@@ -115,8 +115,9 @@ public class CordovaWebViewImpl implements CordovaWebView {
         // This isn't enforced by the compiler, so assert here.
         assert engine.getView() instanceof CordovaWebViewEngine.EngineView;
 
-        pluginManager.addService(CoreAndroid.PLUGIN_NAME, "org.apache.cordova.CoreAndroid", true);
+        pluginManager.addService(CoreAndroid.PLUGIN_NAME, "org.apache.cordova.CoreAndroid");
         pluginManager.init();
+
     }
 
     @Override
@@ -149,7 +150,6 @@ public class CordovaWebViewImpl implements CordovaWebView {
 
         // Timeout error method
         final Runnable loadError = new Runnable() {
-            @Override
             public void run() {
                 stopLoading();
                 LOG.e(TAG, "CordovaWebView: TIMEOUT ERROR!");
@@ -169,7 +169,6 @@ public class CordovaWebViewImpl implements CordovaWebView {
 
         // Timeout timer method
         final Runnable timeoutCheck = new Runnable() {
-            @Override
             public void run() {
                 try {
                     synchronized (this) {
@@ -191,7 +190,6 @@ public class CordovaWebViewImpl implements CordovaWebView {
         if (cordova.getActivity() != null) {
             final boolean _recreatePlugins = recreatePlugins;
             cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
                     if (loadUrlTimeoutValue > 0) {
                         cordova.getThreadPool().execute(timeoutCheck);
@@ -221,19 +219,19 @@ public class CordovaWebViewImpl implements CordovaWebView {
 
         // If loading into our webview
         if (!openExternal) {
-            // Make sure url is in allow list
+            // Make sure url is in whitelist
             if (pluginManager.shouldAllowNavigation(url)) {
                 // TODO: What about params?
                 // Load new URL
                 loadUrlIntoView(url, true);
                 return;
             } else {
-                LOG.w(TAG, "showWebPage: Refusing to load URL into webview since it is not in the <allow-navigation> allow list. URL=" + url);
+                LOG.w(TAG, "showWebPage: Refusing to load URL into webview since it is not in the <allow-navigation> whitelist. URL=" + url);
                 return;
             }
         }
         if (!pluginManager.shouldOpenExternalUrl(url)) {
-            LOG.w(TAG, "showWebPage: Refusing to send intent for URL since it is not in the <allow-intent> allow list. URL=" + url);
+            LOG.w(TAG, "showWebPage: Refusing to send intent for URL since it is not in the <allow-intent> whitelist. URL=" + url);
             return;
         }
 
@@ -341,7 +339,6 @@ public class CordovaWebViewImpl implements CordovaWebView {
 
         // Show the content view.
         engine.getView().setVisibility(View.VISIBLE);
-        engine.getView().requestFocus();
     }
 
     @Override
@@ -582,13 +579,11 @@ public class CordovaWebViewImpl implements CordovaWebView {
             // Make app visible after 2 sec in case there was a JS error and Cordova JS never initialized correctly
             if (engine.getView().getVisibility() != View.VISIBLE) {
                 Thread t = new Thread(new Runnable() {
-                    @Override
                     public void run() {
                         try {
                             Thread.sleep(2000);
                             if (cordova.getActivity() != null) {
                                 cordova.getActivity().runOnUiThread(new Runnable() {
-                                    @Override
                                     public void run() {
                                         pluginManager.postMessage("spinner", "stop");
                                     }

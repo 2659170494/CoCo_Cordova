@@ -302,7 +302,6 @@ public class NativeToJsMessageQueue {
         @Override
         public void onNativeToJsMessageAvailable(final NativeToJsMessageQueue queue) {
             cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
                     String js = queue.popAndEncodeAsJs();
                     if (js != null) {
@@ -331,7 +330,6 @@ public class NativeToJsMessageQueue {
         @Override
         public void reset() {
             delegate.runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
                     online = false;
                     // If the following call triggers a notifyOfFlush, then ignore it.
@@ -344,7 +342,6 @@ public class NativeToJsMessageQueue {
         @Override
         public void onNativeToJsMessageAvailable(final NativeToJsMessageQueue queue) {
             delegate.runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
                     if (!queue.isEmpty()) {
                         ignoreNextFlush = false;
@@ -375,7 +372,6 @@ public class NativeToJsMessageQueue {
         @Override
         public void onNativeToJsMessageAvailable(final NativeToJsMessageQueue queue) {
             cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
                     String js = queue.popAndEncodeAsJs();
                     if (js != null) {

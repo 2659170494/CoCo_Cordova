@@ -20,14 +20,13 @@
 package org.apache.cordova;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +39,7 @@ import java.util.concurrent.Executors;
  */
 public class CordovaInterfaceImpl implements CordovaInterface {
     private static final String TAG = "CordovaInterfaceImpl";
-    protected AppCompatActivity activity;
+    protected Activity activity;
     protected ExecutorService threadPool;
     protected PluginManager pluginManager;
 
@@ -52,11 +51,11 @@ public class CordovaInterfaceImpl implements CordovaInterface {
     protected boolean activityWasDestroyed = false;
     protected Bundle savedPluginState;
 
-    public CordovaInterfaceImpl(AppCompatActivity activity) {
+    public CordovaInterfaceImpl(Activity activity) {
         this(activity, Executors.newCachedThreadPool());
     }
 
-    public CordovaInterfaceImpl(AppCompatActivity activity, ExecutorService threadPool) {
+    public CordovaInterfaceImpl(Activity activity, ExecutorService threadPool) {
         this.activity = activity;
         this.threadPool = threadPool;
         this.permissionResultCallbacks = new CallbackMap();
@@ -77,13 +76,13 @@ public class CordovaInterfaceImpl implements CordovaInterface {
     public void setActivityResultCallback(CordovaPlugin plugin) {
         // Cancel any previously pending activity.
         if (activityResultCallback != null) {
-            activityResultCallback.onActivityResult(activityResultRequestCode, AppCompatActivity.RESULT_CANCELED, null);
+            activityResultCallback.onActivityResult(activityResultRequestCode, Activity.RESULT_CANCELED, null);
         }
         activityResultCallback = plugin;
     }
 
     @Override
-    public AppCompatActivity getActivity() {
+    public Activity getActivity() {
         return activity;
     }
 
@@ -223,23 +222,28 @@ public class CordovaInterfaceImpl implements CordovaInterface {
         }
     }
 
-    @Override
     public void requestPermission(CordovaPlugin plugin, int requestCode, String permission) {
         String[] permissions = new String [1];
         permissions[0] = permission;
         requestPermissions(plugin, requestCode, permissions);
     }
 
-    @SuppressLint("NewApi")
-    @Override
+        @SuppressLint("NewApi")
     public void requestPermissions(CordovaPlugin plugin, int requestCode, String [] permissions) {
         int mappedRequestCode = permissionResultCallbacks.registerCallback(plugin, requestCode);
         getActivity().requestPermissions(permissions, mappedRequestCode);
     }
 
-    @Override
     public boolean hasPermission(String permission)
     {
-        return PackageManager.PERMISSION_GRANTED == activity.checkSelfPermission(permission);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            int result = activity.checkSelfPermission(permission);
+            return PackageManager.PERMISSION_GRANTED == result;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

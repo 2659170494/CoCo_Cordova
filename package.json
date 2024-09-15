@@ -14,7 +14,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@felicienfrancois/cordova-plugin-stepper": "^1.3.2",
-    "cordova-android": "^13.0.0",
+    "cordova-android": "^9.1.0",
     "cordova-ios": "^7.1.1",
     "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-advanced-http": "^3.3.1",
@@ -86,11 +86,11 @@
       "cordova-plugin-console": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-badge": {},
-      "cordova-plugin-local-notification": {},
       "cordova-plugin-x-socialsharing": {
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
-      }
+      },
+      "cordova-plugin-local-notification": {}
     },
     "platforms": [
       "ios",

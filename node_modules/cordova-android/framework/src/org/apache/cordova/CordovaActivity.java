@@ -24,6 +24,7 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -31,6 +32,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,9 +42,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.splashscreen.SplashScreen;
 
 /**
  * This class is the main Android activity that represents the Cordova
@@ -75,7 +74,7 @@ import androidx.core.splashscreen.SplashScreen;
  * deprecated in favor of the config.xml file.
  *
  */
-public class CordovaActivity extends AppCompatActivity {
+public class CordovaActivity extends Activity {
     public static String TAG = "CordovaActivity";
 
     // The webview for our app
@@ -99,16 +98,11 @@ public class CordovaActivity extends AppCompatActivity {
     protected ArrayList<PluginEntry> pluginEntries;
     protected CordovaInterfaceImpl cordovaInterface;
 
-    private SplashScreen splashScreen;
-
     /**
      * Called when the activity is first created.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // Handle the splash screen transition.
-        splashScreen = SplashScreen.installSplashScreen(this);
-
         // need to activate preferences before super.onCreate to avoid "requestFeature() must be called before adding content" exception
         loadConfig();
 
@@ -131,6 +125,8 @@ public class CordovaActivity extends AppCompatActivity {
             // (as was the case in previous cordova versions)
             if (!preferences.getBoolean("FullscreenNotImmersive", false)) {
                 immersiveMode = true;
+                // The splashscreen plugin needs the flags set before we're focused to prevent
+                // the nav and title bars from flashing in.
                 setImmersiveUiVisibility();
             } else {
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -156,9 +152,6 @@ public class CordovaActivity extends AppCompatActivity {
             appView.init(cordovaInterface, pluginEntries, preferences);
         }
         cordovaInterface.onCordovaInit(appView.getPluginManager());
-
-        // Setup the splash screen based on preference settings
-        cordovaInterface.pluginManager.postMessage("setupSplashScreen", splashScreen);
 
         // Wire the hardware volume controls to control media if desired.
         String volumePref = preferences.getString("DefaultVolumeStream", "");
@@ -391,7 +384,6 @@ public class CordovaActivity extends AppCompatActivity {
         if ((errorUrl != null) && (!failingUrl.equals(errorUrl)) && (appView != null)) {
             // Load URL on UI thread
             me.runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
                     me.appView.showWebPage(errorUrl, false, true, null);
                 }
@@ -401,7 +393,6 @@ public class CordovaActivity extends AppCompatActivity {
         else {
             final boolean exit = !(errorCode == WebViewClient.ERROR_HOST_LOOKUP);
             me.runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
                     if (exit) {
                         me.appView.getView().setVisibility(View.GONE);
@@ -418,7 +409,6 @@ public class CordovaActivity extends AppCompatActivity {
     public void displayError(final String title, final String message, final String button, final boolean exit) {
         final CordovaActivity me = this;
         me.runOnUiThread(new Runnable() {
-            @Override
             public void run() {
                 try {
                     AlertDialog.Builder dlg = new AlertDialog.Builder(me);
@@ -427,7 +417,6 @@ public class CordovaActivity extends AppCompatActivity {
                     dlg.setCancelable(false);
                     dlg.setPositiveButton(button,
                             new AlertDialog.OnClickListener() {
-                                @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     if (exit) {
@@ -492,7 +481,6 @@ public class CordovaActivity extends AppCompatActivity {
         return null;
     }
 
-    @Override
     protected void onSaveInstanceState(Bundle outState) {
         cordovaInterface.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
@@ -525,8 +513,6 @@ public class CordovaActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[],
                                            int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         try
         {
             cordovaInterface.onRequestPermissionResult(requestCode, permissions, grantResults);
@@ -538,4 +524,5 @@ public class CordovaActivity extends AppCompatActivity {
         }
 
     }
+
 }

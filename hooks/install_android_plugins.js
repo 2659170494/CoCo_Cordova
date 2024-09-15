@@ -307,11 +307,375 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
     }
 }
 
+function cordova_plugin_local_notification(module_version,ctx){
+    if (module_version.split(".")[0] !== "9"){
+        needchange_path = "src/android/build/localnotification.gradle"
+        needchange_ori = 'compile "me.leolin:ShortcutBadger:${appShortcutBadgerVersion}@aar"'
+        needchange_new = 'implementation "me.leolin:ShortcutBadger:${appShortcutBadgerVersion}@aar"'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/Notification.java"
+        needchange_ori = 'import android.support.v4.util.ArraySet;'
+        needchange_new = 'import androidx.collection.ArraySet;'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/Notification.java"
+        needchange_ori = 'import android.support.v4.util.Pair;'
+        needchange_new = 'import androidx.core.util.Pair;'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/Manager.java"
+        needchange_ori = 'import static android.support.v4.app.'
+        needchange_new = 'import static androidx.core.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/Manager.java"
+        needchange_ori = 'import android.support.v4.app.'
+        needchange_new = 'import androidx.core.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        for (var i=0; i<2; i++){
+            needchange_path = "src/android/notification/Builder.java"
+            needchange_ori = 'import android.support.v4.app.'
+            needchange_new = 'import androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+
+        needchange_path = "src/android/notification/Builder.java"
+        needchange_ori = 'import android.support.v4.media.app.'
+        needchange_new = 'import androidx.media.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/ClickReceiver.java"
+        needchange_ori = 'import android.support.v4.app.'
+        needchange_new = 'import androidx.core.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/util/AssetProvider.java"
+        needchange_ori = 'import android.support.v4.content.'
+        needchange_new = 'import androidx.core.content.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/action/Action.java"
+        needchange_ori = 'import android.support.v4.app.'
+        needchange_new = 'import androidx.core.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        for (var i=0; i<4; i++){
+            needchange_path = "src/android/notification/Notification.java"
+            needchange_ori = 'import android.support.v4.app.'
+            needchange_new = 'import androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+
+        for (var i=0; i<3; i++){
+            needchange_path = "src/android/notification/Options.java"
+            needchange_ori = 'import android.support.v4.app.'
+            needchange_new = 'import androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+
+        for (var i=0; i<7; i++){
+            needchange_path = "src/android/notification/Options.java"
+            needchange_ori = 'import static android.support.v4.app.'
+            needchange_new = 'import static androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+
+        for (var i=0; i<2; i++){
+            needchange_path = "src/android/notification/Notification.java"
+            needchange_ori = 'import static android.support.v4.app.'
+            needchange_new = 'import static androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+    }else{
+        needchange_path = "src/android/notification/Notification.java"
+        needchange_ori = 'implementation "me.leolin:ShortcutBadger:${appShortcutBadgerVersion}@aar"'
+        needchange_new = 'compile "me.leolin:ShortcutBadger:${appShortcutBadgerVersion}@aar"'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/Notification.java"
+        needchange_new = 'import android.support.v4.util.ArraySet;'
+        needchange_ori = 'import androidx.collection.ArraySet;'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/Notification.java"
+        needchange_new = 'import android.support.v4.util.Pair;'
+        needchange_ori = 'import androidx.core.util.Pair;'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/Manager.java"
+        needchange_new = 'import static android.support.v4.app.'
+        needchange_ori = 'import static androidx.core.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/Manager.java"
+        needchange_new = 'import android.support.v4.app.'
+        needchange_ori = 'import androidx.core.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        for (var i=0; i<2; i++){
+            needchange_path = "src/android/notification/Builder.java"
+            needchange_new = 'import android.support.v4.app.'
+            needchange_ori = 'import androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+
+        needchange_path = "src/android/notification/Builder.java"
+        needchange_new = 'import android.support.v4.media.app.'
+        needchange_ori = 'import androidx.media.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/ClickReceiver.java"
+        needchange_new = 'import android.support.v4.app.'
+        needchange_ori = 'import androidx.core.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/util/AssetProvider.java"
+        needchange_new = 'import android.support.v4.content.'
+        needchange_ori = 'import androidx.core.content.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        needchange_path = "src/android/notification/action/Action.java"
+        needchange_new = 'import android.support.v4.app.'
+        needchange_ori = 'import androidx.core.app.'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+
+        for (var i=0; i<4; i++){
+            needchange_path = "src/android/notification/Notification.java"
+            needchange_new = 'import android.support.v4.app.'
+            needchange_ori = 'import androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+
+        for (var i=0; i<3; i++){
+            needchange_path = "src/android/notification/Options.java"
+            needchange_new = 'import android.support.v4.app.'
+            needchange_ori = 'import androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+
+        for (var i=0; i<7; i++){
+            needchange_path = "src/android/notification/Options.java"
+            needchange_new = 'import static android.support.v4.app.'
+            needchange_ori = 'import static androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+
+        for (var i=0; i<2; i++){
+            needchange_path = "src/android/notification/Notification.java"
+            needchange_new = 'import static android.support.v4.app.'
+            needchange_ori = 'import static androidx.core.app.'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-local-notification',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-local-notification',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+        }
+    }
+}
+
 module.exports = function(ctx) {
-    // console.log(ctx);
+    console.log(ctx);
+    cp_support = true;
     try{
         if(ctx.hook =="after_platform_add"){
             var ctx_plugins = ['cordova-plugin-qrscanner','cordova-plugin-camera','@felicienfrancois/cordova-plugin-stepper'];
+            if(cp_support){
+                ctx_plugins.push('cordova-plugin-local-notification');
+            }
         }else{
             var ctx_plugins = ctx.opts.plugins;
         }
@@ -325,12 +689,15 @@ module.exports = function(ctx) {
             cordova_plugin_qrscanner(module_version,ctx)
         }
         if (ctx_plugins.indexOf('cordova-plugin-qrscanner') !== -1) ctx_plugins.push('cordova-plugin-camera');
-        // console.log(ctx_plugins)
+        console.log(ctx_plugins)
         if (ctx_plugins.indexOf('cordova-plugin-camera') !== -1){
             cordova_plugin_camera(module_version,ctx)
         }
         if (ctx_plugins.indexOf('@felicienfrancois/cordova-plugin-stepper') !== -1){
             felicienfrancois_cordova_plugin_stepper(module_version,ctx)
+        }
+        if (ctx_plugins.indexOf('cordova-plugin-local-notification') !== -1){
+            cordova_plugin_local_notification(module_version,ctx)
         }
     }catch(err){
         console.log(err);

@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 
-//import org.apache.cordova.BuildConfig;
+////////////import org.apache.cordova.BuildConfig;
 import org.apache.cordova.stepper.util.API26Wrapper;
 
 public class BootReceiver extends BroadcastReceiver {

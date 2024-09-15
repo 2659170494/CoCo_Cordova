@@ -191,6 +191,7 @@ cordova-plugin-console可以通过"cordova plugin add cordova-plugin-console"
 ios-deploy请通过"npm install -g ios-deploy"安装
 而针对CreationProject项目，
 我们还额外安装了cordova-plugin-whitelist、cordova-plugin-badge、cordova-plugin-local-notification和cordova-plugin-x-socialsharing
+在cordova@9下你可能还需要安装cordova-plugin-androidx以使用androidx库.
 如果您用不到这些插件，在cordova删除它们的同时。还请您检查下hook文件夹的脚本是否有用到它们并注释它们。以防出现无法意料的情况。
 
 关于config.xml/plugin.xml修改AndroidManifest注意：

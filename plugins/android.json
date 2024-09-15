@@ -17,6 +17,9 @@
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
     "cordova-plugin-battery-status": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
@@ -82,6 +85,12 @@
     "cordova-plugin-viewport": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
     "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
@@ -94,16 +103,7 @@
     "@felicienfrancois/cordova-plugin-stepper": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-badge": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
     "cordova-plugin-local-notification": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-x-socialsharing": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },

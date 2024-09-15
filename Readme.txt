@@ -46,9 +46,9 @@ JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK�
 如果您遇到插件上的问题,可以先"cordova platform remove android"
 然后再重新安装一遍,大部分原因很可能是负责hook处理依赖的脚本没有被正确运行.
 
-本项目暂时为Android 13设计（主要是Cordova-Android指定错了，但是懒得改了），
-主要目标是想向下兼容，如安卓8.0、6.0，
-当然高版本也可以运行，不过有些插件和API（如全屏启动图）可能无法适用。
+本项目主要针对于为Cordova-android@9以及cordova-android@13及以上的版本设计，
+目标是想向上兼容的同时，可切换cordova-android版本向下兼容，如安卓8.0、6.0。
+高版本也可以运行低版本cordova-android，不过有些插件和API（如全屏启动图）可能无法适用。
 如需自定义请自行参考cordova教程本工程仅作为修改模板参考。
 
 如果您要用ios项目的话,目前暂时适配的版本是:

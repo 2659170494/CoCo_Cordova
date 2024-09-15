@@ -98,12 +98,12 @@
     "cordova-plugin-badge": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
-    "cordova-plugin-local-notification": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
     "cordova-plugin-x-socialsharing": {
       "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
       "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },

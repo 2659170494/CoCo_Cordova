@@ -52,6 +52,9 @@
       "GPS_REQUIRED": "true",
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
     "cordova-plugin-magnetometer": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
@@ -101,9 +104,6 @@
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "@felicienfrancois/cordova-plugin-stepper": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },

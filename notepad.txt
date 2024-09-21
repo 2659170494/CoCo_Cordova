@@ -191,14 +191,19 @@ cordova-plugin-console可以通过"cordova plugin add cordova-plugin-console"
 ios-deploy请通过"npm install -g ios-deploy"安装
 而针对CreationProject项目，
 我们还额外安装了cordova-plugin-whitelist、cordova-plugin-badge、cordova-plugin-local-notification和cordova-plugin-x-socialsharing
-在cordova@9下你可能还需要安装cordova-plugin-androidx以使用androidx库.
+由于cordova-plugin-x-socialsharing的原因，在cordova-android@9下你可能还需要安装cordova-plugin-androidx以使用androidx库.
+但我强烈不推荐cordova-android@9下使用任何的androidx库，这样会导致hook的脚本以及绝大部分插件都会出问题！
 如果您用不到这些插件，在cordova删除它们的同时。还请您检查下hook文件夹的脚本是否有用到它们并注释它们。以防出现无法意料的情况。
+通常针对不同平台的时候，在脚本的主函数中会有一个开关变量，使用布尔值即可开关功能。
 
 关于config.xml/plugin.xml修改AndroidManifest注意：
 如果你在plugin.xml或config.xml使用了 config-file或edit-config等类似参数
 若要删除它们的话，在config.xml/plugin.xml删除了的同时，
 还需到platforms\android\android.json和platforms\android\app\src\main\AndroidManifest.xml删除它们
 否则所做的更改仍然保留
+
+如果您遇到了Attempt to invoke virtual method 'android.content.res.XmlResourceParser。。。。这样的错误，
+看看这两个：https://blog.csdn.net/qq_33721320/article/details/106012082 和 https://github.com/apache/cordova-plugin-camera/issues/486
 
 关于修改插件的内容：
 不仅仅需要更改plugins里的插件，还需要更改node_modules和platforms文件夹里的插件

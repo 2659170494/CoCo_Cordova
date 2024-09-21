@@ -34,14 +34,15 @@ module.exports = function(ctx) {
   var module_version = String(jsonParsed["version"].toString());
   
   // If you really need androidx in cordova9,please install 
-  // let gradle_path = Path.resolve('platforms/android/gradle.properties');
+  let gradle_path = Path.resolve('platforms/android/project.properties');
 
-  // let gradle = FS.readFileSync(gradle_path, {
-  //     encoding: 'utf-8'
-  // });
+  let gradle = FS.readFileSync(gradle_path, {
+      encoding: 'utf-8'
+  });
 
-  // if (module_version.split(".")[0] == "9") gradle = gradle.replace('android.useAndroidX=false','android.useAndroidX=true');
-  // if (module_version.split(".")[0] == "9") gradle = gradle.replace('android.enableJetifier=false','android.enableJetifier=true');
+  if (module_version.split(".")[0] == "9") gradle = gradle.replace('cordova.system.library.5=androidx.legacy:legacy-support-v4:1.0.0','#cordova.system.library.5=androidx.legacy:legacy-support-v4:1.0.0');
+  if (module_version.split(".")[0] !== "9") gradle = gradle.replace('#cordova.system.library.5=androidx.legacy:legacy-support-v4:1.0.0','cordova.system.library.5=androidx.legacy:legacy-support-v4:1.0.0');
+  FS.writeFileSync(gradle_path, gradle);
 
   // Strips ALL occurrences of <uses-permission android:name="androoid.permission.WRITE_EXTERNAL_STORAGE" />
   // If you have several conflicts (of different maxSDKVersion, or in different formats) then the regex
@@ -51,7 +52,7 @@ module.exports = function(ctx) {
   //manifest = manifest.replace(/^(\s)+<receiver android:exported="true" android:name="org.apache.cordova.stepper.BootReceiver">$/gm, '');
   //manifest = manifest.replace(/^(\s)+<receiver android:name="org.apache.cordova.stepper.AppUpdatedReceiver">$/gm, '        <receiver android:exported="true" android:name="org.apache.cordova.stepper.AppUpdatedReceiver">');
   //manifest = manifest.replace(/^(\s)+<receiver android:name="org.apache.cordova.stepper.BootReceiver">$/gm, '        <receiver android:exported="true" android:name="org.apache.cordova.stepper.BootReceiver">');
-  manifest = manifest.replace(/^(\s)+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" \/>$/gm, '')
+  // manifest = manifest.replace(/^(\s)+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" \/>$/gm, '')
   manifest = manifest.replace(/^(\s)+<application android:usesCleartextTraffic="true"$/gm, '');
   manifest = manifest.replace(/^(\s)+<application android:hardwareAccelerated="true"$/gm, '<application android:usesCleartextTraffic="true" android:hardwareAccelerated="true"');
   if (module_version.split(".")[0] == "9") manifest = manifest.replace(/^(\s)+android:theme="@style\/Theme.App.SplashScreen"$/gm, '');

@@ -19,7 +19,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
-////////////import org.apache.cordova.BuildConfig;
+import org.apache.cordova.BuildConfig;
 import org.apache.cordova.stepper.util.API23Wrapper;
 import org.apache.cordova.stepper.util.API26Wrapper;
 import org.apache.cordova.stepper.util.Util;

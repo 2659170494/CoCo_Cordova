@@ -181,7 +181,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
     if (module_version.split(".")[0] !== "9"){
         needchange_path = "src/android/AppUpdatedReceiver.java"
         needchange_ori = "import org.apache.cordova.BuildConfig;"
-        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig/;/"
         platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
@@ -193,7 +193,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
 
         needchange_path = "src/android/BootReceiver.java"
         needchange_ori = "import org.apache.cordova.BuildConfig;"
-        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig/;/"
         platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
@@ -205,7 +205,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
 
         needchange_path = "src/android/SensorListener.java"
         needchange_ori = "import org.apache.cordova.BuildConfig;"
-        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig/;/"
         platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
@@ -232,7 +232,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
 
         needchange_path = "src/android/Database.java"
         needchange_ori = "import org.apache.cordova.BuildConfig;"
-        needchange_new = "//import org.apache.cordova.BuildConfig;"
+        needchange_new = "//import org.apache.cordova.BuildConfig/;/"
         platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
@@ -243,7 +243,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
         fs.writeFileSync(apkFileLocation, platform_java);
     }else{
         needchange_path = "src/android/AppUpdatedReceiver.java"
-        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_ori = "//import org.apache.cordova.BuildConfig/;/"
         needchange_new = "import org.apache.cordova.BuildConfig;"
         platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
@@ -255,7 +255,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
         fs.writeFileSync(apkFileLocation, platform_java);
 
         needchange_path = "src/android/BootReceiver.java"
-        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_ori = "//import org.apache.cordova.BuildConfig/;/"
         needchange_new = "import org.apache.cordova.BuildConfig;"
         platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
@@ -267,7 +267,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
         fs.writeFileSync(apkFileLocation, platform_java);
 
         needchange_path = "src/android/SensorListener.java"
-        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_ori = "//import org.apache.cordova.BuildConfig/;/"
         needchange_new = "import org.apache.cordova.BuildConfig;"
         platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
@@ -294,7 +294,7 @@ function felicienfrancois_cordova_plugin_stepper(module_version,ctx){
         fs.writeFileSync(apkFileLocation, platform_java);
 
         needchange_path = "src/android/Database.java"
-        needchange_ori = "//import org.apache.cordova.BuildConfig;"
+        needchange_ori = "//import org.apache.cordova.BuildConfig/;/"
         needchange_new = "import org.apache.cordova.BuildConfig;"
         platformRoot = path.join(ctx.opts.projectRoot, 'plugins/@felicienfrancois/cordova-plugin-stepper',needchange_path);
         apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/@felicienfrancois/cordova-plugin-stepper',needchange_path);
@@ -667,6 +667,263 @@ function cordova_plugin_local_notification(module_version,ctx){
     }
 }
 
+function cordova_plugin_whitelist(module_version,ctx){
+    try{
+        test1 = fs.readFileSync(path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist/src/android/WhitelistPlugin.java'), { encoding: 'utf-8' }); 
+        test2 = fs.readFileSync(path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist/src/android/WhitelistPlugin.java'), { encoding: 'utf-8' }); 
+    }catch(err){
+        console.log('cordova_plugin_whitelist Hook is Crash');
+        return err;
+    }
+    console.log('Finded cordova_plugin_whitelist,Starting Hook');
+    try{
+        if (module_version.split(".")[0] !== "9"){
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_ori = 'import org.apache.cordova.Whitelist;'
+            needchange_new = 'import org.apache.cordova.AllowList;'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            for (var i=0; i<3; i++){
+                needchange_path = "src/android/WhitelistPlugin.java"
+                needchange_ori = 'private Whitelist'
+                needchange_new = 'private AllowList'
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+            }
+
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_ori = 'public WhitelistPlugin(Whitelist allowedNavigations, Whitelist allowedIntents, Whitelist allowedRequests) {'
+            needchange_new = 'public WhitelistPlugin(AllowList allowedNavigations, AllowList allowedIntents, AllowList allowedRequests) {'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            for (var i=0; i<3; i++){
+                needchange_path = "src/android/WhitelistPlugin.java"
+                needchange_ori = 'public Whitelist '
+                needchange_new = 'public AllowList '
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+            }
+
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_ori = 'public void setAllowedNavigations(Whitelist allowedNavigations) {'
+            needchange_new = 'public void setAllowedNavigations(AllowList allowedNavigations) {'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_ori = 'public void setAllowedIntents(Whitelist allowedIntents) {'
+            needchange_new = 'public void setAllowedIntents(AllowList allowedIntents) {'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_ori = 'public void setAllowedRequests(Whitelist allowedRequests) {'
+            needchange_new = 'public void setAllowedRequests(AllowList allowedRequests) {'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            for (var i=0; i<8; i++){
+                needchange_path = "src/android/WhitelistPlugin.java"
+                needchange_ori = 'new Whitelist()'
+                needchange_new = 'new AllowList()'
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+            }
+        }else{
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_new = 'import org.apache.cordova.Whitelist;'
+            needchange_ori = 'import org.apache.cordova.AllowList;'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            for (var i=0; i<3; i++){
+                needchange_path = "src/android/WhitelistPlugin.java"
+                needchange_new = 'private Whitelist'
+                needchange_ori = 'private AllowList'
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+            }
+
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_new = 'public WhitelistPlugin(Whitelist allowedNavigations, Whitelist allowedIntents, Whitelist allowedRequests) {'
+            needchange_ori = 'public WhitelistPlugin(AllowList allowedNavigations, AllowList allowedIntents, AllowList allowedRequests) {'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            for (var i=0; i<3; i++){
+                needchange_path = "src/android/WhitelistPlugin.java"
+                needchange_new = 'public Whitelist '
+                needchange_ori = 'public AllowList '
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+            }
+
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_new = 'public void setAllowedNavigations(Whitelist allowedNavigations) {'
+            needchange_ori = 'public void setAllowedNavigations(AllowList allowedNavigations) {'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_new = 'public void setAllowedIntents(Whitelist allowedIntents) {'
+            needchange_ori = 'public void setAllowedIntents(AllowList allowedIntents) {'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            needchange_path = "src/android/WhitelistPlugin.java"
+            needchange_new = 'public void setAllowedRequests(Whitelist allowedRequests) {'
+            needchange_ori = 'public void setAllowedRequests(AllowList allowedRequests) {'
+            platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+            apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+            module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+            platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+            module_java = module_java.replace(needchange_ori,needchange_new)
+            platform_java = platform_java.replace(needchange_ori,needchange_new)
+            fs.writeFileSync(platformRoot, module_java);
+            fs.writeFileSync(apkFileLocation, platform_java);
+
+            for (var i=0; i<8; i++){
+                needchange_path = "src/android/WhitelistPlugin.java"
+                needchange_new = 'new Whitelist()'
+                needchange_ori = 'new AllowList()'
+                platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-whitelist',needchange_path);
+                apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-whitelist',needchange_path);
+                module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+                platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+                module_java = module_java.replace(needchange_ori,needchange_new)
+                platform_java = platform_java.replace(needchange_ori,needchange_new)
+                fs.writeFileSync(platformRoot, module_java);
+                fs.writeFileSync(apkFileLocation, platform_java);
+            }
+        }
+    }catch(err){
+        console.log(err);
+        return err;
+    }
+}
+
+function cordova_plugin_x_socialsharing(module_version,ctx){
+    try{
+        test1 = fs.readFileSync(path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-x-socialsharing/src/android/nl/xservices/plugins/FileProvider.java'), { encoding: 'utf-8' }); 
+        test2 = fs.readFileSync(path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-x-socialsharing/src/android/nl/xservices/plugins/FileProvider.java'), { encoding: 'utf-8' });  
+    }catch(err){
+        console.log('cordova-plugin-x-socialsharing Hook is Crash');
+        return err;
+    }
+    console.log('Finded cordova-plugin-x-socialsharing,Starting Hook');
+    if (module_version.split(".")[0] == "9"){
+        needchange_path = "src/android/nl/xservices/plugins/FileProvider.java"
+        needchange_ori = 'androidx.core.content.FileProvider'
+        needchange_new = 'android.support.v4.content.FileProvider'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-x-socialsharing',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-x-socialsharing',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+    }else{
+        needchange_path = "src/android/nl/xservices/plugins/FileProvider.java"
+        needchange_ori = 'android.support.v4.content.FileProvider'
+        needchange_new = 'androidx.core.content.FileProvider'
+        platformRoot = path.join(ctx.opts.projectRoot, 'plugins/cordova-plugin-x-socialsharing',needchange_path);
+        apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules/cordova-plugin-x-socialsharing',needchange_path);
+        module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
+        platform_java = fs.readFileSync(apkFileLocation, {encoding: 'utf-8'});
+        module_java = module_java.replace(needchange_ori,needchange_new)
+        platform_java = platform_java.replace(needchange_ori,needchange_new)
+        fs.writeFileSync(platformRoot, module_java);
+        fs.writeFileSync(apkFileLocation, platform_java);
+    }
+}
+
 module.exports = function(ctx) {
     console.log(ctx);
     cp_support = true;
@@ -674,7 +931,7 @@ module.exports = function(ctx) {
         if(ctx.hook =="after_platform_add"){
             var ctx_plugins = ['cordova-plugin-qrscanner','cordova-plugin-camera','@felicienfrancois/cordova-plugin-stepper'];
             if(cp_support){
-                ctx_plugins.push('cordova-plugin-local-notification');
+                ctx_plugins.push('cordova-plugin-local-notification','cordova-plugin-whitelist','cordova-plugin-x-socialsharing');
             }
         }else{
             var ctx_plugins = ctx.opts.plugins;
@@ -689,7 +946,7 @@ module.exports = function(ctx) {
             cordova_plugin_qrscanner(module_version,ctx)
         }
         if (ctx_plugins.indexOf('cordova-plugin-qrscanner') !== -1) ctx_plugins.push('cordova-plugin-camera');
-        console.log(ctx_plugins)
+        // console.log(ctx_plugins)
         if (ctx_plugins.indexOf('cordova-plugin-camera') !== -1){
             cordova_plugin_camera(module_version,ctx)
         }
@@ -698,6 +955,12 @@ module.exports = function(ctx) {
         }
         if (ctx_plugins.indexOf('cordova-plugin-local-notification') !== -1){
             cordova_plugin_local_notification(module_version,ctx)
+        }
+        if (ctx_plugins.indexOf('cordova-plugin-whitelist') !== -1){
+            cordova_plugin_whitelist(module_version,ctx)
+        }
+        if (ctx_plugins.indexOf('cordova-plugin-x-socialsharing') !== -1){
+            cordova_plugin_x_socialsharing(module_version,ctx)
         }
     }catch(err){
         console.log(err);

@@ -25,6 +25,8 @@
 	<access origin="cdvfile://*" />
 	<preference name="AppendUserAgent" value="Cordova" />
 	<platform name="android">
+		<!-- <preference name="ANDROID_SUPPORT_V4_VERSION" default="27.+"/>
+ 		<framework src="com.android.support:supportv4:$ANDROID_SUPPORT_V4_VERSION"/> -->
 		<preference name="AndroidPersistentFileLocation" value="Compatibility" />
 		<preference name="AndroidInsecureFileModeEnabled" value="true" />
 		<preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
@@ -50,6 +52,7 @@
 			<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 			<uses-permission android:name="android.permission.SEND_SMS" />
 			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 			<supports-screens
 				android:anyDensity="true"
 				android:smallScreens="true"
@@ -75,6 +78,17 @@
 				<meta-data
 					android:name="android.support.FILE_PROVIDER_PATHS"
 					android:resource="@xml/camera_provider_paths" />
+			</provider>
+		</config-file>
+		<config-file target="AndroidManifest.xml" parent="/manifest/application/" xmlns:android="http://schemas.android.com/apk/res/android">
+			<provider
+				android:name="android.support.v4.content.FileProvider"
+				android:authorities="${applicationId}.provider"
+				android:exported="false"
+				android:grantUriPermissions="true">
+				<meta-data
+					android:name="android.support.FILE_PROVIDER_PATHS"
+					android:resource="@xml/camera_provider_paths"/>
 			</provider>
 		</config-file>
 		<preference name="loglevel" value="DEBUG" />

@@ -646,7 +646,13 @@ module.exports = function(ctx) {
         if (Number(dir_paths.sort()[dir_paths.length - 1].split(".")[0]) > 30) android_sdk_buildtool_new_path = path.join(android_sdk_buildtool_path, dir_paths.sort()[dir_paths.length - 1]);
         if (android_sdk_buildtool_new_path=="") throw "Cannot_Find_Newest_BuildTools_Version";
         // console.log(android_sdk_buildtool_new_path);
-        fs.copyFile(path.join(android_sdk_buildtool_new_path,"d8"),path.join(android_sdk_buildtool_new_path,"dx"),(err)=>{if (err){console.log(err)}});
+		try{
+			fs.copyFileSync(path.join(android_sdk_buildtool_new_path,"d8"),path.join(android_sdk_buildtool_new_path,"dx")); //,(err)=>{if (err){console.log(err)}}
+			console.log("Android SDK on Linux")
+		}catch(err){
+			fs.copyFileSync(path.join(android_sdk_buildtool_new_path,"d8.bat"),path.join(android_sdk_buildtool_new_path,"dx.bat")); //,(err)=>{if (err){console.log(err)}}
+			console.log("Android SDK on Windows")
+		}
         fs.copyFile(path.join(android_sdk_buildtool_new_path,"lib/d8.jar"),path.join(android_sdk_buildtool_new_path,"lib/dx.jar"),(err)=>{if (err){console.log(err)}});
         qrscan(module_version,ctx);
         camera(module_version,ctx);

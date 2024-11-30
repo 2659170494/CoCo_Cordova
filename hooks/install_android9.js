@@ -6,6 +6,7 @@ const path = require('path');
 module.exports = function(ctx) {
     try{
         // console.log(ctx);
+		old_java_version = "1.8.x"
         java_version = "11.x"
 
         // Make sure android platform is part of build
@@ -23,6 +24,8 @@ module.exports = function(ctx) {
         let module_js = fs.readFileSync(java_version_delection_modules, {encoding: 'utf-8'});
         let platform_js = fs.readFileSync(java_version_delection_platform, {encoding: 'utf-8'});
         
+		module_js = module_js.replace(`const EXPECTED_JAVA_VERSION = '${old_java_version}';`,`const EXPECTED_JAVA_VERSION = '${java_version}';`)
+        platform_js = platform_js.replace(`const EXPECTED_JAVA_VERSION = '${old_java_version}';`,`const EXPECTED_JAVA_VERSION = '${java_version}';`)
         module_js = module_js.replace("const EXPECTED_JAVA_VERSION = '1.8.x';",`const EXPECTED_JAVA_VERSION = '${java_version}';`)
         platform_js = platform_js.replace("const EXPECTED_JAVA_VERSION = '1.8.x';",`const EXPECTED_JAVA_VERSION = '${java_version}';`)
         

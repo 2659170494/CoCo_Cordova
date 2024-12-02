@@ -33,7 +33,10 @@ module.exports = function(ctx) {
   var jsonParsed = JSON.parse(version_json);
   var module_version = String(jsonParsed["version"].toString());
   
-  // If you really need androidx in cordova9,please install 
+  /** 
+   * If you really need androidx in cordova9,please try cordova-plugin-androidx
+   * more infomation,check the notepad.txt
+  */ 
   let gradle_path = Path.resolve('platforms/android/project.properties');
 
   let gradle = FS.readFileSync(gradle_path, {

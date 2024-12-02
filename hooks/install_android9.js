@@ -6,6 +6,9 @@ const path = require('path');
 module.exports = function(ctx) {
     try{
         // console.log(ctx);
+        /**
+         * 在此处修改你想要更改的cordova-android判断的java版本 
+        */
 		old_java_version = "1.8.x"
         java_version = "11.x"
 

@@ -620,7 +620,10 @@ function x_socialsharing(module_version,ctx){
 
 module.exports = function(ctx) {
     // console.log(ctx);
-    cp_support = true;
+    /**
+     * 使用布尔值来启用是否支持Creation-Project! 
+    */
+    cp_support = true; 
     try{
         // Make sure android platform is part of build
         if (!ctx.opts.platforms.includes('android')) return "No android";

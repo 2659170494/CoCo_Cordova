@@ -30,8 +30,7 @@ function cordova_ws(){
     fs.writeFileSync(cordova_ws_config_plugin_path, plugin_js);
 }
 
-function cordova_qr(){
-    project_name = "HelloCordova"
+function cordova_qr(project_name){
     const cordova_qr_versions_node_path = path.resolve('node_modules/cordova-plugin-qrscanner/package.json');
     const cordova_qr_versions_plugin_path = path.resolve('plugins/cordova-plugin-qrscanner/package.json');
     
@@ -74,9 +73,13 @@ function cordova_qr(){
 
 
 module.exports = function(ctx) {
+    /**
+     * 如果项目名称有修改,请修改此处!
+    */
+    project_name = "HelloCordova"
     try{
         console.log(cordova_ws());
-        console.log(cordova_qr());
+        console.log(cordova_qr(project_name));
         return "Change WebSocket podspec Hook Scucess";
     }catch(err){
         console.log(err);

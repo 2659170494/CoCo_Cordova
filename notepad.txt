@@ -197,6 +197,11 @@ ios-deploy请通过"npm install -g ios-deploy"安装
 如果您用不到这些插件，在cordova删除它们的同时。还请您检查下hook文件夹的脚本是否有用到它们并注释它们。以防出现无法意料的情况。
 通常针对不同平台的时候，在脚本的主函数中会有一个开关变量，使用布尔值即可开关功能。
 
+理论上来讲,该项目所使用的cordova-ios版本中已经实现了cros的控制
+但如果你打算兼容cordova-ios 6以下的版本或者你需要其他的办法
+不妨看看这个项目:https://github.com/globules-io/cordova-plugin-ios-xhr
+顺便搭配这个问题:https://stackoverflow.com/questions/64060290/cordova-ios-origin-null-is-not-allowed-by-access-control-allow-origin-on-local
+
 关于config.xml/plugin.xml修改AndroidManifest注意：
 如果你在plugin.xml或config.xml使用了 config-file或edit-config等类似参数
 若要删除它们的话，在config.xml/plugin.xml删除了的同时，

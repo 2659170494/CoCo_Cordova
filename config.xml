@@ -116,7 +116,16 @@
 	<platform name="ios">
 		<preference name="loglevel" value="DEBUG" />
 		<preference name="applicationId" value="io.cordova.hellocordova_222594729" />
+		<preference name="scheme" value="app" />
+		<preference name="hostname" value="localhost" />
+		<preference name="AllowNewWindows" value="true" />
+		<preference name="MediaPlaybackAllowsAirPlay" value="true" />
+		<preference name="LimitsNavigationsToAppBoundDomains" value="false" />
+		<preference name="AllowBackForwardNavigationGestures" value="false" />
+		<preference name="Allow3DTouchLinkPreview" value="true" />
+		<preference name="AutoHideSplashScreen" value="true" />
 		<hook type="before_platform_add" src="hooks/before_install_ios7.js" />
 		<hook type="after_prepare" src="hooks/before_install_ios7.js" />
+		<hook type="before_build" src="hooks/before_ios_build.js" />
 	</platform>
 </widget>

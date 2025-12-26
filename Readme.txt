@@ -19,6 +19,8 @@
 如果您执行过上面的安装脚本，在脚本结束后脚本会有给出它们的路径。
 JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK路径>。
 同样上面的安装脚本有给出.
+(如果您fork了项目并且没有改名CoCo_Coreova，又或者直接在我的仓库里打开了codespace，
+那么可以看看同目录下的codespace_auto_set_android_sdk.sh)
 
 之后在上面java和android sdk的安装完毕后，
 将coco打包的apk解压出来，把assets/www文件夹覆盖到本项目www文件夹。
@@ -26,7 +28,7 @@ JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK�
 之后回到项目根目录，
 先执行npm install，安装本项目的包。
 然后执行npm install cordova -g安装cordova到全局。
-不要用npm i cordova 等之类的将cordova安装至项目！
+不要用npm i cordova 等之类的将cordova安装至项目！classpath 'org.codehaus.groovy:groovy-swing:3.0.9'
 那会破坏掉项目的node_modules和plugins!
 如果您破坏了,请重新"git reset --hard"或克隆本项目一遍.
 之后确认您的JDK版本为1.8之后,

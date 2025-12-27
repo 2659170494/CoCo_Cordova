@@ -10,7 +10,7 @@ module.exports = function(ctx) {
          * 在此处修改你想要更改的cordova-android判断的java版本 
         */
 		old_java_version = "1.8.x"
-        java_version = "11.x"
+        java_version = "17.x"
 
         // Make sure android platform is part of build
         //if (!ctx.opts.platforms.includes('android')) return;
@@ -82,11 +82,11 @@ module.exports = function(ctx) {
         let platform_versioncompare_cordova_gradle = fs.readFileSync(versioncompare_cordova_gradle_delection_platform, {encoding: 'utf-8'});
 
         module_versioncompare_cordova_gradle = module_versioncompare_cordova_gradle.replace(`import com.g00fy2.versioncompare.Version`,`import io.github.g00fy2.versioncompare.Version`)
-        module_versioncompare_cordova_gradle = module_versioncompare_cordova_gradle.replace(`import io.github.g00fy2.versioncompare.Version\n\nString`,`import io.github.g00fy2.versioncompare.Version\nimport groovy.xml.XmlParser\n\nString`)
+        // module_versioncompare_cordova_gradle = module_versioncompare_cordova_gradle.replace(`import io.github.g00fy2.versioncompare.Version\n\nString`,`import io.github.g00fy2.versioncompare.Version\nimport groovy.xml.XmlParser\n\nString`) //gradle 8以上才需要
         module_versioncompare_cordova_gradle = module_versioncompare_cordova_gradle.replace(`        classpath 'com.g00fy2:versioncompare:1.3.4@jar'`,`        classpath 'io.github.g00fy2:versioncompare:1.4.0@jar'`)
         module_versioncompare_cordova_gradle = module_versioncompare_cordova_gradle.replace(`        classpath 'io.github.g00fy2:versioncompare:1.4.0@jar'\n    }`,`        classpath 'io.github.g00fy2:versioncompare:1.4.0@jar'\n        classpath 'org.codehaus.groovy:groovy-swing:3.0.9'\n    }`)
         platform_versioncompare_cordova_gradle = platform_versioncompare_cordova_gradle.replace(`import com.g00fy2.versioncompare.Version`,`import io.github.g00fy2.versioncompare.Version`)
-        platform_versioncompare_cordova_gradle = platform_versioncompare_cordova_gradle.replace(`import io.github.g00fy2.versioncompare.Version\n\nString`,`import io.github.g00fy2.versioncompare.Version\nimport groovy.xml.XmlParser\n\nString`)
+        // platform_versioncompare_cordova_gradle = platform_versioncompare_cordova_gradle.replace(`import io.github.g00fy2.versioncompare.Version\n\nString`,`import io.github.g00fy2.versioncompare.Version\nimport groovy.xml.XmlParser\n\nString`) //gradle 8以上才需要
         platform_versioncompare_cordova_gradle = platform_versioncompare_cordova_gradle.replace(`        classpath 'com.g00fy2:versioncompare:1.3.4@jar'`,`        classpath 'io.github.g00fy2:versioncompare:1.4.0@jar'`)
         platform_versioncompare_cordova_gradle = platform_versioncompare_cordova_gradle.replace(`        classpath 'io.github.g00fy2:versioncompare:1.4.0@jar'\n    }`,`        classpath 'io.github.g00fy2:versioncompare:1.4.0@jar'\n        classpath 'org.codehaus.groovy:groovy-swing:3.0.9'\n    }`)
 

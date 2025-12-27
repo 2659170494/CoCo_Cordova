@@ -8,7 +8,7 @@
 虽然写的很烂，但，起码能用。
 当然有些时候我不在，时间长了gradle版本过高，这些hook也不一定能解决了。
 所以，到了那时候可以给我提个issue，又或者您自己解决也可以，这都取决于您.
-20251227,当前Gradle版本已固定到8,后续的gradle已无力更新了，
+20251227,当前Gradle版本已固定到7,后续的gradle已无力更新了，
 可以明确的说，gradle 9以上已经正式不支持cordova-android@9了)
 
 在cordova给项目添加完android平台后，若cordova build没有打印需要的日志，
@@ -40,7 +40,7 @@
    > Could not create an instance of type com.android.build.gradle.internal.dsl.BaseAppModuleExtension.
       > Could not create an instance of type com.android.build.gradle.internal.api.DefaultAndroidSourceSet.
          > org/gradle/util/GUtil
-请降级gradle至版本8，由于gradle9抛弃了org.gradle.util，
+请降级gradle至版本8或者7，由于gradle9抛弃了org.gradle.util，
 故无法在不修改gradle的情况下提供gradle9的支持，
 更多详情请见这两个链接：
 https://github.com/britannio/in_app_review/issues/95

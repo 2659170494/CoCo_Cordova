@@ -55,7 +55,7 @@ module.exports = function(ctx) {
   //manifest = manifest.replace(/^(\s)+<receiver android:exported="true" android:name="org.apache.cordova.stepper.BootReceiver">$/gm, '');
   //manifest = manifest.replace(/^(\s)+<receiver android:name="org.apache.cordova.stepper.AppUpdatedReceiver">$/gm, '        <receiver android:exported="true" android:name="org.apache.cordova.stepper.AppUpdatedReceiver">');
   //manifest = manifest.replace(/^(\s)+<receiver android:name="org.apache.cordova.stepper.BootReceiver">$/gm, '        <receiver android:exported="true" android:name="org.apache.cordova.stepper.BootReceiver">');
-  // manifest = manifest.replace(/^(\s)+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" \/>$/gm, '')
+  manifest = manifest.replace(/^(\s)+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" \/>$/gm, '')
   manifest = manifest.replace(/^(\s)+<application android:usesCleartextTraffic="true"$/gm, '');
   manifest = manifest.replace(/^(\s)+<application android:hardwareAccelerated="true"$/gm, '<application android:usesCleartextTraffic="true" android:hardwareAccelerated="true"');
   if (module_version.split(".")[0] == "9") manifest = manifest.replace(/^(\s)+android:theme="@style\/Theme.App.SplashScreen"$/gm, '');

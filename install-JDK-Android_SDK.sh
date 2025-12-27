@@ -61,28 +61,29 @@ cd build-tools ;
 # echo "Use Sdkman to install gradle 8.14.3"
 # sdk install gradle 8.14.3
 # sdk default gradle 8.14.3
-echo "Create folder for gradle 8.14.3";
+echo "Create folder for gradle 7.6.6";
 sudo mkdir gradle
 cd gradle
 echo "Create folder for gradle current for ubuntu"
 sudo mkdir current
 # echo "Link folder for gradle current for codespace";
 # sudo ln -s /usr/local/sdkman/candidates/gradle/current current
-echo "Starting Download gradle 8.14.3" ;
-sudo wget -O gradle-8.14.3-bin.zip https://services.gradle.org/distributions/gradle-8.14.3-bin.zip ;
-echo "Unzip gradle 8.14.3" ;
-sudo chmod 777 gradle-8.14.3-bin.zip
-sudo unzip -d ./current gradle-8.14.3-bin.zip
-echo "Install gradle 8.14.3"
-cd ./current/gradle-8.14.3
+echo "Starting Download gradle 7.6.6" ;
+sudo wget -O gradle-7.6.6-bin.zip https://services.gradle.org/distributions/gradle-7.6.6-bin.zip ;
+echo "Unzip gradle 7.6.6" ;
+sudo chmod 777 gradle-7.6.6-bin.zip
+sudo unzip -d ./current gradle-7.6.6-bin.zip
+echo "Install gradle 7.6.6"
+cd ./current/gradle-7.6.6
 sudo cp -r  * ../
 export GRADLE_HOME=$(cd $now_file_path;cd ./build-tools/gradle/current ;pwd) 
 echo "GRADLE_HOME=$GRADLE_HOME"
 echo "Delete Temp File"
 cd ..
-sudo rm -rf gradle-8.14.3
+sudo rm -rf gradle-7.6.6
 cd ..
-sudo rm -f gradle-8.14.3-bin.zip
+export CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL=file://$(cd $now_file_path;cd ./build-tools/gradle/ ;pwd)/gradle-7.6.6-bin.zip
+echo "CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL=$CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL"
 #↑install gradle 8
 #↓install android sdk
 echo "Create folder for android-sdk";
@@ -140,6 +141,7 @@ echo "You JAVA_HOME is :$JAVA_HOME";
 echo "You GRADLE_HOME is :$GRADLE_HOME";
 echo "You ANDROID_SDK_ROOT is :$ANDROID_SDK_ROOT";
 echo "You ANDROID_HOME is :$ANDROID_SDK_ROOT";
+echo "You CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL is :$CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL"
 echo "if you want need change java to jdk-17 ";
 echo "just type this: sudo update-alternatives --config  java && sudo update-alternatives --config javac";
 echo "and select '/usr/lib/jvm/java-17-openjdk-amd64/bin/java'";

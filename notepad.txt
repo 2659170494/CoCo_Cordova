@@ -8,14 +8,15 @@
 虽然写的很烂，但，起码能用。
 当然有些时候我不在，时间长了gradle版本过高，这些hook也不一定能解决了。
 所以，到了那时候可以给我提个issue，又或者您自己解决也可以，这都取决于您.
-20251227,当前Gradle版本为9,推荐将gradle降级到8到7，尤其是当您可以降级的话)
+20251227,当前Gradle版本已固定到8,后续的gradle已无力更新了，
+可以明确的说，gradle 9以上已经正式不支持cordova-android@9了)
 
 在cordova给项目添加完android平台后，若cordova build没有打印需要的日志，
 可以到platforms/android文件夹下执行gradle --stacktrace (可以在这条命令后面再加上 > log.txt 输出成log.txt文件)
 
-如果遇上了Could not find method jcenter() for arguments [] on repository container of type org.gradle.api.internal.artifacts.dsl.DefaultRepositoryHandler.
+如果遇上了Could not find method jcenter() for arguments [] on repository container of type org.gradle.api.internal.artifacts.dsl.DefaultRepositoryHandler. 或 Could not find com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3
 到项目的/platforms/android 和 platforms/android/app 和 platforms/android/CordovaLib 和 node_modules/cordova-android/framework 和 node_modules/cordova-android/bin/templates/project 和 node_modules/cordova-android/bin/templates/project/app 文件夹
-找到repositories.gradle和cordova.gradle并打开，把jcenter()修改成//jcenter()，并换行填入maven { url "https://jcenter.bintray.com" }
+找到repositories.gradle和cordova.gradle并打开，把jcenter()修改成//jcenter()，并换行填入maven { url "https://jcenter.bintray.com" }，然后再换行填入maven { url 'https://repo.grails.org/grails/core/' }
 
 如果遇上了Could not find com.g00fy2:versioncompare:1.3.4.
 到项目的platforms/android/CordovaLib 和 node_modules/cordova-android/framework 文件夹
@@ -39,6 +40,21 @@
    > Could not create an instance of type com.android.build.gradle.internal.dsl.BaseAppModuleExtension.
       > Could not create an instance of type com.android.build.gradle.internal.api.DefaultAndroidSourceSet.
          > org/gradle/util/GUtil
+请降级gradle至版本8，由于gradle9抛弃了org.gradle.util，
+故无法在不修改gradle的情况下提供gradle9的支持，
+更多详情请见这两个链接：
+https://github.com/britannio/in_app_review/issues/95
+https://docs.gradle.org/8.2/userguide/upgrading_version_7.html#org_gradle_util_reports_deprecations
+（这个是旧的内容，但由于可能会波及你降级后的gradle，主要是无效缓存，故此保留：
+这个就比较棘手了，因为主要原因是platforms/android/app/build.gradle的apply plugin: 'com.android.application'毁了gradle编译，
+导致后续编译会因为缓存，干扰了正常的编译进程。
+如果您使用的本项目的代码，没有变更config.xml和hooks文件夹的相关hooks的话，
+可以直接执行cordova platform remove android直接删除android平台代码，
+如果不是，请自行想办法解决platforms下的gradle缓存。
+然后到您当前用户文件夹下，显示隐藏文件夹后可以看到.gradle文件夹，
+打开，把caches文件夹整个删了，native文件夹随意但我推荐也删了，防止已编译的不完整文件在里面。
+之后回到项目文件夹根目录，重新执行cordova platform add android(@9)的操作添加回android平台，
+之后进入platforms/android文件夹，在里面执行gradle --stacktrace > log.txt ，）
 
 
 如果AndroidManifest.xml没有：

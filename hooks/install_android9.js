@@ -55,14 +55,14 @@ module.exports = function(ctx) {
         let platform_app_jcenter_repositories_gradle = fs.readFileSync(jcenter_repositories_gradle_delection_app_platform, {encoding: 'utf-8'});
         let platform_CordovaLib_jcenter_repositories_gradle = fs.readFileSync(jcenter_repositories_gradle_delection_CordovaLib_platform, {encoding: 'utf-8'});
         
-        module_jcenter_cordova_gradle = module_jcenter_cordova_gradle.replace(`        jcenter()`,`        //jcenter()\n        maven { url "https://jcenter.bintray.com" }`)
-        platform_jcenter_cordova_gradle = platform_jcenter_cordova_gradle.replace(`        jcenter()`,`        //jcenter()\n        maven { url "https://jcenter.bintray.com" }`)
-		module_jcenter_repositories_gradle = module_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }`)
-        project_jcenter_repositories_gradle = project_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }`)
-        app_jcenter_repositories_gradle = app_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }`)
-        platform_jcenter_repositories_gradle = platform_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }`)
-        platform_app_jcenter_repositories_gradle = platform_app_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }`)
-        platform_CordovaLib_jcenter_repositories_gradle = platform_CordovaLib_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }`)
+        module_jcenter_cordova_gradle = module_jcenter_cordova_gradle.replace(`        jcenter()`,`        //jcenter()\n        maven { url "https://jcenter.bintray.com" }\n        maven { url 'https://repo.grails.org/grails/core/' }`)
+        platform_jcenter_cordova_gradle = platform_jcenter_cordova_gradle.replace(`        jcenter()`,`        //jcenter()\n        maven { url "https://jcenter.bintray.com" }\n        maven { url 'https://repo.grails.org/grails/core/' }`)
+		module_jcenter_repositories_gradle = module_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`)
+        project_jcenter_repositories_gradle = project_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`)
+        app_jcenter_repositories_gradle = app_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`)
+        platform_jcenter_repositories_gradle = platform_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`)
+        platform_app_jcenter_repositories_gradle = platform_app_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`)
+        platform_CordovaLib_jcenter_repositories_gradle = platform_CordovaLib_jcenter_repositories_gradle.replace(`    jcenter()`,`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`)
         
         fs.writeFileSync(jcenter_cordova_gradle_delection_modules, module_jcenter_cordova_gradle);
         fs.writeFileSync(jcenter_cordova_gradle_delection_platform, platform_jcenter_cordova_gradle);

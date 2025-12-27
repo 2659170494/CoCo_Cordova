@@ -96,6 +96,8 @@ function cordova_plugin_qrscanner(module_version,ctx){
         platform_java = platform_java.replace(needchange_ori,needchange_new)
         module_java = module_java.replace("compile 'com.android.support:appcompat-v7:23.1.0'","implementation 'com.android.support:appcompat-v7:23.1.0'")
         platform_java = platform_java.replace("compile 'com.android.support:appcompat-v7:23.1.0'","implementation 'com.android.support:appcompat-v7:23.1.0'")
+        module_java = module_java.replace("    jcenter()",`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`)
+        platform_java = platform_java.replace("    jcenter()",`    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`)
         fs.writeFileSync(platformRoot, module_java);
         fs.writeFileSync(apkFileLocation, platform_java);
     }

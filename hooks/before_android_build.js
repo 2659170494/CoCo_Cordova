@@ -29,10 +29,13 @@ function qrscan(module_version,ctx){
         needchange_new1 = "compile 'com.journeyapps:zxing-android-embedded:3.3.0'"
         needchange_ori2 = "implementation 'com.android.support:appcompat-v7:23.1.0'"
         needchange_new2 = "compile 'com.android.support:appcompat-v7:23.1.0'"
+        needchange_ori3 = "    jcenter()"
+        needchange_new3 = `    //jcenter()\n    maven { url "https://jcenter.bintray.com" }\n    maven { url 'https://repo.grails.org/grails/core/' }`
         platformRoot = path.join(ctx.opts.projectRoot, needchange_path);
         module_java = fs.readFileSync(platformRoot, {encoding: 'utf-8'});
         module_java = module_java.replace(needchange_ori1,needchange_new1)
-        platform_java = module_java.replace(needchange_ori2,needchange_new2)
+        module_java = module_java.replace(needchange_ori2,needchange_new2)
+        platform_java = module_java.replace(needchange_ori3,needchange_new3)
         fs.writeFileSync(platformRoot, platform_java);
         
         needchange_path = "platforms/android/app/src/main/java/com/bitpay/cordova/qrscanner/QRScanner.java"

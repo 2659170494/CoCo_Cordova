@@ -4,8 +4,9 @@
 这个项目可能极不活跃，但一般有灵感了或者有时间了就会更新!
 
 这个工程已经帮你把CoCo_Runtime所依赖的插件和环境配置好了。
-您所需要做的就是准备好cordova、AndroidSDK和JAVA，
+您所需要做的就是准备好gradle 8、cordova、AndroidSDK和JAVA，
 如果您已经安装好java,android sdk了，可以直接跳转到下一部分。
+
 如果你是Linux且是Ubuntu，并且没有安装Java和android sdk的话,
 可以在本目录执行这条命令进行安装啦：chmod 777 install-JDK-Android_SDK.sh && sudo bash install-JDK-Android_SDK.sh
 但是！请不要将Android SDK安装在本项目的目录里！尤其是Codespace!!!
@@ -18,6 +19,7 @@
 将<您的android sdk>替换成您本地安装的android sdk的路径。
 如果您执行过上面的安装脚本，在脚本结束后脚本会有给出它们的路径。
 JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK路径>。
+GRADLE_HOME同理，如果您缺少他，可以执行export GRADLE_HOME=<您的Gradle路径>。
 同样上面的安装脚本有给出.
 (如果您fork了项目并且没有改名CoCo_Coreova，又或者直接在我的仓库里打开了codespace，
 那么可以看看同目录下的codespace_auto_set_android_sdk.sh)
@@ -28,20 +30,26 @@ JAVA_HOME同理，如果您缺少他，可以执行export JAVA_HOME=<您的JDK�
 之后回到项目根目录，
 先执行npm install，安装本项目的包。
 然后执行npm install cordova -g安装cordova到全局。
-不要用npm i cordova 等之类的将cordova安装至项目！classpath 'org.codehaus.groovy:groovy-swing:3.0.9'
+不要用npm i cordova 等之类的将cordova安装至项目！
 那会破坏掉项目的node_modules和plugins!
 如果您破坏了,请重新"git reset --hard"或克隆本项目一遍.
 之后确认您的JDK版本为1.8之后,
-执行cordova platform add android@9，
+执行cordova platform add android@9 ，
+安装完成后，执行cordova platform remove android 或cordova platform rm android ,
+卸载完成后，再重新执行cordova platform add android@9 激活hook脚本,
 最后运行cordova build android编译apk即可。
 当然，如果您想要编译最新版的android版本，
 确认您的JDK版本为11以上(建议JDK17,本人仅在该版本下测试并开发)之后,
 执行 cordova platform remove android
 以及 cordova platform add android
 最后 cordova platform update android
+但由于gradle 9已弃用org.gradle.util，cordova-android9已无法正常编译
+执意使用最新版的android版本意味着遇到问题只能您自行修复，
+本脚本因gradle和cordova，无法保证正常适配新版本，
+若有问题，可翻阅底部查看更多帮助或提问咨询。
 
 如果编译成功的话，说明您的项目配置已经成功了。
-你可以i通过这个命令检查依赖配置： cordova requirements
+你可以通过这个命令检查依赖配置： cordova requirements
 之后您就可以基于本项目开发额外的扩展了，不过在开发之前记得检查一下项目目录的.gitignore
 确认下里面没有你将要会使用的文件夹名字，因为如果它存在里面，那么文件夹和文件将不会被提交到git上。
 

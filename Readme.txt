@@ -7,13 +7,13 @@
 您所需要做的就是准备好gradle 8、cordova、AndroidSDK和JAVA，
 如果您已经安装好java,android sdk了，可以直接跳转到下一部分。
 
-如果你是Linux且是Ubuntu，并且没有安装Java和android sdk的话,
+如果你是Linux且是Ubuntu，并且没有安装Java、Gradle和android sdk的话,
 可以在本目录执行这条命令进行安装啦：chmod 777 install-JDK-Android_SDK.sh && sudo bash install-JDK-Android_SDK.sh
 但是！请不要将Android SDK安装在本项目的目录里！尤其是Codespace!!!
 如果您将它安装在本项目目录且更改了默认路径且并没有添加进.gitignore，
 这将导致您的Git卡死，Codespace奔溃无法启动且无法导出更改！！！
 而且，这个脚本安装的SDK包会很大，所以个人比较推荐您参照notepad.txt给的教程进行手动安装。
-当然您不嫌弃的话也行。安装完毕后会输出android sdk和java的路径。
+当然您不嫌弃的话也行。安装完毕后会输出android sdk和java以及Gradle的路径。
 并且在安装过程中脚本也会提示你一些事情，忘了或者没看到可以自己打开脚本文件查看。
 之后执行export ANDROID_SDK_ROOT=<您的android sdk> && export ANDROID_HOME=<您的android sdk>
 将<您的android sdk>替换成您本地安装的android sdk的路径。
@@ -38,6 +38,7 @@ GRADLE_HOME同理，如果您缺少他，可以执行export GRADLE_HOME=<您的G
 安装完成后，执行cordova platform remove android 或cordova platform rm android ,
 卸载完成后，再重新执行cordova platform add android@9 激活hook脚本,
 最后运行cordova build android编译apk即可。
+
 当然，如果您想要编译最新版的android版本，
 确认您的JDK版本为11以上(建议JDK17,本人仅在该版本下测试并开发)之后,
 执行 cordova platform remove android

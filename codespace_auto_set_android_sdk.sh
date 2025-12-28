@@ -1,2 +1,1 @@
-export ANDROID_SDK_ROOT=/workspaces/CoCo_Cordova/build-tools/android-sdk && export ANDROID_HOME=/workspaces/CoCo_Cordova/build-tools/android-sdk
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 && export GRADLE_HOME=/workspaces/CoCo_Cordova/build-tools/gradle/current && unset CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL
+export ANDROID_SDK_ROOT=/workspaces/CoCo_Cordova/build-tools/android-sdk && export ANDROID_HOME=/workspaces/CoCo_Cordova/build-tools/android-sdk && export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 && export GRADLE_HOME=/workspaces/CoCo_Cordova/build-tools/gradle/current && export PATH=$PATH:/usr/lib/jvm/java-17-openjdk-amd64:$GRADLE_HOME/bin && unset CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL

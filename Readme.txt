@@ -25,7 +25,7 @@ chmod 777 install-JDK-Android_SDK.sh && sudo bash install-JDK-Android_SDK.sh
 并且安装过程中，脚本也会中途停止并提醒些事情，该行为会暂停脚本的执行以免发生意外。
 之后您需要向您的环境变量中添加ANDROID_SDK_ROOT和ANDROID_HOME，
 您可以参照这个命令进行修改和执行：
-export ANDROID_SDK_ROOT=<您的android sdk> && export ANDROID_HOME=<您的android sdk> && export JAVA_HOME=<您的JAVA 8> && export GRADLE_HOME=<您的Gradle 7>
+export ANDROID_SDK_ROOT=<您的android sdk> && export ANDROID_HOME=<您的android sdk> && export JAVA_HOME=<您的JAVA 8> && export GRADLE_HOME=<您的Gradle 7> && export PATH=$PATH:<您的JAVA 17>:<您的Gradle 7>/bin
 替换方式就比如“将<您的android sdk>替换成您本地安装的android sdk的路径”这样，
 如果您执行过上面的安装脚本，在脚本结束后脚本会有给出它们的路径。
 执行完成后再执行一遍这个命令确认路径是否正确：
@@ -55,6 +55,8 @@ echo "You JAVA_HOME is :$JAVA_HOME" && echo "You GRADLE_HOME is :$GRADLE_HOME" &
 如果遇到A problem occurred evaluating project ':app'.
 并且包含org/gradle/initialization/BuildCompletionListener
 请再运行一次cordova build android ，通常这是初始化项目导致的。
+看到出现绿色的BUILD SUCCESSFUL，就是编译成功了呢。
+编译的apk文件可以在platforms/android/app/build/outputs/apk/debug的文件夹找到。
 
 3.升级建议部分
 当然，如果您想要编译最新版的android版本，

@@ -1,1 +1,1 @@
-export PATH=$(echo $PATH | sed 's#/usr/local/sdkman/candidates/java/current/bin:##' | sed 's#/usr/local/sdkman/candidates/gradle/current/bin:##' | sed 's#/usr/local/sdkman/candidates/maven/current/bin:##' | sed 's#/usr/local/sdkman/candidates/ant/current/bin:##')
+export PATH=$(echo $PATH | sed 's#/usr/local/sdkman/candidates/java/current/bin:##' | sed 's#/usr/local/sdkman/candidates/gradle/current/bin:##' | sed 's#/usr/local/sdkman/candidates/maven/current/bin:##' | sed 's#/usr/local/sdkman/candidates/ant/current/bin:##' | sed 's#/home/codespace/java/current/bin:##')

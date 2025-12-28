@@ -14,6 +14,18 @@
 在cordova给项目添加完android平台后，若cordova build没有打印需要的日志，
 可以到platforms/android文件夹下执行gradle --stacktrace (可以在这条命令后面再加上 > log.txt 输出成log.txt文件)
 
+如果遇上了Requirements check failed for JDK 17.x! Detected version: 11.0.14
+请确保你的java版本是17，对，固定版本为17.
+如果你不想安装17，那么打开hooks/install_android9.js
+拉到底部，找到java_version = "17.x"
+把17改成你的java版本前缀之后，执行cordova platform rm android
+最后再cordova platform add android@9
+这样就没问题了
+
+如果遇上了Dependency requires at least JVM runtime version 11. This build uses a Java 8 JVM
+你这是安装了cordova-android@9以上的版本，若您是故意的话，
+请确认JAVA_HOME的版本和JAVA二进制版本为11以上
+
 如果遇上了Could not find method jcenter() for arguments [] on repository container of type org.gradle.api.internal.artifacts.dsl.DefaultRepositoryHandler. 或 Could not find com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3
 到项目的/platforms/android 和 platforms/android/app 和 platforms/android/CordovaLib 和 node_modules/cordova-android/framework 和 node_modules/cordova-android/bin/templates/project 和 node_modules/cordova-android/bin/templates/project/app 文件夹
 找到repositories.gradle和cordova.gradle并打开，把jcenter()修改成//jcenter()，并换行填入maven { url "https://jcenter.bintray.com" }，然后再换行填入maven { url 'https://repo.grails.org/grails/core/' }
@@ -56,6 +68,8 @@ https://docs.gradle.org/8.2/userguide/upgrading_version_7.html#org_gradle_util_r
 之后回到项目文件夹根目录，重新执行cordova platform add android(@9)的操作添加回android平台，
 之后进入platforms/android文件夹，在里面执行gradle --stacktrace > log.txt ，）
 
+如果遇上了No usable Android build tools found. Highest 35.x installed version is 34.0.0; Recommended version is 35.0.0.
+这是build-tool太老了，把build-tool从34升级到35即可
 
 如果AndroidManifest.xml没有：
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
@@ -269,7 +283,7 @@ ios-deploy请通过"npm install -g ios-deploy"安装
 关于修改插件的内容：
 不仅仅需要更改plugins里的插件，还需要更改node_modules和platforms文件夹里的插件
 
-目前已知bug：[‘4.e8bfe7ab.chunk.js:2  Uncaught TypeError: Cannot read property 'clientX' of undefined’]
+目前已知bug：[‘4.e8bfe7ab.chunk.js:2  Uncaught TypeError: Cannot read property 'clientX' of undefined’,‘高版本cordova-android打包的apk在执行涉及到插件时会发生闪退’]
 
 由于android 10起不再支持全局启动页面，且cordova android 12自带splash。
 因此cordova-plugin-splashscreen已被弃用，但仍然会被安装.

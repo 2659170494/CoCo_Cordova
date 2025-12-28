@@ -30,7 +30,9 @@ export ANDROID_SDK_ROOT=<您的android sdk> && export ANDROID_HOME=<您的androi
 如果您执行过上面的安装脚本，在脚本结束后脚本会有给出它们的路径。
 执行完成后再执行一遍这个命令确认路径是否正确：
 echo "You JAVA_HOME is :$JAVA_HOME" && echo "You GRADLE_HOME is :$GRADLE_HOME" && echo "You ANDROID_SDK_ROOT is :$ANDROID_SDK_ROOT" && echo "You ANDROID_HOME is :$ANDROID_SDK_ROOT"
-确认对应变量的路径都正确之后，如果您的系统有sdkman（执行sdk这个命令有输出），需要执行下delete_sdkman_env.sh
+确认对应变量的路径都正确之后，如果您的系统有sdkman（执行sdk这个命令有输出），还需要执行：
+export PATH=$(echo $PATH | sed 's#/usr/local/sdkman/candidates/java/current/bin:##' | sed 's#/usr/local/sdkman/candidates/gradle/current/bin:##' | sed 's#/usr/local/sdkman/candidates/maven/current/bin:##' | sed 's#/usr/local/sdkman/candidates/ant/current/bin:##' | sed 's#/home/codespace/java/current/bin:##')
+(不推荐直接执行chmod 777 delete_sdkman_env.sh && ./delete_sdkman_env.sh ，亲测无效，环境变量不会被修改)
 否则就可以进入下一部分啦~~
 (如果您fork了项目并且没有改名CoCo_Coreova，又或者直接在我的仓库里创建了codespace，
 那么可以直接执行codespace_auto_set_android_sdk.sh)
@@ -60,10 +62,11 @@ echo "You JAVA_HOME is :$JAVA_HOME" && echo "You GRADLE_HOME is :$GRADLE_HOME" &
 
 3.升级建议部分
 当然，如果您想要编译最新版的android版本，
-就需要先确认您JAVA_HOME的JDK版本为11以上(建议JDK17,本人仅在该版本下测试并开发)之后,
+就需要先确认您JAVA_HOME的JDK版本为11以上(建议JDK17,本人仅在该版本下测试并开发)，
+检查Android SDK的Build-tools是最新版本之后,
 执行 cordova platform remove android
-以及 cordova platform add android
-最后 cordova platform update android
+然后 cordova platform add android
+安装最新的Cordova-android后再尝试cordova build android
 但由于gradle 9已弃用org.gradle.util，cordova-android9已无法正常编译
 执意使用最新版的android版本意味着遇到问题只能您自行修复，
 本脚本因gradle和cordova，无法保证正常适配新版本，

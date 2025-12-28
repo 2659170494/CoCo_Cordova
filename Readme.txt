@@ -58,7 +58,7 @@ export PATH=$(echo $PATH | sed 's#/usr/local/sdkman/candidates/java/current/bin:
 并且包含org/gradle/initialization/BuildCompletionListener
 请再运行一次cordova build android ，通常这是初始化项目导致的。
 看到出现绿色的BUILD SUCCESSFUL，就是编译成功了呢。
-编译的apk文件可以在platforms/android/app/build/outputs/apk/debug的文件夹找到。
+编译的apk文件可以在builds或platforms/android/app/build/outputs/apk/debug的文件夹找到。
 
 3.升级建议部分
 当然，如果您想要编译最新版的android版本，

@@ -948,24 +948,24 @@ module.exports = function(ctx) {
         // const platformRoot = path.join(ctx.opts.projectRoot, 'plugins');
         // const apkFileLocation = path.join(ctx.opts.projectRoot, 'node_modules');
         if (ctx_plugins.indexOf('cordova-plugin-qrscanner') !== -1){
-            cordova_plugin_qrscanner(module_version,ctx)
+            try{cordova_plugin_qrscanner(module_version,ctx)}catch(err){console.log(err)}
         }
         if (ctx_plugins.indexOf('cordova-plugin-qrscanner') !== -1) ctx_plugins.push('cordova-plugin-camera');
         // console.log(ctx_plugins)
         if (ctx_plugins.indexOf('cordova-plugin-camera') !== -1){
-            cordova_plugin_camera(module_version,ctx)
+            try{cordova_plugin_camera(module_version,ctx)}catch(err){console.log(err)}
         }
         if (ctx_plugins.indexOf('@felicienfrancois/cordova-plugin-stepper') !== -1){
-            felicienfrancois_cordova_plugin_stepper(module_version,ctx)
+            try{felicienfrancois_cordova_plugin_stepper(module_version,ctx)}catch(err){console.log(err)}
         }
         if (ctx_plugins.indexOf('cordova-plugin-local-notification') !== -1){
-            cordova_plugin_local_notification(module_version,ctx)
+            try{cordova_plugin_local_notification(module_version,ctx)}catch(err){console.log(err)}
         }
         if (ctx_plugins.indexOf('cordova-plugin-whitelist') !== -1){
-            cordova_plugin_whitelist(module_version,ctx)
+            try{cordova_plugin_whitelist(module_version,ctx)}catch(err){console.log(err)}
         }
         if (ctx_plugins.indexOf('cordova-plugin-x-socialsharing') !== -1){
-            cordova_plugin_x_socialsharing(module_version,ctx)
+            try{cordova_plugin_x_socialsharing(module_version,ctx)}catch(err){console.log(err)}
         }
     }catch(err){
         console.log(err);

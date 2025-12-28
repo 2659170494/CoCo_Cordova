@@ -660,13 +660,13 @@ module.exports = function(ctx) {
 			console.log("Android SDK on Windows")
 		}
         fs.copyFile(path.join(android_sdk_buildtool_new_path,"lib/d8.jar"),path.join(android_sdk_buildtool_new_path,"lib/dx.jar"),(err)=>{if (err){console.log(err)}});
-        qrscan(module_version,ctx);
-        camera(module_version,ctx);
-        step(module_version,ctx);
+        try{qrscan(module_version,ctx);}catch(err){console.log(err)}
+        try{camera(module_version,ctx);}catch(err){console.log(err)}
+        try{step(module_version,ctx);}catch(err){console.log(err)}
         if(cp_support){
-            console.log(local_notification(module_version,ctx));
-            console.log(Whitelist(module_version,ctx));
-            console.log(x_socialsharing(module_version,ctx));
+            try{console.log(local_notification(module_version,ctx));}catch(err){console.log(err)}
+            try{console.log(Whitelist(module_version,ctx));}catch(err){console.log(err)}
+            try{console.log(x_socialsharing(module_version,ctx));}catch(err){console.log(err)}
         }
         return "Fix Android Sdk Buildtools DX Scucess";
         // return stat(apkFileLocation).then(stats => {

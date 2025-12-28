@@ -41,6 +41,7 @@
 		<hook type="after_platform_add" src="hooks/install_android_plugins.js" />
 		<hook type="before_build" src="hooks/install_android9.js" />
 		<hook type="before_build" src="hooks/before_android_build.js" />
+		<hook type="after_build" src="hooks/after_android_build.js" />
 		<hook type="after_plugin_add" src="hooks/install_android_plugins.js" />
 		<config-file target="AndroidManifest.xml" parent="/*" xmlns:android="http://schemas.android.com/apk/res/android">
 			<!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" /> -->

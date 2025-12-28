@@ -28,3 +28,4 @@ build-tools/
 platforms/
 android-sdk/
 node_modules/
+builds/*
